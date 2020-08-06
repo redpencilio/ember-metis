@@ -1,0 +1,48 @@
+<h1>Describing {{this.model.subject}}</h1>
+
+<h2>Directed</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>subject</th><th>predicate</th><th>object</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.model.triples.directed as |triple|}}
+      {{debugger}}
+      <tr>
+        <td><Metis::DisplayUri @uri={{triple.subject}} /></td>
+        <td><Metis::DisplayUri @uri={{triple.predicate}} /></td>
+        <td>
+          {{#if (eq triple.object.type "uri")}}
+            <Metis::DisplayUri @uri={{triple.object.value}} />
+          {{else}}
+            {{triple.object.value}}
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2>Inverse</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>subject</th><th>predicate</th><th>object</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.model.triples.inverse as |triple|}}
+      <tr>
+        <td><Metis::DisplayUri @uri={{triple.subject}} /></td>
+        <td><Metis::DisplayUri @uri={{triple.predicate}} /></td>
+        <td><Metis::DisplayUri @uri={{triple.object}} /></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{outlet}}

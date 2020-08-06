@@ -1,0 +1,20 @@
+{{#if this.hasShort}}
+  <span role="button" {{on "click" (fn (mut this.showShort) (not this.showShort))}} >
+    {{#if this.hasShort}}
+      {{this.label}}
+    {{else}}
+      {{@uri}}
+    {{/if}}
+  </span>
+  {{#if this.localBasePath}}
+    {{link-to "[open]" "fallback" this.localBasePath}}
+  {{else}}
+    <a href={{@uri}}>[open]</a>
+  {{/if}}
+{{else}}
+  {{#if this.localBasePath}}
+    {{link-to @uri "fallback" this.localBasePath}}
+  {{else}}
+    <a href={{@uri}}>{{@uri}}</a>
+  {{/if}}
+{{/if}}

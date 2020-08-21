@@ -1,0 +1,53 @@
+.word-break--break-all,
+.data-table td {
+	word-break: break-word;
+}
+
+.h1 a {
+	text-decoration: initial;
+}
+
+dt {
+	font-weight: bold;
+}
+
+.temporary-header__name {
+	padding-top: 1.2rem;
+	margin-top: 0.2rem;
+}
+
+.content-header {
+	min-height: 16rem;
+}
+
+.placeholder-picture {
+	background-color: whitesmoke;
+	border: 1px solid lightgray;
+	height: 25rem;
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.typography i.fa {
+	font-style: normal;
+}
+
+.data-table td:first-child,
+.data-table td:nth-child(2) {
+
+	@media screen and (max-width: 300px) {
+		width: auto;
+	}
+
+	@media screen and (max-width: 767px) {
+		width: 20rem;
+	}
+
+	@media screen and (min-width: 767px) {
+		width: 20rem;
+	}
+
+	@media screen and (min-width: 1024px) {
+		width: 25rem;
+	}
+}

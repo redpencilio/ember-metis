@@ -7,7 +7,8 @@ export default class MetisDisplayUriComponent extends Component {
   @tracked externalPreflabel = null
   @tracked internalPreflabel = null;
   @tracked showShort = true;
-
+  @tracked description;
+  
   constructor(){
     super(...arguments);
     if( this.args.uri ){
@@ -16,17 +17,22 @@ export default class MetisDisplayUriComponent extends Component {
   }
 
   didReceiveAttrs(){
+    console.log("Received attrs");
     this.fetchPreflabels();
   }
 
   async fetchPreflabels(){
     if( this.args.uri ) {
-      const base = "http://preflabel.org/api/v1/label/";
+
+      const base = new URL(`${window.location.origin}/resource-labels/info?term=`);
       const fetchUrl = new URL(`${base}${encodeURIComponent( this.args.uri )}`);
       const request = await fetch( fetchUrl );
-      const value = await request.text();
+      const body = await request.text();
+      const value = JSON.parse(body)
+
       if( request.status == 200 ) {
-        this.externalPreflabel = value;
+        this.externalPreflabel = value.label;
+        this.description = value.comment
       } else {
         this.externalPreflabel = null;
       }
@@ -49,6 +55,15 @@ export default class MetisDisplayUriComponent extends Component {
       return this.externalPreflabel;
     } else {
       return this.args.uri;
+    }
+  }
+
+
+  get description(){
+    if (this.description){
+      return this.description
+    } else {
+      return null
     }
   }
 

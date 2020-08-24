@@ -1,3 +1,4 @@
+
 # Ember Metis Addon
 Ember addon creating an end-point that automatically gets resources from the underlying triplestore and checks for labels & descriptions. The addon is meant to be used together with the the mu.semte.ch microservice model. 
 
@@ -5,12 +6,11 @@ Ember addon creating an end-point that automatically gets resources from the und
 
 ##### Check if you have performed the following actions:  
 
-We assume that you are using the the mu-semte-ch stack for your back-end. This following actions build further upon the mu-project docker-image. 
+We assume that you are using the the mu-semte-ch stack for your back-end. The following actions build further upon the mu-project docker-image. 
 The ``` Dispatcher ```, ``` Identifier ```,  ``` Database``` &  ``` mu-cl-resources``` are included by default.<br><small>( new to mu-semte-ch? Checkout the getting started tutorial on [mu.semte.ch](https://mu.semte.ch/getting-started/) )
 <br>
 
 ##### - Included both the [**mu-uri-info-service**](https://github.com/redpencilio/mu-uri-info-service/) & [**resource-label-service**](https://github.com/lblod/resource-label-service/) to your docker-compose.yml file.
-
 ```
 /config/docker-compose.yml
 
@@ -51,6 +51,7 @@ end
 <br>
 
 ##### - Included [**mu-migrations-service**](https://github.com/mu-semtech/mu-migrations-service) to your docker-compose.yml file
+
 ```
 /config/docker-compose.yml
 
@@ -120,3 +121,54 @@ let ENV = {
     },
     ...
 ```
+##  Add Custom routes
+
+If you want to add custom routes then you can use our class-route code for this. First generate the necessary files and add the code below-mentioned code to it.
+
+##### - First we will create a gen-class-route util & add the necessary code to it:
+```
+ember generate util gen-class-route
+```
+<br>
+
+##### - Navigate to the gen-class-route file and add the following code to it 
+
+```
+/my-app-name/app/utils/gen-class-route.js
+
+
+import  env  from  '../config/environment';
+
+export  default  function  genClassRoute(basePath, self) {
+	return  function(name, options){
+		let  route;
+		if( basePath ) {
+			route = basePath + "." + name;
+		} else {
+			route = name;
+		}
+
+		const  resourceClass = options.class;
+		env.metis.routes[resourceClass] = route;
+
+		return  this.route(name, options);
+	}.bind(self);	
+}
+```
+<br>
+
+##### - Now we need to generate our route, as an example we will be generating a "person" route 
+
+```
+ember generate route view/person
+```
+
+##### - navigate to your route.js file and import the util class you just created to it 
+
+```
+/my-app-name/app/router.js
+
+
+import  GCR  from  './utils/gen-class-route';
+```
+

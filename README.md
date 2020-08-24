@@ -162,6 +162,7 @@ export  default  function  genClassRoute(basePath, self) {
 ```
 ember generate route view/person
 ```
+<br>
 
 ##### - navigate to your route.js file and import the util class you just created to it 
 
@@ -171,4 +172,73 @@ ember generate route view/person
 
 import  GCR  from  './utils/gen-class-route';
 ```
+<br>
+
+##### - remove the generated "person" route and replace it with the following code
+
+```
+/my-app-name/app/router.js
+
+
+[=]  Router.map(function() {
+
+[-]	this.route('view', function() {
+[-]		this.route('person');
+[-]	});
+	
+[+] this.route('view', function() {
+[+]		const  classRoute = GCR("view", this);
+[+]		classRoute('person', { class:  "http://www.w3.org/ns/person#Person" } );
+[+] });
+
+[=] metisFallbackRoute(this);
+[=] });
+```
+<br>
+
+##### - Your router file should now look something like this
+
+```
+/my-app-name/app/router.js
+
+
+import  EmberRouter  from  '@ember/routing/router';
+import  metisFallbackRoute  from  'metis/utils/fallback-route';
+import  GCR  from  './utils/gen-class-route';
+
+export  default  class  Router  extends  EmberRouter {
+	location = config.locationType;
+	rootURL = config.rootURL;
+}
+
+Router.map(function() {
+	this.route('view', function() {
+		const  classRoute = GCR("view", this);
+		classRoute('person', { class:  "http://www.w3.org/ns/person#Person" } );
+	});
+	metisFallbackRoute(this);
+});
+```
+<br>
+
+##### - modify the generated routes file
+```
+/my-app-name/app/routes/view/person.js
+
+
+import  Route  from  '@ember/routing/route';
+
+export  default  class  ViewPersonRoute  extends  Route {
+	queryParams = {
+		resource: { refreshModel:  true }
+	}
+
+	model( { resource } ) {
+		console.log(resource);
+	}
+}
+```
+
+
+
 

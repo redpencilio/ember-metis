@@ -132,17 +132,24 @@ function writeRoute(action, name, options) {
   fs.writeFileSync(routerPath, newRoutes);
 }
 
+// Custom router code generator
+
 class GenerateRoute {
   constructor(source){
     this.source = source
     this.checkFile()
   }
 
+
+  // This will first check if the router has a view route & add the view route + const classRoute if it does not yet exist
+
   checkFile(){
-    console.log(this.source)
+
+    // Checks for view route
     let viewRegx = /this.route\("view"/g
     let viewExists = viewRegx.test(this.source)
-    console.log("Existst" + viewExists)
+
+    // If view route does not exist yet then it will add it + const classRoute
     if(!viewExists){
       let mapRegx = /Router.map\(function\(\) {/g
       this.source = this.source.replace(mapRegx,

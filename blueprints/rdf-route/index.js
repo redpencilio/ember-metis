@@ -31,22 +31,30 @@ module.exports = {
     };
   },
 
+
+  // Makes the nescessary checks before 
   beforeInstall: function(options){
-    // Gets content of router file 
+    // Gets path to router
     let routerPath = path.join.apply(null, findRouter(options));
+
+    // Get router.js file content
     let source = fs.readFileSync(routerPath, 'utf-8');
-    let importRegx = /()gen-class-route()/
+
+    // Check if the gen-class-route module is imported
+    let importRegx = /()gen-class-route()/gi
     let checkImport = importRegx.test(source)
+
     if(!checkImport){
       console.log("\n")
       console.log(chalk.red(`You need to import the gen-class-route into your router.js file first.`))
-      throw 'More information inside the Readme file'
+      throw 'More information inside the repo\'s readme file'
     }
 
-      console.log(routerPath)
-
-    
-
+    // Checks for nested routes + throws error if nested
+    let namePart = options.entity.name.split('/')
+    if(namePart.length > 1){
+      throw "Nested rdf-routes are not supported yet. Notice that rdf-routes are already automatically nested under 'view'."
+    }
   },
 
   shouldEntityTouchRouter: function(name) {

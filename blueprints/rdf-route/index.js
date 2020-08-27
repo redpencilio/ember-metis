@@ -5,30 +5,23 @@ const path = require('path');
 const chalk = require('chalk');
 const stringUtil = require('ember-cli-string-utils');
 
+const CustomRouterGenerator = require('./custom-router-generator');
+const { type } = require('os');
 
 module.exports = {
   description: 'Generates a route and a template, and registers the route with the router.',
 
+  // --voc lets you enter your vocabulary when creating route
   availableOptions: [
     {
-      name: 'path',
+      name: "voc",
       type: String,
-      default: '',
-    },
-    {
-      name: 'skip-router',
-      type: Boolean,
-      default: false,
-    },
-    {
-      name: 'reset-namespace',
-      type: Boolean,
-    },
+      default: "http://ChangeThisByYourVoc/"
+    }
   ],
 
   locals: function(options) {
     let moduleName = options.entity.name;
-
     if (options.resetNamespace) {
       moduleName = moduleName.split('/').pop();
     }

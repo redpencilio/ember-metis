@@ -5,8 +5,7 @@ const path = require('path');
 const chalk = require('chalk');
 const stringUtil = require('ember-cli-string-utils');
 
-const CustomRouterGenerator = require('./custom-router-generator');
-const { type } = require('os');
+const CustomRouterGenerator = require('./router-generator/custom-router-generator');
 
 module.exports = {
   description: 'Generates a route and a template, and registers the route with the router.',
@@ -35,16 +34,18 @@ module.exports = {
     if(!checkImport){
       console.log("\n")
       console.log(chalk.red(`You need to import the gen-class-route into your router.js file first.`))
-      throw 'More information inside the repo\'s readme file'
+      throw new Error('More information inside the repo\'s readme file')
     }
 
     // Checks for nested routes + throws error if nested
     let namePart = options.entity.name.split('/')
     if(namePart.length > 1){
-      throw "Nested rdf-routes are not supported yet. Notice that rdf-routes are already automatically nested under 'view'."
+      throw new Error("Nested rdf-routes are not supported yet. Notice that rdf-routes are already automatically nested under 'view'.")
     }
   },
 
+
+// Ember router code checking for flags
   shouldEntityTouchRouter: function(name) {
     let isIndex = name === 'index';
     let isBasic = name === 'basic';
@@ -82,6 +83,7 @@ module.exports = {
 
 // ============================================================================
 
+
 function updateRouter(action, options) {
   let entity = options.entity;
   let actionColorMap = {
@@ -92,11 +94,12 @@ function updateRouter(action, options) {
 
   if (this.shouldTouchRouter(entity.name, options)) {
     writeRoute(action, entity.name, options);
-    this.ui.writeLine('updating router');
+    this.ui.writeLine('updating rdf router');
     this._writeStatusToUI(chalk[color], action + ' route', 'view/'+entity.name);
   }
 }
 
+// Sets path to place to write the route
 function findRouter(options) {
   let routerPathParts = [options.project.root];
   let root = 'app';
@@ -113,10 +116,9 @@ function findRouter(options) {
 function writeRoute(action, name, options) {
   let routerPath = path.join.apply(null, findRouter(options));
   let source = fs.readFileSync(routerPath, 'utf-8');
-  console.log(options)
-
 
   let routes = new CustomRouterGenerator(source); 
+  
   let addRoute = routes.add(name, options.voc)
   
   fs.writeFileSync(routerPath, addRoute.code());

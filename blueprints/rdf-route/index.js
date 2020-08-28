@@ -20,18 +20,6 @@ module.exports = {
     }
   ],
 
-  locals: function(options) {
-    let moduleName = options.entity.name;
-    if (options.resetNamespace) {
-      moduleName = moduleName.split('/').pop();
-    }
-
-    return {
-      moduleName: stringUtil.dasherize(moduleName),
-    };
-  },
-
-
   // Makes the nescessary checks before 
   beforeInstall: function(options){
     // Gets path to router

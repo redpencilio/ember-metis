@@ -87,13 +87,13 @@ config
 
 ## Addon Installation & Usage
 
-#### Installation
+### Installation
 ```
 	ember install ember-metis
 ```
-#### Usage
+### Usage
 	
-##### - Add the following lines of code to your router.js file
+##### - Add the metisFallBackRoute to  code to your router.js file
 
 ```
 /my-app-name/app/router.js
@@ -107,7 +107,8 @@ Router.map(function() {
 ```
 <br>
 
-##### - Add the following lines of code to your environment.js file
+
+##### - Add the metis object to you environment variables & define your baseURL
 
 ```
 /my-app-name/config/environment.js
@@ -120,3 +121,80 @@ let ENV = {
     },
     ...
 ```
+
+#### Add RDF Routes
+
+Generating rdf-routes is like generating normal routes in ember, so generating an rdf-route for people looks like this:
+
+```
+  ember generate rdf-route people --voc http://xmlns.com/foaf/0.1/Person 
+```
+
+This will generate a controller, template & router with the corresponding boiler code. You can see the raw code it generates in the dummy app.
+
+
+##### Parameters
+
+| Parameters    | Type          | default
+| ------------- | ------------- | ----------------
+| --voc         | String        | http://ChangeThisByYourVoc/
+
+It also takes the default ember-router flags like --dummy 
+
+
+##### Actions
+
+| Actions       | Description  |
+| ------------- | ------------ |
+| generate      | Generates a controller, template & updates the router.js file |
+| destroy       | Destroys the controller, template & removes the corresponding router.js code |
+
+##### Update action
+
+If you already have a people route in your file for example: 
+
+```
+/my-app-name/app/router.js
+
+...
+
+this.route("view", function() {
+    const classRoute = GCR('view', this);
+
+    classRoute('people', {
+      class: 'http://xmlns.com/foaf/0.1/Person'
+    });
+  }) 
+
+...
+```
+
+And you wanted to update the vocabulary of people route to be 'http://schema.org/Person' then it suffices to re-generate the people route but with the different vocabulary.
+The command would look like this: 
+
+...
+
+  ember generate rdf-route people --voc http://schema.org/Person 
+  
+...
+
+> Ofcoarse you can also change code manually in the router file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

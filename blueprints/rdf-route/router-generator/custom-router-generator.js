@@ -92,7 +92,7 @@ CustomRouterGenerator.prototype._add = function(routeName, routes, options) {
     }
     
     // Checks if the given route already exists
-    var routeExists = findRoutes(routeName, routes, options)
+    var routeExists = findRoutes(routeName, routes, options, true)
 
     // if the route does not exists yet then add the route
     if(!routeExists){
@@ -102,6 +102,61 @@ CustomRouterGenerator.prototype._add = function(routeName, routes, options) {
 
 
 };
+
+CustomRouterGenerator.prototype._remove = function(name, routes, options) {
+
+  var parent = name;
+
+  var paths = findRoutes(parent, routes, options.identifier, false);
+
+  // If route exists then execute following code
+  if(paths){
+
+    // Filter out the route that needs to be removed
+    routes = routes.filter((node) => {
+      
+      console.log(node.expression != undefined && node.expression.arguments != undefined && node.expression.arguments.length == 2 && node.expression.arguments[0].value == name)
+      if(node.expression != undefined && node.expression.arguments != undefined && node.expression.arguments.length == 2  && node.expression.arguments[0].value == name){
+        return false
+      } else {
+        return true
+      }
+    })
+
+    // Return the routes without the one that needed to be removed
+    return routes
+  }
+};
+
+
+CustomRouterGenerator.prototype.remove = function(routeName, options) {
+
+  // gets the ast including mapNode made prettier
+  var route = this.clone();
+
+  // Gets all route nodes 
+  var routes = route.mapNode.arguments[1].body.body;
+
+
+  // Calls the function that will build the code for the router 
+  var newRoutes = route._remove.call(
+    route,
+    routeName,
+    routes,
+    options
+  );
+
+
+  // if route existed and newRoutes has new array with routes then update 
+
+  if (newRoutes) {
+    route.mapNode.arguments[1].body.body = newRoutes;
+  }
+
+  return route;
+};
+
+
 
 
 // returns prettyfied code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

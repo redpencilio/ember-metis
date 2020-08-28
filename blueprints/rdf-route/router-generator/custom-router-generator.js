@@ -48,7 +48,6 @@ CustomRouterGenerator.prototype._walk  = function() {
       var node = path.node 
       if(node.arguments[0].value == "view"){
         petal.mapNode = node;
-        console.log(chalk.green`== Node Found : View exists ==`)
         return false
       } 
       
@@ -115,7 +114,6 @@ CustomRouterGenerator.prototype._remove = function(name, routes, options) {
     // Filter out the route that needs to be removed
     routes = routes.filter((node) => {
       
-      console.log(node.expression != undefined && node.expression.arguments != undefined && node.expression.arguments.length == 2 && node.expression.arguments[0].value == name)
       if(node.expression != undefined && node.expression.arguments != undefined && node.expression.arguments.length == 2  && node.expression.arguments[0].value == name){
         return false
       } else {

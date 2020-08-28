@@ -1,3 +1,4 @@
+
 # Ember Metis Addon
 Ember addon creating an end-point that automatically gets resources from the underlying triplestore and checks for labels & descriptions. The addon is meant to be used together with the the mu.semte.ch microservice model. 
 
@@ -5,12 +6,11 @@ Ember addon creating an end-point that automatically gets resources from the und
 
 ##### Check if you have performed the following actions:  
 
-We assume that you are using the the mu-semte-ch stack for your back-end. This following actions build further upon the mu-project docker-image. 
+We assume that you are using the the mu-semte-ch stack for your back-end. The following actions build further upon the mu-project docker-image. 
 The ``` Dispatcher ```, ``` Identifier ```,  ``` Database``` &  ``` mu-cl-resources``` are included by default.<br><small>( new to mu-semte-ch? Checkout the getting started tutorial on [mu.semte.ch](https://mu.semte.ch/getting-started/) )
 <br>
 
 ##### - Included both the [**mu-uri-info-service**](https://github.com/redpencilio/mu-uri-info-service/) & [**resource-label-service**](https://github.com/lblod/resource-label-service/) to your docker-compose.yml file.
-
 ```
 /config/docker-compose.yml
 
@@ -51,6 +51,7 @@ end
 <br>
 
 ##### - Included [**mu-migrations-service**](https://github.com/mu-semtech/mu-migrations-service) to your docker-compose.yml file
+
 ```
 /config/docker-compose.yml
 
@@ -121,6 +122,7 @@ let ENV = {
     },
     ...
 ```
+##  Add Custom routes
 
 #### Add RDF Routes
 

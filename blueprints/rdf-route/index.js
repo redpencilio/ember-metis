@@ -119,8 +119,8 @@ function writeRoute(action, name, options) {
 
   let routes = new CustomRouterGenerator(source); 
   
-  let addRoute = routes.add(name, options.voc)
+  let updateRoute = routes[action](name, options.voc)
   
-  fs.writeFileSync(routerPath, addRoute.code());
+  fs.writeFileSync(routerPath, updateRoute.code());
 }
 

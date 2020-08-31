@@ -180,6 +180,8 @@ The command would look like this:
   
 ...
 
+```http://xlmns.com/foaf/01/Person``` will get replaced with ```http://schema.org/Person``` without anything else getting changed
+
 > Ofcoarse you can also change code manually in the router file.
 
 

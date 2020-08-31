@@ -15,5 +15,7 @@ Router.map(function() {
     classRoute('people', {
       class: 'http://myactualVOC'
     });
+
+    metisFallbackRoute();
   }) 
 });

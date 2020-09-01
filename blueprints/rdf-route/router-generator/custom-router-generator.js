@@ -107,7 +107,7 @@ CustomRouterGenerator.prototype._remove = function(name, routes, options) {
     // Filter out the route that needs to be removed
     routes = routes.filter((node) => {
       
-      if(node.expression != undefined && node.expression.arguments != undefined && node.expression.arguments.length == 2  && node.expression.arguments[0].value == name){
+      if(node.expression != undefined && node.expression.arguments != undefined && node.expression.arguments.length == 3  && node.expression.arguments[1].value == name){
         return false
       } else {
         return true

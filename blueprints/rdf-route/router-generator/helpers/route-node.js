@@ -8,8 +8,9 @@ module.exports = function routeNode(name, options) {
   var node =  b.expressionStatement(
                 b.callExpression(
                   b.identifier('classRoute'),
-                  [b.literal(name),
-                  b.objectExpression([
+                  [ b.thisExpression(),
+                    b.literal(name),
+                    b.objectExpression([
                     b.property('init',
                     b.identifier('class'),
                     b.literal(options))

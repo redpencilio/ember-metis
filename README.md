@@ -1,12 +1,12 @@
 
 # Ember Metis Addon
-Ember addon creating an end-point that automatically gets resources from the underlying triplestore and checks for labels & descriptions. The addon is meant to be used together with the the mu.semte.ch microservice model. 
+Ember addon creating an end-points that automatically get resources from the underlying triplestore and checks for labels & descriptions. The addon is meant to be used together with the the mu.semte.ch microservice model. 
 
 ## Before using the addon
 
 ##### Check if you have performed the following actions:  
 
-We assume that you are using the the mu-semte-ch stack for your back-end. The following actions build further upon the mu-project docker-image. 
+We assume that you are using the the mu-semte-ch stack in the back-end. The following actions build further upon the mu-project docker-image. 
 The ``` Dispatcher ```, ``` Identifier ```,  ``` Database``` &  ``` mu-cl-resources``` are included by default.<br><small>( new to mu-semte-ch? Checkout the getting started tutorial on [mu.semte.ch](https://mu.semte.ch/getting-started/) )
 <br>
 
@@ -46,7 +46,7 @@ match "/uri-info/*path" do
 end
 ```
 
-> In case you do not have data to work with and want to populate your database you can can just continue this guide, otherwise you can skip the following steps.
+> In case you do not have data to work with and want to populate your database you can can just continue reading, otherwise you can skip the following 2 steps.
 
 <br>
 
@@ -71,8 +71,8 @@ services:
 ```
   /config/migrations/my-turtle-file(s).ttl
 ```
-To take advantage of the label service you will probably also want to populate your database with labels corresponding to the data you just migrated to your service. Since with the mu-semte-ch model we only need one database, we can just add the turtle ```.ttl`` file together with our actual data file into the migrations folder and the migration-service will do, again, will de the heavy lifting for use. <br>
-> Do not worry about starting your backend again with the same files in your migration folder, the migration service is smart enough to not migrate the same data more then ones and create duplicates in your database.
+To take advantage of the label service you will probably also want to populate your database with labels corresponding to the data you just migrated to your triplestore. Since with the mu-semte-ch model we only need one database, we can just add the turtle ``` .ttl ``` file together with our actual data file into the migrations folder and the migration-service will do the heavy lifting for use. <br>
+> Do not worry about starting your backend again with the same files in your migration folder, the migration service is smart enough to not migrate the same data more then ones and accidentially create duplicates in your database.
 
 Your migration folder structure should now look something like this:
 ```
@@ -90,11 +90,12 @@ config
 
 ### Installation
 ```
-	ember install ember-metis
+ember install ember-metis
+
 ```
 ### Usage
 	
-##### - Add the metisFallBackRoute to  code to your router.js file
+##### - Add the metisFallBackRoute to code to your router.js file
 
 ```
 /my-app-name/app/router.js
@@ -103,6 +104,10 @@ config
 import metisFallbackRoute from 'metis/utils/fallback-route';
 
 Router.map(function() {
+  this.route("view", function() {
+
+
+  }
   metisFallbackRoute(this);  
 });	
 ```
@@ -126,13 +131,40 @@ let ENV = {
 
 #### Add RDF Routes
 
-Generating rdf-routes is like generating normal routes in ember, so generating an rdf-route for people looks like this:
+
+##### - First import the classRoute file into your router.js file. Your router.js file should look something like this:
 
 ```
-  ember generate rdf-route people --voc http://xmlns.com/foaf/0.1/Person 
+import EmberRouter from '@ember/routing/router';
+import config from 'dummy/config/environment';
+import metisFallbackRoute from 'metis/utils/fallback-route';
+import classRoute from 'metis/utils/class-route';
+
+export default class Router extends EmberRouter {
+  location = config.locationType;
+  rootURL = config.rootURL;
+}
+
+Router.map(function() {
+  this.route("view", function() {
+
+  }) 
+
+   metisFallbackRoute();
+});
+
+
 ```
 
-This will generate a controller, template & router with the corresponding boiler code. You can see the raw code it generates in the dummy app.
+##### - Now you can generate your routes
+
+Generating rdf-routes is similar to generating generic ember routes. Generating an rdf-route for 'person' looks like this:
+
+```
+  ember generate rdf-route person --voc http://xmlns.com/foaf/0.1/Person 
+```
+
+This will generate a controller, template & router with the corresponding boilerplate code. You can see the raw code it generates in the dummy app.
 
 
 ##### Parameters
@@ -148,8 +180,9 @@ It also takes the default ember-router flags like --dummy
 
 | Actions       | Description  |
 | ------------- | ------------ |
-| generate      | Generates a controller, template & updates the router.js file |
-| destroy       | Destroys the controller, template & removes the corresponding router.js code |
+| generate      | Generates a controller, template & routes file + updates the router.js file |
+| destroy       | Destroys the controller, template & routes file + removes the corresponding router.js code |
+
 
 ##### Update action
 
@@ -161,9 +194,8 @@ If you already have a people route in your file for example:
 ...
 
 this.route("view", function() {
-    const classRoute = GCR('view', this);
 
-    classRoute('people', {
+    classRoute(this, 'people', {
       class: 'http://xmlns.com/foaf/0.1/Person'
     });
   }) 

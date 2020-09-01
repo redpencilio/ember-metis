@@ -28,12 +28,12 @@ module.exports = {
     let source = fs.readFileSync(routerPath, 'utf-8');
 
     // Check if the gen-class-route module is imported
-    let importRegx = /()gen-class-route()/gi
+    let importRegx = /()class-route()/gi
     let checkImport = importRegx.test(source)
 
     if(!checkImport){
       console.log("\n")
-      console.log(chalk.red(`You need to import the gen-class-route into your router.js file first.`))
+      console.log(chalk.red(`You need to import the class-route into your router.js file first.`))
       throw new Error('More information inside the repo\'s readme file')
     }
 

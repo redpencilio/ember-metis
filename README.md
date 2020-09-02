@@ -206,11 +206,11 @@ this.route("view", function() {
 And you wanted to update the vocabulary of people route to be 'http://schema.org/Person' then it suffices to re-generate the people route but with the different vocabulary.
 The command would look like this: 
 
-...
+```
 
   ember generate rdf-route people --voc http://schema.org/Person 
   
-...
+```
 
 ```http://xlmns.com/foaf/01/Person``` will get replaced with ```http://schema.org/Person``` without anything else getting changed
 

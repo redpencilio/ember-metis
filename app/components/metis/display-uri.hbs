@@ -1,5 +1,21 @@
+{{!-- {{#if this.hasShort}}
+	<p class="u-spacer--tiny">
+		<a href={{@uri}} data-toggle="tooltip" title="{{@uri}} a" data-content="{{@uri}}" data-placement="top"><strong>{{this.label}}</strong></a>
+	</p>
+  {{#if this.localBasePath}}
+    {{link-to "[open]" "fallback" this.localBasePath}}
+  {{/if}}
+{{else}}
+  {{#if this.localBasePath}}
+    {{link-to @uri "fallback" this.localBasePath}}
+  {{else}}
+    <a href={{@uri}}>{{@uri}}</a>
+  {{/if}}
+{{/if}}
+--}}
+
 {{#if this.hasShort}}
-  <span role="button" {{on "click" (fn (mut this.showShort) (not this.showShort))}} >
+  <span {{on "click" (fn (mut this.showShort) (not this.showShort))}} aria-role="button">
     {{#if this.hasShort}}
       {{this.label}}
     {{else}}
@@ -10,6 +26,9 @@
     {{link-to "[open]" "fallback" this.localBasePath}}
   {{else}}
     <a href={{@uri}}>[open]</a>
+  {{/if}}
+    {{#if this.description}}
+  <button>{{this.description}}</button>
   {{/if}}
 {{else}}
   {{#if this.localBasePath}}

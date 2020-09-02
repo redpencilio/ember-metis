@@ -123,7 +123,8 @@ Router.map(function() {
 let ENV = {
     metis: {
       routes: {},
-      baseUrl: "http://data.lblod.info/"
+      baseUrl: "http://data.lblod.info/",
+      serverUrl: "http:/localhost:4200/"
     },
     ...
 ```

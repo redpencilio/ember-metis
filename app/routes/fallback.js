@@ -9,7 +9,7 @@ export default class FallbackRoute extends Route {
     const subject = `${prefix}${path}`;
 
     // TODO: what is the reason for window.location.origin to be in here?  Can we remove this?
-    const requestUrl = new URL(`${window.location.origin}/uri-info/`);
+    const requestUrl = new URL(`${env.metis.serverUrl}/uri-info/`);
     requestUrl.searchParams.append("subject", subject);
     const response = await fetch( requestUrl );
     const jsonResponse = await response.json();

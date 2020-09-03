@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     {{#each this.model.triples.directed as |triple|}}
-      {{debugger}}
+
       <tr>
         <td><Metis::DisplayUri @uri={{triple.subject}} /></td>
         <td><Metis::DisplayUri @uri={{triple.predicate}} /></td>

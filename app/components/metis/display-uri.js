@@ -2,6 +2,7 @@ import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import fetch from 'fetch';
 import env from '../../config/environment';
+import BuildUrl from 'build-url';
 
 export default class MetisDisplayUriComponent extends Component {
   @tracked externalPreflabel = null
@@ -24,8 +25,15 @@ export default class MetisDisplayUriComponent extends Component {
   async fetchPreflabels(){
     if( this.args.uri ) {
 
-      const base = new URL(`${env.metis.serverUrl}resource-labels/info?term=`);
-      const fetchUrl = new URL(`${base}${encodeURIComponent( this.args.uri )}`);
+      const base = BuildUrl(env.metis.serverUrl)
+      const fetchUrl = BuildUrl(base, {
+        path: 'resource-labels/info',
+        queryParams: {
+          term: encodeURIComponent( this.args.uri)
+        }
+      })
+
+      console.log(fetchUrl)
       const request = await fetch( fetchUrl );
       const body = await request.text();
       const value = JSON.parse(body)

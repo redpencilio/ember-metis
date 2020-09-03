@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import fetch from 'fetch';
 import env from '../config/environment';
-var buildUrl = require('build-url');
+import BuildUrl from 'build-url';
 
 export default class FallbackRoute extends Route {
 
@@ -9,7 +9,7 @@ export default class FallbackRoute extends Route {
     const prefix = env.metis.baseUrl;
     const subject = `${prefix}${path}`;
       
-    const requestUrl = buildUrl(`${env.metis.serverUrl}`, {
+    const requestUrl = BuildUrl(`${env.metis.serverUrl}`, {
       path: 'uri-info',
       queryParams:{
         subject: subject

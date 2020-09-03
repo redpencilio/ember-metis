@@ -1,16 +1,21 @@
 import Route from '@ember/routing/route';
 import fetch from 'fetch';
 import env from '../config/environment';
+var buildUrl = require('build-url');
 
 export default class FallbackRoute extends Route {
 
   async model( { path } ) {
     const prefix = env.metis.baseUrl;
     const subject = `${prefix}${path}`;
+      
+    const requestUrl = buildUrl(`${env.metis.serverUrl}`, {
+      path: 'uri-info',
+      queryParams:{
+        subject: subject
+      }
+    });
 
-    // TODO: what is the reason for window.location.origin to be in here?  Can we remove this?
-    const requestUrl = new URL(`${env.metis.serverUrl}/uri-info/`);
-    requestUrl.searchParams.append("subject", subject);
     const response = await fetch( requestUrl );
     const jsonResponse = await response.json();
 

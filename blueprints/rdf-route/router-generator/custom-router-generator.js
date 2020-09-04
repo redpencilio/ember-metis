@@ -147,6 +147,26 @@ CustomRouterGenerator.prototype.remove = function(routeName, options) {
   return route;
 };
 
+CustomRouterGenerator.prototype.init = function() {
+
+  // Get whole router.js file content
+    let file = this.ast();
+
+
+  // Check for imports 
+
+  // Checl for for extends emberRouter
+
+  // Check for router
+
+  // Check for view route
+
+  // Check for metisFallbackRoute
+
+
+  return file
+}
+
 
 
 

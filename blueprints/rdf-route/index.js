@@ -114,12 +114,18 @@ function findRouter(options) {
 }
 
 function writeRoute(action, name, options) {
+  let updateRoute;
   let routerPath = path.join.apply(null, findRouter(options));
   let source = fs.readFileSync(routerPath, 'utf-8');
 
   let routes = new CustomRouterGenerator(source); 
+
+  if(action == "add" && name == "init"){
+    updateRoute = routes.init()
+  } else {
+    updateRoute = routes[action](name, options.voc)
+  }
   
-  let updateRoute = routes[action](name, options.voc)
   
   fs.writeFileSync(routerPath, updateRoute.code());
 }

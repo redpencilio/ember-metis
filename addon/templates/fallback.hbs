@@ -10,13 +10,13 @@
 		<div class="page">
 			<div class="region">
 				<div class="layout layout--wide">
-					{{#if isEmpty}}
+					{{#if @isEmpty}}
 
 					<div class="grid">
 						<div class="col--7-12 col--12-12--s">
 							<div class="region typography u-spacer">
 								<h1 class="h1 word-break--break-all u-spacer--bottom--small">Detailpagina niet gevonden.</h1>
-								<p class="word-break--break-all">Er werden geen relaties of details gevonden over <a href="{{model.subject}}" data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp" data-placement="top">{{model.subject}}</a>.</p>
+								<p class="word-break--break-all">Er werden geen relaties of details gevonden over <a href="{{@model.subject}}" data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp" data-placement="top">{{@model.subject}}</a>.</p>
 							</div>
 
 							<div class="region typography u-spacer">
@@ -32,14 +32,14 @@
 						<div class="col--8-12 col--12-12--s">
 							<div class="u-hr region typography u-spacer">
 								<h1 class="h1 word-break--break-all smaller">Detailpagina URI</h1>
-								<p class="introduction">Deze pagina geeft informatie over het onderwerp <a href="{{model.subject}}" data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp" data-placement="top" class="word-break--break-all">{{model.subject}}</a> weer, door relaties en details te tonen.</p>
+								<p class="introduction">Deze pagina geeft informatie over het onderwerp <a href="{{@model.subject}}" data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp" data-placement="top" class="word-break--break-all">{{@model.subject}}</a> weer, door relaties en details te tonen.</p>
 							</div>
 
 							<h2 class="h3 sans-serif u-spacer--tiny word-break--break-all">Eigenschappen en relaties</h2>
 							<p class="u-spacer">Directed links van het onderwerp.</p>
 							{{!-- <h2 class="h3 sans-serif u-spacer--tiny word-break--break-all">Extra informatie over <a href="{{model.subject}}" data-toggle="tooltip" title="{{model.subject}} a" data-content="{{model.subject}}" data-placement="top">label</a></h2> --}}
 
-							{{#if model.triples.directed}}
+							{{#if @model.triples.directed}}
 							<div class="u-spacer--large">
 								<table class="data-table data-table--zebra">
 									<thead>
@@ -57,7 +57,7 @@
 									  			<a href="#">Open link</a>
 									  		</td>
 									  	</tr> --}}
-									  	{{#each model.triples.directed as |triple|}}
+									  	{{#each @model.triples.directed as |triple|}}
 									  	<tr>
 									  		<td>
 									  			{{#if (eq triple.object.type "uri")}}
@@ -81,7 +81,7 @@
 								<p class="u-spacer">Inverse links naar het onderwerp.</p>
 								{{!-- <p class="u-spacer--small">{{model.subject}}</p> --}}
 
-								{{#if model.triples.inverse}}
+								{{#if @model.triples.inverse}}
 								<div class="u-spacer--large">
 									<table class="data-table data-table--zebra">
 										<thead>
@@ -92,7 +92,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											{{#each model.triples.inverse as |triple|}}
+											{{#each @model.triples.inverse as |triple|}}
 											<tr>
 												<td><Metis::DisplayUri @uri={{triple.subject}} /></td>
 												<td><Metis::DisplayUri @uri={{triple.predicate}} /></td>

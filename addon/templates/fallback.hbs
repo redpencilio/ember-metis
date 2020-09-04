@@ -48,7 +48,7 @@
 
             {{#if @model.triples.directed}}
             <div class="u-spacer--large">
-              <table class="data-table data-table--zebra">
+              <table about={{this.model.subject}} class="data-table data-table--zebra">
                 <thead>
                   <tr>
                     <th>Object {{!-- object --}}</th>
@@ -65,7 +65,7 @@
                       </td>
                     </tr> --}}
                   {{#each @model.triples.directed as |triple|}}
-                  <tr>
+                  <tr property={{triple.predicate}} content={{triple.object.value}}>
                     <td>
                       {{#if (eq triple.object.type "uri")}}
                       <Metis::DisplayUri @uri={{triple.object.value}} />
@@ -92,7 +92,7 @@
 
             {{#if @model.triples.inverse}}
             <div class="u-spacer--large">
-              <table class="data-table data-table--zebra">
+              <table about={{this.model.subject}} class="data-table data-table--zebra">
                 <thead>
                   <tr>
                     <th>Onderwerp {{!-- subject --}}</th>
@@ -102,7 +102,7 @@
                 </thead>
                 <tbody>
                   {{#each @model.triples.inverse as |triple|}}
-                  <tr>
+                  <tr property={{triple.predicate}} content={{triple.object.value}}>
                     <td>
                       <Metis::DisplayUri @uri={{triple.subject}} />
                     </td>

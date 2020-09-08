@@ -9,7 +9,7 @@ export default class FallbackRoute extends Route {
     const prefix = env.metis.baseUrl;
     const subject = `${prefix}${path}`;
       
-    const requestUrl = BuildUrl(`${env.metis.serverUrl}`, {
+    const requestUrl = BuildUrl(`${window.BACKEND_URL || "/"}`, {
       path: 'uri-info',
       queryParams:{
         subject: subject

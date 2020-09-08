@@ -24,7 +24,7 @@ export default class MetisDisplayUriComponent extends Component {
 
   async fetchPreflabels(){
     if( this.args.uri ) {
-      const base = BuildUrl(env.metis.serverUrl)
+      const base = BuildUrl(window.BACKEND_URL || "/")
       const fetchUrl = BuildUrl(base, {
         path: 'resource-labels/info',
         queryParams: {

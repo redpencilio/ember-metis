@@ -8,7 +8,6 @@ module.exports = function(environment) {
     locationType: 'auto',
     metis: {
       routes: {},
-      baseUrl: "http://data.lblod.info/",
     },
     EmberENV: {
       FEATURES: {

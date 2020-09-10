@@ -51,9 +51,8 @@
               <table about={{this.model.subject}} class="data-table data-table--zebra">
                 <thead>
                   <tr>
-                    <th>Object {{!-- object --}}</th>
                     <th>Eigenschap{{!-- predicate --}}</th>
-                    <th>Definitie</th>
+                    <th>Onderwerp {{!-- object --}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,16 +66,16 @@
                   {{#each @model.triples.directed as |triple|}}
                   <tr property={{triple.predicate}} content={{triple.object.value}}>
                     <td>
+                      <Metis::DisplayUri @uri={{triple.predicate}} />
+                    </td>
+                    <td>
                       {{#if (eq triple.object.type "uri")}}
                       <Metis::DisplayUri @uri={{triple.object.value}} />
                       {{else}}
                       {{triple.object.value}}
                       {{/if}}
                     </td>
-                    <td>
-                      <Metis::DisplayUri @uri={{triple.predicate}} />
-                    </td>
-                    <td>Bijvoorbeeld een persoon in zijn of haar rol als houder van een mandaat.</td>
+
                   </tr>
                   {{/each}}
                 </tbody>
@@ -95,22 +94,21 @@
               <table about={{this.model.subject}} class="data-table data-table--zebra">
                 <thead>
                   <tr>
-                    <th>Onderwerp {{!-- subject --}}</th>
                     <th>Eigenschap{{!-- predicate --}}</th>
-                    <th>Definitie</th>
+                    <th>Onderwerp {{!-- subject --}}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {{#each @model.triples.inverse as |triple|}}
                   <tr property={{triple.predicate}} content={{triple.object.value}}>
                     <td>
-                      <Metis::DisplayUri @uri={{triple.subject}} />
-                    </td>
-                    <td>
                       <Metis::DisplayUri @uri={{triple.predicate}} />
                     </td>
+                    <td>
+                      <Metis::DisplayUri @uri={{triple.subject}} />
+                    </td>
+
                     {{!-- <td><Metis::DisplayUri @uri={{triple.object}} /></td> --}}
-                    <td>Bijvoorbeeld een persoon in zijn of haar rol als houder van een mandaat.</td>
                   </tr>
                   {{/each}}
                 </tbody>

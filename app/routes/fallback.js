@@ -6,8 +6,11 @@ import BuildUrl from 'build-url';
 export default class FallbackRoute extends Route {
 
   async model( { path } ) {
-    const prefix = window.BASE_URL;
+    const prefix = env.metis.baseUrl;
     const subject = `${prefix}${path}`;
+
+    console.log("BACKEND_URL is = + " + window.BACKEND_URL)
+    console.log("BASE_URL is = + " + window.BASE_URL)
       
     const requestUrl = BuildUrl(`${window.BACKEND_URL || "/"}`, {
       path: 'uri-info',

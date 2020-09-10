@@ -1,6 +1,7 @@
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import fetch from 'fetch';
+import env from '../../config/environment';
 import BuildUrl from 'build-url';
 
 export default class MetisDisplayUriComponent extends Component {
@@ -22,9 +23,7 @@ export default class MetisDisplayUriComponent extends Component {
   }
 
   async fetchPreflabels(){
-    console.log(window)
     if( this.args.uri ) {
-      console.log("BASE_URL is = + " + window.BASE_URL)
       const base = BuildUrl(window.BACKEND_URL || "/")
       const fetchUrl = BuildUrl(base, {
         path: 'resource-labels/info',
@@ -52,8 +51,8 @@ export default class MetisDisplayUriComponent extends Component {
   get localBasePath() {
     const uri = this.args.uri || "";
 
-    if( uri.startsWith( window.BASE_URL ) )
-      return uri.slice( window.BASE_URL.length );
+    if( uri.startsWith( env.metis.baseUrl ) )
+      return uri.slice( env.metis.baseUrl.length );
     else
       return null;
   }

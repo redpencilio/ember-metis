@@ -11,8 +11,12 @@ export default class FallbackRoute extends Route {
 
   async model( { path } ) {
 
-    console.log("Is fastboot = " + fastboot.isFastBoot)
-    console.log("request fastboot = " + fastboot.request)
+    if(this.fastboot){
+      console.log("Is fastboot = " + this.fastboot.isFastBoot)
+      console.log("request fastboot = " + this.fastboot.request)
+    }
+
+
 
     console.log("BaseURL is = " + window.BASE_URL)
     console.log("BcakendURL is = " + window.BASE_URL)

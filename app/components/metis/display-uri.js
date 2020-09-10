@@ -51,8 +51,8 @@ export default class MetisDisplayUriComponent extends Component {
   get localBasePath() {
     const uri = this.args.uri || "";
 
-    if( uri.startsWith( env.metis.baseUrl ) )
-      return uri.slice( env.metis.baseUrl.length );
+    if( uri.startsWith( window.BASE_URL ) )
+      return uri.slice( window.BASE_URL.length );
     else
       return null;
   }

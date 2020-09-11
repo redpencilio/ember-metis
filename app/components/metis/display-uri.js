@@ -28,7 +28,7 @@ export default class MetisDisplayUriComponent extends Component {
       const fetchUrl = BuildUrl(base, {
         path: 'resource-labels/info',
         queryParams: {
-          term: this.args.uri;
+          term: this.args.uri
         }
       })
 

@@ -11,16 +11,7 @@ export default class FallbackRoute extends Route {
 
   async model( { path } ) {
 
-    if(this.fastboot){
-      console.log("Is fastboot = " + this.fastboot.isFastBoot)
-      console.log("request fastboot = " + this.fastboot.request)
-    }
-
-
-
-    console.log("BaseURL is = " + window.BASE_URL)
-    console.log("BcakendURL is = " + window.BASE_URL)
-    const prefix = window.BASE_URL;
+    const prefix = env.metis.baseUrl;
     const subject = `${prefix}${path}`;
       
     const requestUrl = BuildUrl(`${window.BACKEND_URL || "/"}`, {
@@ -29,8 +20,6 @@ export default class FallbackRoute extends Route {
         subject: subject
       }
     });
-
-    console.log("RequestsURL is = " + requestUrl)
 
     const response = await fetch( requestUrl );
     const jsonResponse = await response.json();

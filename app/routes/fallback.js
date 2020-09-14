@@ -2,10 +2,15 @@ import Route from '@ember/routing/route';
 import fetch from 'fetch';
 import env from '../config/environment';
 import BuildUrl from 'build-url';
+import { getOwner } from '@ember/application';
+import { tracked } from '@glimmer/tracking';
 
 export default class FallbackRoute extends Route {
 
+  @tracked fastboot = getOwner(this).lookup('service:fastboot');
+
   async model( { path } ) {
+
     const prefix = env.metis.baseUrl;
     const subject = `${prefix}${path}`;
       

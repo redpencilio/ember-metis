@@ -5,7 +5,7 @@ import env from '../../config/environment';
 import BuildUrl from 'build-url';
 
 export default class MetisDisplayUriComponent extends Component {
-  @tracked externalPreflabel = null
+  @tracked externalPreflabel = null;
   @tracked internalPreflabel = null;
   @tracked showShort = true;
   @tracked description;
@@ -24,7 +24,7 @@ export default class MetisDisplayUriComponent extends Component {
 
   async fetchPreflabels(){
     if( this.args.uri ) {
-      const base = BuildUrl(window.BACKEND_URL || "/")
+      const base = BuildUrl( window.BACKEND_URL || "/")
       const fetchUrl = BuildUrl(base, {
         path: 'resource-labels/info',
         queryParams: {
@@ -39,7 +39,7 @@ export default class MetisDisplayUriComponent extends Component {
 
       if( request.status == 200 ) {
         this.externalPreflabel = value.label;
-        this.description = value.comment
+        this.description = value.comment;
       } else {
         this.externalPreflabel = null;
       }
@@ -51,7 +51,7 @@ export default class MetisDisplayUriComponent extends Component {
   get localBasePath() {
     const uri = this.args.uri || "";
 
-    if( uri.startsWith( env.metis.baseUrl ) )
+    if( uri.startsWith( env.metis.baseUrl ))
       return uri.slice( env.metis.baseUrl.length );
     else
       return null;
@@ -68,9 +68,9 @@ export default class MetisDisplayUriComponent extends Component {
 
   get description(){
     if (this.description){
-      return this.description
+      return this.description;
     } else {
-      return null
+      return null;
     }
   }
 

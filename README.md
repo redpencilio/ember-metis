@@ -11,7 +11,7 @@ The ``` Dispatcher ```, ``` Identifier ```,  ``` Database``` &  ``` mu-cl-resour
 <br>
 
 ##### - Included both the [**mu-uri-info-service**](https://github.com/redpencilio/mu-uri-info-service/) & [**resource-label-service**](https://github.com/lblod/resource-label-service/) to your docker-compose.yml file.
-```
+```yaml
 /config/docker-compose.yml
 
 
@@ -33,7 +33,7 @@ services:
 
 ##### - Included the routes of the above mentioned services to your dispatcher.ex file
 
-```
+```elixir
 /config/dispatcher/dispatcher.ex
 
 
@@ -52,7 +52,7 @@ end
 
 ##### - Included [**mu-migrations-service**](https://github.com/mu-semtech/mu-migrations-service) to your docker-compose.yml file
 
-```
+```yaml
 /config/docker-compose.yml
 
 
@@ -91,13 +91,12 @@ config
 ### Installation
 ```
 ember install ember-metis
-
 ```
 ### Usage
 	
 ##### - Add the metisFallBackRoute to code to your router.js file
 
-```
+```js
 /my-app-name/app/router.js
 
 
@@ -116,7 +115,7 @@ Router.map(function() {
 
 ##### - Add the metis object to you environment variables & define your baseURL
 
-```
+```js
 /my-app-name/config/environment.js
 
 
@@ -134,7 +133,7 @@ let ENV = {
 
 ##### - First import the classRoute file into your router.js file. Your router.js file should look something like this:
 
-```
+```js
 import EmberRouter from '@ember/routing/router';
 import config from 'dummy/config/environment';
 import metisFallbackRoute from 'metis/utils/fallback-route';
@@ -188,7 +187,7 @@ It also takes the default ember-router flags like --dummy
 
 If you already have a people route in your file for example: 
 
-```
+```js
 /my-app-name/app/router.js
 
 ...

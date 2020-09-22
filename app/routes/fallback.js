@@ -10,8 +10,9 @@ export default class FallbackRoute extends Route {
   async model( { path } ) {
     const prefix = env.metis.baseUrl;
     const subject = `${prefix}${path}`;
+    const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : "/";
 
-    const requestUrl = BuildUrl(env.metis.baseUrl, {
+    const requestUrl = BuildUrl(backend, {
       path: 'uri-info',
       queryParams:{
         subject: subject

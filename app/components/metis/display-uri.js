@@ -17,11 +17,6 @@ export default class MetisDisplayUriComponent extends Component {
     }
   }
 
-  didReceiveAttrs(){
-    console.log("Received attrs");
-    this.fetchPreflabels();
-  }
-
   async fetchPreflabels(){
     if( this.args.uri ) {
       const base = BuildUrl( window.BACKEND_URL || "/");

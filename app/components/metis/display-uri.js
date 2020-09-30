@@ -9,7 +9,7 @@ export default class MetisDisplayUriComponent extends Component {
   @tracked internalPreflabel = null;
   @tracked showShort = true;
   @tracked description;
-  
+
   constructor(){
     super(...arguments);
     if( this.args.uri ){
@@ -24,13 +24,13 @@ export default class MetisDisplayUriComponent extends Component {
 
   async fetchPreflabels(){
     if( this.args.uri ) {
-      const base = BuildUrl( window.BACKEND_URL || "/")
+      const base = BuildUrl( window.BACKEND_URL || "/");
       const fetchUrl = BuildUrl(base, {
         path: 'resource-labels/info',
         queryParams: {
           term: this.args.uri
         }
-      })
+      });
 
       const request = await fetch( fetchUrl );
       const body = await request.text();

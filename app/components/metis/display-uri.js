@@ -18,6 +18,10 @@ export default class MetisDisplayUriComponent extends Component {
   }
 
   async fetchPreflabels(){
+
+    this.externalPreflabel = null;
+    this.description = null;
+
     if( this.args.uri ) {
       const base = BuildUrl( window.BACKEND_URL || "/");
       const fetchUrl = BuildUrl(base, {
@@ -30,16 +34,12 @@ export default class MetisDisplayUriComponent extends Component {
       const request = await fetch( fetchUrl );
       const body = await request.text();
 
-      const value = JSON.parse(body)
+      const value = JSON.parse(body);
 
-      } else {
-        this.externalPreflabel = null;
       if( request.status == 200 && value.attributes ) {
         this.externalPreflabel = value.attributes.label;
         this.description = value.attributes.comment;
       }
-    } else {
-      this.externalPreflabel = null;
     }
   }
 

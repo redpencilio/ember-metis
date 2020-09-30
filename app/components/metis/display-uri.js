@@ -32,11 +32,11 @@ export default class MetisDisplayUriComponent extends Component {
 
       const value = JSON.parse(body)
 
-      if( request.status == 200 ) {
-        this.externalPreflabel = value.label;
-        this.description = value.comment;
       } else {
         this.externalPreflabel = null;
+      if( request.status == 200 && value.attributes ) {
+        this.externalPreflabel = value.attributes.label;
+        this.description = value.attributes.comment;
       }
     } else {
       this.externalPreflabel = null;

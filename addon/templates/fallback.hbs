@@ -64,25 +64,34 @@
                       </td>
                     </tr> --}}
                   {{#each @model.triples.directed as |triple|}}
-                  <tr property={{triple.predicate}} content={{triple.object.value}}>
-                    <td>
-                      <Metis::DisplayUri @uri={{triple.predicate}} />
-                    </td>
-                    <td>
-                      {{#if (eq triple.object.type "uri")}}
-                      <Metis::DisplayUri @uri={{triple.object.value}} />
-                      {{else}}
-                      {{triple.object.value}}
-                      {{/if}}
-                    </td>
 
-                  </tr>
+                    {{#if (eq triple.object.type "uri")}}
+                      <tr property={{triple.predicate}} resource={{triple.object.value}}>
+                        <td>
+                          <Metis::DisplayUri @uri={{triple.predicate}} />
+                        </td>
+                        <td>
+                           <Metis::DisplayUri @uri={{triple.object.value}} />
+                        </td>
+                      </tr>
+                    {{else}}
+                      <tr property={{triple.predicate}} content={{triple.object.value}}>
+                        <td>
+                          <Metis::DisplayUri @uri={{triple.predicate}} />
+                        </td>
+                        <td>
+                          {{triple.object.value}}
+                        </td>
+                      </tr>
+                    {{/if}}
+
+
                   {{/each}}
                 </tbody>
               </table>
             </div>
             {{else}}
-            <p class="text-fade u-spacer--large">Geen directed links gevonden.</p>
+            <p class="text-fade u-spacer--large">Geen directe links gevonden.</p>
             {{/if}}
 
             <h2 class="h3 sans-serif u-spacer--tiny">Verwijzingen</h2>
@@ -91,7 +100,7 @@
 
             {{#if @model.triples.inverse}}
             <div class="u-spacer--large">
-              <table about={{this.model.subject}} class="data-table data-table--zebra">
+              <table class="data-table data-table--zebra">
                 <thead>
                   <tr>
                     <th>Eigenschap{{!-- predicate --}}</th>
@@ -100,15 +109,17 @@
                 </thead>
                 <tbody>
                   {{#each @model.triples.inverse as |triple|}}
-                  <tr property={{triple.predicate}} content={{triple.object.value}}>
-                    <td>
-                      <Metis::DisplayUri @uri={{triple.predicate}} />
-                    </td>
-                    <td>
-                      <Metis::DisplayUri @uri={{triple.subject}} />
-                    </td>
+                    <tr resource={{triple.subject}}>
 
-                    {{!-- <td><Metis::DisplayUri @uri={{triple.object}} /></td> --}}
+                      <td property={{triple.predicate}} resource={{triple.object}}>
+                        <Metis::DisplayUri @uri={{triple.predicate}} />
+                      </td>
+                      <td>
+                        <Metis::DisplayUri @uri={{triple.subject}} />
+                      </td>
+
+                      {{!-- TODO: if we want it the property match human/machine way, we should have tis htirs column --}}
+                      {{!-- <td><Metis::DisplayUri @uri={{triple.object}} /></td> --}}
                   </tr>
                   {{/each}}
                 </tbody>

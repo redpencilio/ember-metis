@@ -1,16 +1,27 @@
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import fetch from 'fetch';
-import env from '../config/environment';
+// import env from '../config/environment';
 import BuildUrl from 'build-url';
 
+
+// DO NOT MERGE WITH MASTER
+var env = {
+  metis: {
+    routes: {},
+    baseUrl: "http://data.lblod.info/"
+  },
+}
+// ---------------------
+
 export default class FallbackRoute extends Route {
-  @service fastboot;
+
+
 
   async model( { path } ) {
     const prefix = env.metis.baseUrl;
     const subject = `${prefix}${path}`;
-    const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : "/";
+    const backend = "http://localhost:4200/";
 
     const requestUrl = BuildUrl(backend, {
       path: 'uri-info',

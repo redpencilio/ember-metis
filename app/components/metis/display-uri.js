@@ -1,8 +1,17 @@
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import fetch from 'fetch';
-import env from '../../config/environment';
+// import env from '../../config/environment';
 import BuildUrl from 'build-url';
+
+// DO NOT MERGE WITH MASTER
+var env = {
+  metis: {
+    routes: {},
+    baseUrl: "http://data.lblod.info/"
+  },
+}
+// ---------------------
 
 export default class MetisDisplayUriComponent extends Component {
   @tracked externalPreflabel = null;

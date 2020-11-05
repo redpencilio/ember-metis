@@ -1,0 +1,126 @@
+/* ==========================================================================
+   #SHAME
+   Very specific css and temporary css.
+   ========================================================================== */
+
+/* Make sure titles and tables shorten URL's */
+.au-c-heading a,
+.c-u-word-break--break-all,
+.data-table td {
+  word-break: break-word;
+}
+
+/* Temporary header topbar */
+.temporary-header {
+  height: 38px; }
+  @media (min-width: 767px) {
+    .temporary-header {
+      height: 46px; } }
+
+.temporary-header {
+  border-bottom: 1px solid #CBD2DA; }
+  .temporary-header > div[class^="temporary-header__"] {
+    display: inline-block; }
+
+.temporary-header__logo {
+  width: 45px;
+  height: 37px;
+  background-color: #fff;
+  float: left;
+  background-image: url(http://lblod.miet.be/images/be-lion.png);
+  background-repeat: no-repeat;
+  background-size: 35%;
+  background-position: 1rem;
+  position: relative; }
+  .temporary-header__logo:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 29.5px;
+    top: -4px;
+    height: 44px;
+    width: 1px;
+    background-image: none !important;
+    background-color: #CBD2DA;
+    transform: rotate(-19deg);
+    transform-origin: top left; }
+  .temporary-header__logo:before {
+    display: block;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-top: 38px solid #fff;
+    border-left: 12.70687px solid transparent; }
+  .temporary-header__logo:hover {
+    background-color: #FEE539;
+    cursor: pointer; }
+    .temporary-header__logo:hover:after {
+      display: none; }
+  @media (min-width: 767px) {
+    .temporary-header__logo {
+      width: 47px;
+      height: 45px; }
+      .temporary-header__logo:after {
+        left: 29.5px;
+        top: -4px;
+        height: 53px;
+        transform: rotate(-19deg); }
+      .temporary-header__logo:before {
+        border-top: 44px solid #fff;
+        border-left: 14.70687px solid transparent; } }
+
+.temporary-header__vlaanderen {
+  height: 43px;
+  float: left;
+  padding: 1rem 1.5rem 1rem 0.7rem;
+  font-weight: 500; }
+
+.temporary-header__name {
+  height: 43px;
+  float: left;
+  padding: 0.8rem 1.5rem 1rem 2.3rem;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.5rem; }
+  .temporary-header__name:before {
+    display: block;
+    content: ' ';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background-color: #CBD2DA;
+    transform: rotate(-20deg);
+    transform-origin: top left; }
+  .temporary-header__name p {
+    margin: 0.3rem 0 0 1rem; }
+  .temporary-header__name a {
+    display: inline-block;
+    padding: 0.3rem 0.3rem 0;
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #333333; }
+    .temporary-header__name a:hover {
+      color: #000;
+      background-color: #FEE539; }
+    .temporary-header__name a.active {
+      box-shadow: 0 3px 0 #FEE539; }
+
+.temporary-header__info {
+  height: 45px;
+  padding: 0.9rem 1.5rem 0 2.5rem;
+  background-color: #F3F5F6;
+  float: right;
+  position: relative; }
+  .temporary-header__info p:after {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-bottom: 44px solid #fff;
+    border-right: 14.70687px solid transparent;
+  }

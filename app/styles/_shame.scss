@@ -6,7 +6,7 @@
 /* Make sure titles and tables shorten URL's */
 .au-c-heading a,
 .c-u-word-break--break-all,
-.data-table td {
+.au-c-data-table__table td {
   word-break: break-word;
 }
 

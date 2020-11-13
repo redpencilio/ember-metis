@@ -1,16 +1,29 @@
+# Table of content
 
-# Ember Metis Addon
-Ember addon creating an end-points that automatically get resources from the underlying triplestore and checks for labels & descriptions. The addon is meant to be used together with the the mu.semte.ch microservice model. 
+ - [Description](#description)
+ - [Before using the addon](#before-using-the-addon)
+ - [Installation & Usage](#installation---usage)
+    + [Installation](#installation)
+    + [Usage](#usage)
+ - [Add Custom routes](#add-custom-routes)
+    + [Add RDF Routes](#add-rdf-routes)
+ - [Parameters](#parameters)
+ - [Actions](#actions)
+ - [Update action](#update-action)
+<br>
+
+# Description
+Ember addon creating an end-points that automatically get resources from the underlying triplestore and checks for labels & descriptions. The addon is meant to be used together with the the mu.semte.ch microservice model.
 
 ## Before using the addon
 
-##### Check if you have performed the following actions:  
+**Check if you have performed the following actions:**
 
 We assume that you are using the the mu-semte-ch stack in the back-end. The following actions build further upon the mu-project docker-image. 
 The ``` Dispatcher ```, ``` Identifier ```,  ``` Database``` &  ``` mu-cl-resources``` are included by default.<br><small>( new to mu-semte-ch? Checkout the getting started tutorial on [mu.semte.ch](https://mu.semte.ch/getting-started/) )
 <br>
 
-##### - Included both the [**mu-uri-info-service**](https://github.com/redpencilio/mu-uri-info-service/) & [**resource-label-service**](https://github.com/lblod/resource-label-service/) to your docker-compose.yml file.
+- Included both the [**mu-uri-info-service**](https://github.com/redpencilio/mu-uri-info-service/) & [**resource-label-service**](https://github.com/lblod/resource-label-service/) to your docker-compose.yml file.
 ```yaml
 /config/docker-compose.yml
 
@@ -31,7 +44,7 @@ services:
 ```
 <br>
 
-##### - Included the routes of the above mentioned services to your dispatcher.ex file
+- Included the routes of the above mentioned services to your dispatcher.ex file
 
 ```elixir
 /config/dispatcher/dispatcher.ex
@@ -46,11 +59,11 @@ match "/uri-info/*path" do
 end
 ```
 
-> In case you do not have data to work with and want to populate your database you can can just continue reading, otherwise you can skip the following 2 steps.
+<sup>In case you do not have data to work with and want to populate your database you can can just continue reading, otherwise you can skip the following 2 steps.</sup>
 
 <br>
 
-##### - Included [**mu-migrations-service**](https://github.com/mu-semtech/mu-migrations-service) to your docker-compose.yml file
+- Included [**mu-migrations-service**](https://github.com/mu-semtech/mu-migrations-service) to your docker-compose.yml file
 
 ```yaml
 /config/docker-compose.yml
@@ -66,8 +79,8 @@ services:
 ```
 <br>
 
-##### - Created migrations folder and add turtle ```.ttl``` files to it
-> If you do not have any turtle files then you just download one from here: [click on me](https://mandaten.lokaalbestuur.vlaanderen.be/) ( At the bottom called ```Turtle: gestructureerde data voor dataverwerking en analyse.``` )
+- Created migrations folder and add turtle ```.ttl``` files to it
+<sup>If you do not have any turtle files then you just download one from here: [click on me](https://mandaten.lokaalbestuur.vlaanderen.be/) ( At the bottom called ```Turtle: gestructureerde data voor dataverwerking en analyse.``` )</sup>
 ```
   /config/migrations/my-turtle-file(s).ttl
 ```
@@ -94,7 +107,7 @@ ember install ember-metis
 ```
 ### Usage
 	
-##### - Add the metisFallBackRoute to code to your router.js file
+- Add the metisFallBackRoute to code to your router.js file
 
 ```js
 /my-app-name/app/router.js
@@ -113,7 +126,7 @@ Router.map(function() {
 <br>
 
 
-##### - Add the metis object to you environment variables & define your baseURL
+- Add the metis object to you environment variables & define your baseURL
 
 ```js
 /my-app-name/config/environment.js
@@ -128,10 +141,10 @@ let ENV = {
 ```
 ##  Add Custom routes
 
-#### Add RDF Routes
+### Add RDF Routes
 
 
-##### - First import the classRoute file into your router.js file. Your router.js file should look something like this:
+- First import the classRoute file into your router.js file. Your router.js file should look something like this:
 
 ```js
 import EmberRouter from '@ember/routing/router';
@@ -155,7 +168,7 @@ Router.map(function() {
 
 ```
 
-##### - Now you can generate your routes
+- Now you can generate your routes
 
 Generating rdf-routes is similar to generating generic ember routes. Generating an rdf-route for 'person' looks like this:
 
@@ -166,7 +179,7 @@ Generating rdf-routes is similar to generating generic ember routes. Generating 
 This will generate a controller, template & router with the corresponding boilerplate code. You can see the raw code it generates in the dummy app.
 
 
-##### Parameters
+## Parameters
 
 | Parameters    | Type          | default
 | ------------- | ------------- | ----------------
@@ -175,7 +188,7 @@ This will generate a controller, template & router with the corresponding boiler
 It also takes the default ember-router flags like --dummy 
 
 
-##### Actions
+## Actions
 
 | Actions       | Description  |
 | ------------- | ------------ |
@@ -183,7 +196,7 @@ It also takes the default ember-router flags like --dummy
 | destroy       | Destroys the controller, template & routes file + removes the corresponding router.js code |
 
 
-##### Update action
+## Update action
 
 If you already have a people route in your file for example: 
 
@@ -213,7 +226,7 @@ The command would look like this:
 
 ```http://xlmns.com/foaf/01/Person``` will get replaced with ```http://schema.org/Person``` without anything else getting changed
 
-> Ofcoarse you can also change code manually in the router file.
+<sup>Ofcoarse you can also change code manually in the router file.</sup>
 
 
 

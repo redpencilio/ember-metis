@@ -4,7 +4,6 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 
 export default class FallbackController extends Controller {
-
   queryParams = {
     directedPageNumber: {
       type: 'number'
@@ -23,10 +22,10 @@ export default class FallbackController extends Controller {
   @service config;
 
   @tracked directedPageNumber = 0;
-  @tracked directedPageSize = (this.config.get('metis').pageSize && this.config.get('metis').pageSize.directed) || 500 ;
+  @tracked directedPageSize = (this.config.get('metis').pageSize && this.config.get('metis').pageSize.directed) || 200 ;
 
   @tracked inversePageNumber = 0;
-  @tracked inversePageSize = (this.config.get('metis').pageSize && this.config.get('metis').pageSize.inverse) || 500 ;;
+  @tracked inversePageSize = (this.config.get('metis').pageSize && this.config.get('metis').pageSize.inverse) || 200 ;;
 
   @tracked isLoadingDirected = false;
   @tracked isLoadingInverse = false;

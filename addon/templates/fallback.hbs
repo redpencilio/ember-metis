@@ -1,141 +1,109 @@
-{{!-- {{title "Generieke informatie over link Metis"}} --}}
-{{!--
-Vragen:
-- tijd vervormen in iets leesbaar?
-- tooltips?
-- is er ook iets als een pagina van wat een "persoon" eigenlijk is?
---}}
-
 <div class="container-flex--scroll">
   <div class="page">
     <div class="region">
       <div class="layout layout--wide">
-        {{#if @isEmpty}}
-
-        <div class="grid">
-          <div class="col--7-12 col--12-12--s">
-            <div class="region typography u-spacer">
-              <h1 class="h1 word-break--break-all u-spacer--bottom--small">Detailpagina niet gevonden.</h1>
-              <p class="word-break--break-all">Er werden geen relaties of details gevonden over <a
-                  href="{{this.model.subject}}" data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp"
-                  data-placement="top">{{this.model.subject}}</a>.</p>
-            </div>
-
-            <div class="region typography u-spacer">
-              <h2 class="h2">Waarvoor dient deze website?</h2>
-              <p>Deze website wordt gebruikt om de informatie over URI's die in kader van het project Lokale Besturen
-                Linked Open Data gebruikt worden, te tonen op een leesbare en begrijpbare manier. Deze links kan u onder
-                andere ontdekken op <a href="https://publicatie.gelinkt-notuleren.vlaanderen.be"
-                  target="_blank">https://publicatie.gelinkt-notuleren.vlaanderen.be</a>.</p>
-            </div>
-          </div>
-        </div>
-
-        {{else}}
-
         <div class="grid">
           <div class="col--8-12 col--12-12--s">
             <div class="u-hr region typography u-spacer">
               <h1 class="h1 word-break--break-all smaller">Detailpagina URI</h1>
               <p class="introduction">Deze pagina geeft informatie over het onderwerp <a href="{{this.model.subject}}"
-                  data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp" data-placement="top"
-                  class="word-break--break-all">{{this.model.subject}}</a> weer, door relaties en details te tonen.</p>
+                                                                                        data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp" data-placement="top"
+                                                                                        class="word-break--break-all">{{this.model.subject}}</a> weer, door relaties en details te tonen.</p>
             </div>
 
             <h2 class="h3 sans-serif u-spacer--tiny word-break--break-all">Eigenschappen en relaties</h2>
             <p class="u-spacer">Directed links van het onderwerp.</p>
             {{!-- <h2 class="h3 sans-serif u-spacer--tiny word-break--break-all">Extra informatie over <a
-                href="{{model.subject}}" data-toggle="tooltip" title="{{model.subject}} a"
-                data-content="{{model.subject}}" data-placement="top">label</a></h2> --}}
+                 href="{{model.subject}}" data-toggle="tooltip" title="{{model.subject}} a"
+                 data-content="{{model.subject}}" data-placement="top">label</a></h2> --}}
             {{#if this.model.directed.triples}}
-            <div class="u-spacer--large">
-              <table about={{this.model.subject}} class="data-table data-table--zebra">
-                <thead>
-                  <tr>
-                    <th>Eigenschap{{!-- predicate --}}</th>
-                    <th>Onderwerp {{!-- object --}}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{!-- <tr>
-                    <td>
-                      <p>Label</p>
-                      <button class="button button--tiny button--alt">Toon link</button>
-                      <a href="#">Open link</a>
-                    </td>
-                  </tr> --}}
-                  {{#each this.model.directed.triples as |triple|}}
+              <div class="u-spacer--large">
+                <table about={{this.model.subject}} class="data-table data-table--zebra">
+                  <thead>
+                    <tr>
+                      <th>Eigenschap{{!-- predicate --}}</th>
+                      <th>Onderwerp {{!-- object --}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{!-- <tr>
+                       <td>
+                       <p>Label</p>
+                       <button class="button button--tiny button--alt">Toon link</button>
+                       <a href="#">Open link</a>
+                       </td>
+                       </tr> --}}
+                    {{#each this.model.directed.triples as |triple|}}
 
-                  {{#if (eq triple.object.type "uri")}}
-                  <tr property={{triple.predicate}} resource={{triple.object.value}}>
-                    <td>
-                      <Metis::DisplayUri @uri={{triple.predicate}} />
-                    </td>
-                    <td>
-                      <Metis::DisplayUri @uri={{triple.object.value}} />
-                    </td>
-                  </tr>
-                  {{else}}
-                  <tr property={{triple.predicate}} content={{triple.object.value}}>
-                    <td>
-                      <Metis::DisplayUri @uri={{triple.predicate}} />
-                    </td>
-                    <td>
-                      {{triple.object.value}}
-                    </td>
-                  </tr>
-                  {{/if}}
-                  {{/each}}
-                </tbody>
-              </table>
+                      {{#if (eq triple.object.type "uri")}}
+                        <tr property={{triple.predicate}} resource={{triple.object.value}}>
+                          <td>
+                            <Metis::DisplayUri @uri={{triple.predicate}} />
+                          </td>
+                          <td>
+                            <Metis::DisplayUri @uri={{triple.object.value}} />
+                          </td>
+                        </tr>
+                      {{else}}
+                        <tr property={{triple.predicate}} content={{triple.object.value}}>
+                          <td>
+                            <Metis::DisplayUri @uri={{triple.predicate}} />
+                          </td>
+                          <td>
+                            {{triple.object.value}}
+                          </td>
+                        </tr>
+                      {{/if}}
+                    {{/each}}
+                  </tbody>
+                </table>
 
-              <Metis::Pagination @count={{this.model.directed.count}} @size={{this.directedPageSize}}
-                @page={{this.directedPageNumber}} @selectPage={{this.selectDirectedPage}} />
-            </div>
+                <Metis::Pagination @count={{this.model.directed.count}} @size={{this.directedPageSize}}
+                  @page={{this.directedPageNumber}} @selectPage={{this.selectDirectedPage}} />
+              </div>
             {{else}}
-            <p class="text-fade u-spacer--large">Geen directe links gevonden.</p>
+              <p class="text-fade u-spacer--large">Geen directe links gevonden.</p>
             {{/if}}
 
             <h2 class="h3 sans-serif u-spacer--tiny">Verwijzingen</h2>
             <p class="u-spacer">Inverse links naar het onderwerp.</p>
             {{!-- <p class="u-spacer--small">{{model.subject}}</p> --}}
             {{#if this.model.inverse.triples}}
-            <div class="u-spacer--large">
-              <table class="data-table data-table--zebra">
-                <thead>
-                  <tr>
-                    <th>Eigenschap{{!-- predicate --}}</th>
-                    <th>Onderwerp {{!-- subject --}}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{#each this.model.inverse.triples as |triple|}}
-                  <tr resource={{triple.subject}}>
+              <div class="u-spacer--large">
+                <table class="data-table data-table--zebra">
+                  <thead>
+                    <tr>
+                      <th>Eigenschap{{!-- predicate --}}</th>
+                      <th>Onderwerp {{!-- subject --}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each this.model.inverse.triples as |triple|}}
+                      <tr resource={{triple.subject}}>
 
-                    <td property={{triple.predicate}} resource={{triple.object}}>
-                      <Metis::DisplayUri @uri={{triple.predicate}} />
-                    </td>
-                    <td>
-                      <Metis::DisplayUri @uri={{triple.subject}} />
-                    </td>
+                        <td property={{triple.predicate}} resource={{triple.object}}>
+                          <Metis::DisplayUri @uri={{triple.predicate}} />
+                        </td>
+                        <td>
+                          <Metis::DisplayUri @uri={{triple.subject}} />
+                        </td>
 
-                    {{!-- TODO: if we want it the property match human/machine way, we should have tis htirs column --}}
-                    {{!-- <td>
-                      <Metis::DisplayUri @uri={{triple.object}} />
-                    </td> --}}
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-              <Metis::Pagination @count={{this.model.inverse.count}} @size={{this.inversePageSize}}
-                @page={{this.inversePageNumber}} @selectPage={{this.selectInversePage}} />
-            </div>
+                        {{!-- TODO: if we want it the property match human/machine way, we should have tis htirs column --}}
+                        {{!-- <td>
+                        <Metis::DisplayUri @uri={{triple.object}} />
+                        </td> --}}
+                      </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+                <Metis::Pagination @count={{this.model.inverse.count}} @size={{this.inversePageSize}}
+                  @page={{this.inversePageNumber}} @selectPage={{this.selectInversePage}} />
+              </div>
             {{else}}
-            <p class="text-fade u-spacer--large">Geen verwijzingen gevonden.</p>
+              <p class="text-fade u-spacer--large">Geen verwijzingen gevonden.</p>
             {{/if}}
           </div>
         </div>
-        {{/if}}
       </div>
     </div>
   </div>

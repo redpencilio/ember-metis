@@ -28,14 +28,18 @@ export default class FallbackController extends Controller {
   @tracked inversePageNumber = 0;
   @tracked inversePageSize = (this.config.get('metis').pageSize && this.config.get('metis').pageSize.inverse) || 500 ;;
 
+  @tracked isLoadingDirected = false;
+  @tracked isLoadingInverse = false;
 
   @action
   selectDirectedPage(page) {
     this.directedPageNumber = page;
+    this.isLoadingDirected = true;
   }
 
   @action
   selectInversePage(page) {
     this.inversePageNumber = page;
+    this.isLoadingInverse = true;
   }
 }

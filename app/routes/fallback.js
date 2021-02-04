@@ -76,6 +76,12 @@ export default class FallbackRoute extends Route {
       }
   }
 
+  setupController(controller) {
+    super.setupController(...arguments);
+    controller.isLoadingDirected = false;
+    controller.isLoadingInverse = false;
+  }
+
   findTypes(model) {
     return model
       .directed

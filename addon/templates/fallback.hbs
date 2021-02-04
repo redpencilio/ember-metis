@@ -32,29 +32,36 @@
                        <button class="button button--tiny button--alt">Toon link</button>
                        <a href="#">Open link</a>
                        </td>
-                       </tr> --}}
-                    {{#each this.model.directed.triples as |triple|}}
+                         </tr> --}}
+                    {{#if this.isLoadingDirected}}
+                      <tr>
+                        <td>Aan het laden...</td>
+                        <td></td>
+                      </tr>
+                    {{else}}
+                      {{#each this.model.directed.triples as |triple|}}
 
-                      {{#if (eq triple.object.type "uri")}}
-                        <tr property={{triple.predicate}} resource={{triple.object.value}}>
-                          <td>
-                            <Metis::DisplayUri @uri={{triple.predicate}} />
-                          </td>
-                          <td>
-                            <Metis::DisplayUri @uri={{triple.object.value}} />
-                          </td>
-                        </tr>
-                      {{else}}
-                        <tr property={{triple.predicate}} content={{triple.object.value}}>
-                          <td>
-                            <Metis::DisplayUri @uri={{triple.predicate}} />
-                          </td>
-                          <td>
-                            {{triple.object.value}}
-                          </td>
-                        </tr>
-                      {{/if}}
-                    {{/each}}
+                        {{#if (eq triple.object.type "uri")}}
+                          <tr property={{triple.predicate}} resource={{triple.object.value}}>
+                            <td>
+                              <Metis::DisplayUri @uri={{triple.predicate}} />
+                            </td>
+                            <td>
+                              <Metis::DisplayUri @uri={{triple.object.value}} />
+                            </td>
+                          </tr>
+                        {{else}}
+                          <tr property={{triple.predicate}} content={{triple.object.value}}>
+                            <td>
+                              <Metis::DisplayUri @uri={{triple.predicate}} />
+                            </td>
+                            <td>
+                              {{triple.object.value}}
+                            </td>
+                          </tr>
+                        {{/if}}
+                      {{/each}}
+                    {{/if}}
                   </tbody>
                 </table>
 
@@ -78,22 +85,29 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {{#each this.model.inverse.triples as |triple|}}
-                      <tr resource={{triple.subject}}>
-
-                        <td property={{triple.predicate}} resource={{triple.object}}>
-                          <Metis::DisplayUri @uri={{triple.predicate}} />
-                        </td>
-                        <td>
-                          <Metis::DisplayUri @uri={{triple.subject}} />
-                        </td>
-
-                        {{!-- TODO: if we want it the property match human/machine way, we should have tis htirs column --}}
-                        {{!-- <td>
-                        <Metis::DisplayUri @uri={{triple.object}} />
-                        </td> --}}
+                    {{#if this.isLoadingInverse}}
+                      <tr>
+                        <td>Aan het laden...</td>
+                        <td></td>
                       </tr>
-                    {{/each}}
+                    {{else}}
+                      {{#each this.model.inverse.triples as |triple|}}
+                        <tr resource={{triple.subject}}>
+
+                          <td property={{triple.predicate}} resource={{triple.object}}>
+                            <Metis::DisplayUri @uri={{triple.predicate}} />
+                          </td>
+                          <td>
+                            <Metis::DisplayUri @uri={{triple.subject}} />
+                          </td>
+
+                          {{!-- TODO: if we want it the property match human/machine way, we should have tis htirs column --}}
+                          {{!-- <td>
+                          <Metis::DisplayUri @uri={{triple.object}} />
+                          </td> --}}
+                        </tr>
+                      {{/each}}
+                    {{/if}}
                   </tbody>
                 </table>
                 <Metis::Pagination @count={{this.model.inverse.count}} @size={{this.inversePageSize}}

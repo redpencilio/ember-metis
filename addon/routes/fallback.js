@@ -72,11 +72,18 @@ export default class FallbackRoute extends Route {
   }
 
   afterModel(model) {
-    const types = this.findTypes(model);
+    // TODO it would be better to detect whether a redirection to a custom route/template is required
+    // in the beforeModel hook.
+    // If uri-info service provides an endpoint to get the rdf:Class of a given resource,
+    // that request could be executed in the beforeModel-hook and a transition (if needed) can be triggered
+    // before the model is loaded
+    const rdfTypes = model.directed.triples
+          .filter(({ predicate }) => predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+          .map(({ object: { value } }) => value);
 
-    for (let type of types) {
+    for (let type of rdfTypes) {
       if (this.env.metis.routes[type]) {
-        this.replaceWith(this.env.metis.routes[type], { queryParams: { resource: model.subject } });
+        this.replaceWith(this.env.metis.routes[type], { queryParams: { resource: model.directed.subject } });
         return;
       }
     }
@@ -86,13 +93,5 @@ export default class FallbackRoute extends Route {
     super.setupController(...arguments);
     controller.isLoadingDirected = false;
     controller.isLoadingInverse = false;
-  }
-
-  findTypes(model) {
-    return model
-      .directed
-      .triples
-      .filter(({ predicate }) => predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-      .map(({ object: { value } }) => value);
   }
 }

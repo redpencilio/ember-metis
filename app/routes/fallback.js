@@ -1,8 +1,8 @@
-import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import fetch from 'fetch';
-import env from '../config/environment';
+import { inject as service } from '@ember/service';
 import BuildUrl from 'build-url';
+import env from '../config/environment';
 import RSVP from 'rsvp';
 
 export default class FallbackRoute extends Route {
@@ -23,7 +23,6 @@ export default class FallbackRoute extends Route {
   };
 
   @service fastboot;
-
   @service config;
 
   async model({ path, directedPageNumber, directedPageSize, inversePageNumber, inversePageSize }) {
@@ -56,24 +55,27 @@ export default class FallbackRoute extends Route {
 
     return {
       directed: {
-        triples: response.directed.triples, subject: subject, count: response.directed.count
+        triples: response.directed.triples,
+        subject: subject,
+        count: response.directed.count
       },
       inverse: {
-        triples: response.inverse.triples, subject: subject, count: response.inverse.count
+        triples: response.inverse.triples,
+        subject: subject,
+        count: response.inverse.count
       }
     };
   }
 
   afterModel(model) {
-    super.afterModel(...arguments);
-
     const types = this.findTypes(model);
 
-    for (let type of types)
+    for (let type of types) {
       if (env.metis.routes[type]) {
         this.replaceWith(env.metis.routes[type], { queryParams: { resource: model.subject } });
         return;
       }
+    }
   }
 
   setupController(controller) {

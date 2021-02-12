@@ -4,11 +4,10 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 
-
 const CustomRouterGenerator = require('./router-generator/custom-router-generator');
 
 module.exports = {
-  description: 'Generates a route and a template, and registers the route with the router.',
+  description: 'Generates a route and a template for a specific rdf:type, and registers the route with the router.',
 
   // --voc lets you enter your vocabulary when creating route
   availableOptions: [
@@ -19,7 +18,7 @@ module.exports = {
     }
   ],
 
-  // Makes the nescessary checks before 
+  // Makes the nescessary checks before
   beforeInstall: function(options){
     // Gets path to router
     let routerPath = path.join.apply(null, findRouter(options));
@@ -28,24 +27,25 @@ module.exports = {
     let source = fs.readFileSync(routerPath, 'utf-8');
 
     // Check if the gen-class-route module is imported
-    let importRegx = /()class-route()/gi
-    let checkImport = importRegx.test(source)
+    let importRegx = /()class-route()/gi;
+    let checkImport = importRegx.test(source);
 
-    if(!checkImport){
-      console.log("\n")
-      console.log(chalk.red(`You need to import the class-route into your router.js file first.`))
-      throw new Error('More information inside the repo\'s readme file')
+    if (!checkImport) {
+      console.log("\n");
+      console.log(chalk.red('You need to import the classRoute util in your router.js file first.'));
+      console.log(chalk.red("import classRoute from 'metis/utils/class-route';"));
+      throw new Error('Check ember-metis README for more information');
     }
 
-    // Checks for nested routes + throws error if nested
-    let namePart = options.entity.name.split('/')
-    if(namePart.length > 1){
-      throw new Error("Nested rdf-routes are not supported yet. Notice that rdf-routes are already automatically nested under 'view'.")
+    // Checks for nested routes (not supported yet)
+    let namePart = options.entity.name.split('/');
+    if (namePart.length > 1) {
+      throw new Error("Nested rdf-routes are not supported yet. Notice that rdf-routes are already automatically nested under 'view'.");
     }
   },
 
 
-// Ember router code checking for flags
+  // Ember router code checking for flags
   shouldEntityTouchRouter: function(name) {
     let isIndex = name === 'index';
     let isBasic = name === 'basic';
@@ -77,7 +77,7 @@ module.exports = {
     updateRouter.call(this, 'remove', options);
   },
   normalizeEntityName: function(entityName) {
-    return entityName.replace(/\.js$/, ''); //Prevent generation of ".js.js" files
+    return entityName.replace(/\.js$/, ''); // Prevent generation of ".js.js" files
   },
 };
 
@@ -95,7 +95,7 @@ function updateRouter(action, options) {
   if (this.shouldTouchRouter(entity.name, options)) {
     writeRoute(action, entity.name, options);
     this.ui.writeLine('updating rdf router');
-    this._writeStatusToUI(chalk[color], action + ' route', 'view/'+entity.name);
+    this._writeStatusToUI(chalk[color], action + ' route', 'view/' + entity.name);
   }
 }
 
@@ -117,10 +117,8 @@ function writeRoute(action, name, options) {
   let routerPath = path.join.apply(null, findRouter(options));
   let source = fs.readFileSync(routerPath, 'utf-8');
 
-  let routes = new CustomRouterGenerator(source); 
-  
-  let updateRoute = routes[action](name, options.voc)
-  
+  let routes = new CustomRouterGenerator(source);
+  let updateRoute = routes[action](name, options.voc);
+
   fs.writeFileSync(routerPath, updateRoute.code());
 }
-

@@ -1,1 +1,1 @@
-export { default } from 'metis/utils/metis-fallback-route';
+export { default } from 'metis/utils/fallback-route';

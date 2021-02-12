@@ -28,7 +28,7 @@ CustomRouterGenerator.prototype._ast  = function() {
   return (this.ast = this.ast || recast.parse(this.source, { parser }));
 };
 
-// calls code function that clone's the body part of the router file & prettifies it 
+// calls code function that clone's the body part of the router file & prettifies it
 CustomRouterGenerator.prototype.clone = function() {
   return new CustomRouterGenerator(this.code());
 };
@@ -43,19 +43,19 @@ CustomRouterGenerator.prototype._walk  = function() {
   recast.visit(this.ast, {
 
 
-    // checks if it finds the view route & puts it inside petal.mapNode for later use 
+    // checks if it finds the view route & puts it inside petal.mapNode for later use
     visitCallExpression: function(path) {
-      var node = path.node 
+      var node = path.node;
       if(node.arguments[0].value == "view"){
         petal.mapNode = node;
-        return false
-      } 
-      
+        return false;
+      }
 
-      // If not found in first node that has type: CallExpression it will keep looping through the AST until it finds it or there are none left 
-      this.traverse(path)
-    }})
-}
+
+      // If not found in first node that has type: CallExpression it will keep looping through the AST until it finds it or there are none left
+      this.traverse(path);
+    }});
+};
 
 // Adds a route to the router file ========================================
 CustomRouterGenerator.prototype.add = function(routeName, options) {
@@ -63,11 +63,11 @@ CustomRouterGenerator.prototype.add = function(routeName, options) {
   // gets the ast including mapNode made prettier
   var route = this.clone();
 
-  // Gets all route nodes 
+  // Gets all route nodes
   var routes = route.mapNode.arguments[1].body.body;
 
 
-  // Calls the function that will build the code for the router 
+  // Calls the function that will build the code for the router
   route._add.call(
     route,
     routeName,
@@ -81,16 +81,16 @@ CustomRouterGenerator.prototype.add = function(routeName, options) {
 
 // This function is responsible for adding the code
 CustomRouterGenerator.prototype._add = function(routeName, routes, options) {
-  
 
-    // Checks if the given route already exists
-    var routeExists = findRoutes(routeName, routes, options, true)
 
-    // if the route does not exists yet then add the route
-    if(!routeExists){
-      route = routeNode(routeName, options);
-      routes.push(route);
-    }
+  // Checks if the given route already exists
+  var routeExists = findRoutes(routeName, routes, options, true);
+
+  // if the route does not exists yet then add the route
+  if(!routeExists){
+    route = routeNode(routeName, options);
+    routes.push(route);
+  }
 
 
 };
@@ -106,16 +106,16 @@ CustomRouterGenerator.prototype._remove = function(name, routes, options) {
 
     // Filter out the route that needs to be removed
     routes = routes.filter((node) => {
-      
+
       if(node.expression != undefined && node.expression.arguments != undefined && node.expression.arguments.length == 3  && node.expression.arguments[1].value == name){
-        return false
+        return false;
       } else {
-        return true
+        return true;
       }
-    })
+    });
 
     // Return the routes without the one that needed to be removed
-    return routes
+    return routes;
   }
 };
 
@@ -125,11 +125,11 @@ CustomRouterGenerator.prototype.remove = function(routeName, options) {
   // gets the ast including mapNode made prettier
   var route = this.clone();
 
-  // Gets all route nodes 
+  // Gets all route nodes
   var routes = route.mapNode.arguments[1].body.body;
 
 
-  // Calls the function that will build the code for the router 
+  // Calls the function that will build the code for the router
   var newRoutes = route._remove.call(
     route,
     routeName,
@@ -138,7 +138,7 @@ CustomRouterGenerator.prototype.remove = function(routeName, options) {
   );
 
 
-  // if route existed and newRoutes has new array with routes then update 
+  // if route existed and newRoutes has new array with routes then update
 
   if (newRoutes) {
     route.mapNode.arguments[1].body.body = newRoutes;
@@ -148,12 +148,9 @@ CustomRouterGenerator.prototype.remove = function(routeName, options) {
 };
 
 
-
-
-// returns prettyfied code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+// returns prettyfied code
 CustomRouterGenerator.prototype.code = function(options) {
   options = options || { tabWidth: 2, quote: 'single' };
 
   return recast.print(this.ast, options).code;
 };
-

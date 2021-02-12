@@ -8,17 +8,22 @@ Ember addon providing default subject pages for your Linked Data resources. The 
 ember-metis assumes a mu.semte.ch stack is used in the backend. The addon requires the following services to be available:
 - [**uri-info**](https://github.com/redpencilio/mu-uri-info-service/): Microservice listing all incoming and outgoing relations for a given subject URI
 - [**resource-labels**](https://github.com/lblod/resource-label-service/): Microservice providing a human-readable label for a URI
+- [**resource-labels-cache**](https://github.com/mu-semtech/mu-cache/): Cache for the `resource-labels` service
 
 Add the following snippet to the `docker-compose.yml` file of your backend stack:
 ```yaml
 services:
   uri-info:
     image: redpencil/mu-uri-info-service:0.2.0
+  resource-labels-cache:
+    image: semtech/mu-cache:2.0.1
+    links:
+      - resource-labels:backend
   resource-labels:
     image: lblod/resource-label-service:0.0.3
 ```
 
-Both services assume the triplestore is available as `database` in your stack. If not, provide the appropriate docker alias to the service in the `docker-compose.yml`.
+The `uri-info` and `resource-labels` services assume the triplestore is available as `database` in your stack. If not, provide the appropriate docker alias to the service in the `docker-compose.yml`.
 
 Next, make the service endpoints available in `./config/dispatcher/dispatcher.ex`:
 
@@ -32,7 +37,7 @@ Next, make the service endpoints available in `./config/dispatcher/dispatcher.ex
   end
 
   get "/resource-labels/*path", %{ accept: %{ json: true } } do
-    forward conn, path, "http://resource-labels/"
+    forward conn, path, "http://resource-labels-cache/"
   end
 
 ```

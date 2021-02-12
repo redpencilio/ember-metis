@@ -13,9 +13,6 @@
 
             <h2 class="h3 sans-serif u-spacer--tiny word-break--break-all">Eigenschappen en relaties</h2>
             <p class="u-spacer">Directed links van het onderwerp.</p>
-            {{!-- <h2 class="h3 sans-serif u-spacer--tiny word-break--break-all">Extra informatie over <a
-                 href="{{model.subject}}" data-toggle="tooltip" title="{{model.subject}} a"
-                 data-content="{{model.subject}}" data-placement="top">label</a></h2> --}}
             {{#if this.model.directed.triples}}
               <div class="u-spacer--large">
                 <table about={{this.model.subject}} class="data-table data-table--zebra">
@@ -26,13 +23,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {{!-- <tr>
-                       <td>
-                       <p>Label</p>
-                       <button class="button button--tiny button--alt">Toon link</button>
-                       <a href="#">Open link</a>
-                       </td>
-                         </tr> --}}
                     {{#if this.isLoadingDirected}}
                       <tr>
                         <td>Aan het laden...</td>
@@ -74,7 +64,6 @@
 
             <h2 class="h3 sans-serif u-spacer--tiny">Verwijzingen</h2>
             <p class="u-spacer">Inverse links naar het onderwerp.</p>
-            {{!-- <p class="u-spacer--small">{{model.subject}}</p> --}}
             {{#if this.model.inverse.triples}}
               <div class="u-spacer--large">
                 <table class="data-table data-table--zebra">
@@ -100,11 +89,6 @@
                           <td>
                             <Metis::DisplayUri @uri={{triple.subject}} />
                           </td>
-
-                          {{!-- TODO: if we want it the property match human/machine way, we should have tis htirs column --}}
-                          {{!-- <td>
-                          <Metis::DisplayUri @uri={{triple.object}} />
-                          </td> --}}
                         </tr>
                       {{/each}}
                     {{/if}}

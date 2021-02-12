@@ -20,10 +20,10 @@ export default class FallbackController extends Controller {
   };
 
   @tracked directedPageNumber = 0;
-  @tracked directedPageSize = 200;
+  @tracked directedPageSize = 50;
 
   @tracked inversePageNumber = 0;
-  @tracked inversePageSize = 200;
+  @tracked inversePageSize = 50;
 
   @tracked isLoadingDirected = false;
   @tracked isLoadingInverse = false;

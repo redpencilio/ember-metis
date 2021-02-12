@@ -160,7 +160,7 @@ E.g.
 ```
 
 #### Pagination (optional)
-By default ember-metis only shows the first 200 directed and inverse relations for a subject URI. The default page size for both directions can be configured via `pageSize`.
+By default ember-metis only shows the first 50 directed and inverse relations for a subject URI. The default page size for both directions can be configured via `pageSize`.
 
 E.g.
 

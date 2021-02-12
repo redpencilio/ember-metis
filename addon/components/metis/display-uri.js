@@ -2,11 +2,9 @@ import Component from '@glimmer/component';
 import { getOwner } from '@ember/application';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import fetch from 'fetch';
-import buildUrl from 'build-url';
 
 export default class MetisDisplayUriComponent extends Component {
-  @service fastboot;
+  @service('resource-label') labelService;
 
   @tracked externalPreflabel = null;
   @tracked internalPreflabel = null;
@@ -16,9 +14,7 @@ export default class MetisDisplayUriComponent extends Component {
   constructor() {
     super(...arguments);
     this.config = getOwner(this).resolveRegistration('config:environment');
-    if (this.args.uri) {
-      this.fetchPreflabels();
-    }
+    this.fetchPreflabels();
   }
 
   async fetchPreflabels() {
@@ -26,23 +22,9 @@ export default class MetisDisplayUriComponent extends Component {
     this.description = null;
 
     if (this.args.uri) {
-      const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : "/";
-      const fetchUrl = buildUrl(backend, {
-        path: 'resource-labels/info',
-        queryParams: {
-          term: this.args.uri
-        }
-      });
-
-      const request = await fetch(fetchUrl);
-      const body = await request.text();
-
-      const value = JSON.parse(body);
-
-      if (request.status == 200 && value.attributes) {
-        this.externalPreflabel = value.attributes.label;
-        this.description = value.attributes.comment;
-      }
+      const entry = await this.labelService.fetchPrefLabel(this.args.uri);
+      this.externalPreflabel = entry.prefLabel;
+      this.description = entry.description;
     }
   }
 
@@ -62,7 +44,6 @@ export default class MetisDisplayUriComponent extends Component {
       return this.args.uri;
     }
   }
-
 
   get description() {
     if (this.description) {

@@ -6,6 +6,6 @@ export default class View<%= classifiedModuleName %>Route extends Route {
   }
 
   model( { resource } ) {
-    console.log(resource);
+    // Retrieve information about the given resource here
   }
 }

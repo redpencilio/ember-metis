@@ -22,7 +22,6 @@ export default class FallbackRoute extends Route {
   };
 
   @service fastboot;
-  @service config;
 
   constructor() {
     super(...arguments);

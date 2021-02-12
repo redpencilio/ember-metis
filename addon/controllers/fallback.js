@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { inject as service } from '@ember/service';
 
 export default class FallbackController extends Controller {
   queryParams = {
@@ -19,16 +19,24 @@ export default class FallbackController extends Controller {
     },
   };
 
-  @service config;
-
   @tracked directedPageNumber = 0;
-  @tracked directedPageSize = (this.config.get('metis').pageSize && this.config.get('metis').pageSize.directed) || 200 ;
+  @tracked directedPageSize = 200;
 
   @tracked inversePageNumber = 0;
-  @tracked inversePageSize = (this.config.get('metis').pageSize && this.config.get('metis').pageSize.inverse) || 200 ;;
+  @tracked inversePageSize = 200;
 
   @tracked isLoadingDirected = false;
   @tracked isLoadingInverse = false;
+
+
+  constructor() {
+    super(...arguments);
+    const config = getOwner(this).resolveRegistration('config:environment');
+    if (config.metis && config.metis.pageSize) {
+      this.directedPageSize = config.metis.pageSize.directed;
+      this.inversePageSize = config.metis.pageSize.inverse;
+    }
+  }
 
   @action
   selectDirectedPage(page) {

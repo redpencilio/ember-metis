@@ -1,12 +1,12 @@
+import Component from '@glimmer/component';
+import { getOwner } from '@ember/application';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import Component from '@glimmer/component';
 import fetch from 'fetch';
 import buildUrl from 'build-url';
 
 export default class MetisDisplayUriComponent extends Component {
-
-  @service config;
+  @service fastboot;
 
   @tracked externalPreflabel = null;
   @tracked internalPreflabel = null;
@@ -15,6 +15,7 @@ export default class MetisDisplayUriComponent extends Component {
 
   constructor() {
     super(...arguments);
+    this.config = getOwner(this).resolveRegistration('config:environment');
     if (this.args.uri) {
       this.fetchPreflabels();
     }
@@ -48,8 +49,8 @@ export default class MetisDisplayUriComponent extends Component {
   get localBasePath() {
     const uri = this.args.uri || "";
 
-    if (uri.startsWith(this.config.get('metis').baseUrl))
-      return uri.slice(this.config.get('metis').baseUrl.length);
+    if (uri.startsWith(this.config.metis.baseUrl))
+      return uri.slice(this.config.metis.baseUrl.length);
     else
       return null;
   }

@@ -27,14 +27,12 @@ export default function classRoute(route, name, options) {
   }
 
   // Register class route combination
-  // Register is used to redirect to custom pages
-  // in afterModel hook of fallback route
+  // The register is used to redirect to custom pages based on
+  // the subject's rdf:Class
   const resourceClass = options.class;
-  if (metis.routes) {
-    metis.routes[resourceClass] = routeString;
-  } else {
-    metis.routes = { resourceClass: routeString };
-  }
+  if (!metis.routes || typeof(metis.routes) != 'object')
+    metis.routes = {};
+  metis.routes[resourceClass] = routeString;
 
   // Create new route
   return route.route(name, options);

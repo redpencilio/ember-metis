@@ -2,7 +2,7 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import fetch from 'fetch';
-import BuildUrl from 'build-url';
+import buildUrl from 'build-url';
 
 export default class MetisDisplayUriComponent extends Component {
 
@@ -21,13 +21,12 @@ export default class MetisDisplayUriComponent extends Component {
   }
 
   async fetchPreflabels() {
-
     this.externalPreflabel = null;
     this.description = null;
 
     if (this.args.uri) {
-      const base = BuildUrl(window.BACKEND_URL || "/");
-      const fetchUrl = BuildUrl(base, {
+      const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : "/";
+      const fetchUrl = buildUrl(backend, {
         path: 'resource-labels/info',
         queryParams: {
           term: this.args.uri

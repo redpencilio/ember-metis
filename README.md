@@ -1,239 +1,182 @@
-# Table of content
+# ember-metis
 
-- [Description](#description)
-- [Before using the addon](#before-using-the-addon)
-- [Installation & Usage](#installation---usage)
-  - [Installation](#installation)
-  - [Usage](#usage)
-- [Add Custom routes](#add-custom-routes)
-  - [Add RDF Routes](#add-rdf-routes)
-- [Parameters](#parameters)
-- [Actions](#actions)
-- [Update action](#update-action)
-  <br>
+Ember addon providing default subject pages for your Linked Data resources. The default subject page lists all incoming and outgoing relations of a resource. The addon allows to override subject pagess per resource types with a custom template.
 
-# Description
+## Getting started
+### Adding ember-metis to your application
+#### Setup the backend
+ember-metis assumes a mu.semte.ch stack is used in the backend. The addon requires the following services to be available:
+- [**uri-info**](https://github.com/redpencilio/mu-uri-info-service/): Microservice listing all incoming and outgoing relations for a given subject URI
+- [**resource-labels**](https://github.com/lblod/resource-label-service/): Microservice providing a human-readable label for a URI
 
-Ember addon creating an end-points that automatically get resources from the underlying triplestore and checks for labels & descriptions. The addon is meant to be used together with the the mu.semte.ch microservice model.
-
-## Before using the addon
-
-**Check if you have performed the following actions:**
-
-We assume that you are using the the mu-semte-ch stack in the back-end. The following actions build further upon the mu-project docker-image.
-The `Dispatcher`, `Identifier`, ` Database` & ` mu-cl-resources` are included by default.<br><small>( new to mu-semte-ch? Checkout the getting started tutorial on [mu.semte.ch](https://mu.semte.ch/getting-started/) )
-<br>
-
-- Included both the [**mu-uri-info-service**](https://github.com/redpencilio/mu-uri-info-service/) & [**resource-label-service**](https://github.com/lblod/resource-label-service/) to your docker-compose.yml file.
-
+Add the following snippet to the `docker-compose.yml` file of your backend stack:
 ```yaml
-/config/docker-compose.yml
-
-
 services:
-  uriinfo:
-    image: redpencil/mu-uri-info-service
-    links:
-      - db:database
-
+  uri-info:
+    image: redpencil/mu-uri-info-service:0.2.0
   resource-labels:
     image: lblod/resource-label-service:0.0.3
-    restart: always
-    links:
-      - db:database
-    labels:
-      - "logging=true"
 ```
 
-<br>
+Both services assume the triplestore is available as `database` in your stack. If not, provide the appropriate docker alias to the service in the `docker-compose.yml`.
 
-- Included the routes of the above mentioned services to your dispatcher.ex file
+Next, make the service endpoints available in `./config/dispatcher/dispatcher.ex`:
 
 ```elixir
-/config/dispatcher/dispatcher.ex
+  define_accept_types [
+    json: [ "application/json", "application/vnd.api+json" ]
+  ]
 
+  get "/uri-info/*path", %{ accept: %{ json: true } } do
+    forward conn, path, "http://uri-info/"
+  end
 
-match "/resource-labels/*path" do
-  Proxy.forward conn, path, "http://resource-labels/"
-end
-
-match "/uri-info/*path" do
-  Proxy.forward conn, path, "http://uriinfo/"
-end
-```
-
-<sup>In case you do not have data to work with and want to populate your database you can can just continue reading, otherwise you can skip the following 2 steps.</sup>
-
-<br>
-
-- Included [**mu-migrations-service**](https://github.com/mu-semtech/mu-migrations-service) to your docker-compose.yml file
-
-```yaml
-/config/docker-compose.yml
-
-
-services:
-  migrations:
-    image: semtech/mu-migrations-service
-    links:
-      - db:database
-    volumes:
-      - ./config/migrations:/data/migrations
-```
-
-<br>
-
-- Created migrations folder and add turtle `.ttl` files to it
-  <sup>If you do not have any turtle files then you just download one from here: [click on me](https://mandaten.lokaalbestuur.vlaanderen.be/) ( At the bottom called `Turtle: gestructureerde data voor dataverwerking en analyse.` )</sup>
+  get "/resource-labels/*path", %{ accept: %{ json: true } } do
+    forward conn, path, "http://resource-labels/"
+  end
 
 ```
-  /config/migrations/my-turtle-file(s).ttl
+#### Setup the frontend
+ember-metis requires [Ember FastBoot](https://github.com/ember-fastboot/ember-cli-fastboot). Install the addon in your application if it's not yet available:
+
+```bash
+ember install ember-cli-fastboot
 ```
 
-To take advantage of the label service you will probably also want to populate your database with labels corresponding to the data you just migrated to your triplestore. Since with the mu-semte-ch model we only need one database, we can just add the turtle `.ttl` file together with our actual data file into the migrations folder and the migration-service will do the heavy lifting for use. <br>
+For local development using `ember serve` ember-metis requires `BACKEND_URL` as a sandbox global when running in fastboot mode. The value of `BACKEND_URL` must be the same URL you pass as proxy URL in `ember serve --proxy`. Typically `http://localhost/` (or `http://host` when serving the frontend from a Docker container).
 
-> Do not worry about starting your backend again with the same files in your migration folder, the migration service is smart enough to not migrate the same data more then ones and accidentially create duplicates in your database.
-
-Your migration folder structure should now look something like this:
-
-```
-config
-└───migrations
-    │-- my-data-file.ttl
-    │-- my-label-file.ttl
-    │--	maybe-another-data-file.ttl
-    │-- add-as-many-as-you-need.ttl
-    │-- ...
+To define the sandbox global, add the follow content to `./config/fastboot.js` in your frontend application:
+```javascript
+module.exports = function(environment) {
+  return {
+    sandboxGlobals: {
+      BACKEND_URL: "https://themis-test.vlaanderen.be/",
+    }
+  };
+};
 ```
 
-<br>
-
-## Addon Installation & Usage
-
-### Installation
-
-```
+Install the ember-metis addon in your application.
+```bash
 ember install ember-metis
 ```
 
-### Usage
+Add the following configuration to `./config/environment.js`:
+```javascript
+let ENV = {
+  metis: {
+    baseUrl: "http://data.lblod.info/"
+  },
+  ...
+```
 
-- Add the metisFallBackRoute to code to your router.js file
+The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the base URL of your production environment.
 
-```js
-/my-app-name/app/router.js
+Finally, import and add the `metisFallbackRoute` util to your `router.js`
 
-
+```javascript
 import metisFallbackRoute from 'metis/utils/fallback-route';
 
 Router.map(function() {
-  this.route("view", function() {
 
+  // ... other routes here
 
-  }
   metisFallbackRoute(this);
 });
 ```
 
-<br>
-
-- Add the metis object to you environment variables & define your baseURL
-
-```js
-/my-app-name/config/environment.js
+Since `metisFallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
 
 
-let ENV = {
-    metis: {
-      routes: {},
-      baseUrl: "http://data.lblod.info/",
-      pageSize: {
-        directed: 100,
-        inverse: 100
-      }
-    },
-    ...
-```
 
-The pageSize variable is optional. The default pageSize is 500 for both directed and inverse links.
+## How-to guides
+### Provide human-readable labels for URIs on the subject page
+Check the README of the [resource label service](https://github.com/lblod/resource-label-service/#db-information) how to insert human-readable labels in the triplestore. Once the labels are available, they will be automatically picked up by ember-metis.
 
-## Add Custom routes
+### Setup a custom template for a specific resource type
+For some resources you may want to display a custom template instead of the default one provided by ember-metis. The addon supports custom templates per resource type. E.g. you can provide a custom template for all resources of type `http://xmlns.com/foaf/0.1/Person`.
 
-### Add RDF Routes
+Before you generate your first custom route/template, import the `classRoute` util in `router.js` and define a `view` route at the root level:
 
-- First import the classRoute file into your router.js file. Your router.js file should look something like this:
-
-```js
-import EmberRouter from "@ember/routing/router";
-import config from "dummy/config/environment";
-import metisFallbackRoute from "metis/utils/fallback-route";
-import classRoute from "metis/utils/class-route";
+```javascript
+import EmberRouter from '@ember/routing/router';
+import config from './config/environment';
+import metisFallbackRoute from 'metis/utils/fallback-route';
+import { classRoute } from 'metis/utils/class-route';   // <---- Add this line
 
 export default class Router extends EmberRouter {
   location = config.locationType;
   rootURL = config.rootURL;
 }
 
-Router.map(function () {
-  this.route("view", function () {});
-
-  metisFallbackRoute();
+Router.map(function() {
+  // other routes
+  this.route('view', function() { });  // <---- Add this line
+  metisFallbackRoute(this);
 });
 ```
 
-- Now you can generate your routes
-
-Generating rdf-routes is similar to generating generic ember routes. Generating an rdf-route for 'person' looks like this:
-
-```
-  ember generate rdf-route person --voc http://xmlns.com/foaf/0.1/Person
+Next, generate your custom route using the following generate command
+```bash
+ember generate rdf-route <route-name> --voc <rdf-type>
 ```
 
-This will generate a controller, template & router with the corresponding boilerplate code. You can see the raw code it generates in the dummy app.
-
-## Parameters
-
-| Parameters | Type   | default                     |
-| ---------- | ------ | --------------------------- |
-| --voc      | String | http://ChangeThisByYourVoc/ |
-
-It also takes the default ember-router flags like --dummy
-
-## Actions
-
-| Actions  | Description                                                                                |
-| -------- | ------------------------------------------------------------------------------------------ |
-| generate | Generates a controller, template & routes file + updates the router.js file                |
-| destroy  | Destroys the controller, template & routes file + removes the corresponding router.js code |
-
-## Update action
-
-If you already have a people route in your file for example:
-
-```js
-/my-app-name/app/router.js
-
-...
-
-this.route("view", function() {
-
-    classRoute(this, 'people', {
-      class: 'http://xmlns.com/foaf/0.1/Person'
-    });
-  })
-
-...
+E.g. to generate a `person` route for all resources of type `foaf:Person`
+```bash
+ember generate rdf-route person --voc http://xmlns.com/foaf/0.1/Person
 ```
 
-And you wanted to update the vocabulary of people route to be 'http://schema.org/Person' then it suffices to re-generate the people route but with the different vocabulary.
-The command would look like this:
+A `person` route, controller and template will be generated as subroute of `view` which you can implement as regular Ember routes to your needs. A new routing rule will also automatically be added to `router.js`.
 
+Whenever the user navigates to a subject page of a resource of type `foaf:Person`, he will be redirected to the custom template instead of the default one.
+
+## Reference
+### Addon configuration
+ember-metis can be configured in `./config/environment.js` via the `metis` key:
+
+```javascript
+let ENV = {
+  metis: {
+    // ember-metis configuration here
+  },
+  ...
 ```
 
-  ember generate rdf-route people --voc http://schema.org/Person
+The available options are described below.
 
+#### Base URL (required)
+The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the base URL of your production environment. Based on this configuration, ember-metis ensures navigation through subject pages also works on other environments and on localhost during development.
+
+E.g.
+```javascript
+  metis: {
+    baseUrl: "http://data.lblod.info/"
+  }
 ```
 
-`http://xlmns.com/foaf/01/Person` will get replaced with `http://schema.org/Person` without anything else getting changed
+#### Pagination (optional)
+By default ember-metis only shows the first 200 directed and inverse relations for a subject URI. The default page size for both directions can be configured via `pageSize`.
 
-<sup>Ofcoarse you can also change code manually in the router file.</sup>
+E.g.
+
+```javascript
+  metis: {
+    ...
+    pageSize: {
+      directed: 100,
+      inverse: 50
+    }
+  }
+```
+### Generators
+#### rdf-route
+Generate a custom route/controller/template per rdf:type using
+
+```bash
+ember generate rdf-route <route-name> --voc <rdf-type>
+```
+
+Similarly, remove the custom route/controller/template using
+```bash
+ember destroy rdf-route <route-name>
+```

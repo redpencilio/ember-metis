@@ -50,7 +50,7 @@ To define the sandbox global, add the follow content to `./config/fastboot.js` i
 module.exports = function(environment) {
   return {
     sandboxGlobals: {
-      BACKEND_URL: "https://themis-test.vlaanderen.be/",
+      BACKEND_URL: "http://localhost/",
     }
   };
 };
@@ -102,7 +102,7 @@ Before you generate your first custom route/template, import the `classRoute` ut
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 import metisFallbackRoute from 'metis/utils/fallback-route';
-import { classRoute } from 'metis/utils/class-route';   // <---- Add this line
+import classRoute from 'metis/utils/class-route';   // <---- Add this line
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -182,7 +182,7 @@ ember delete rdf-route <route-name>
 ```
 
 ## Discussion
-### Why using a `classRoute` util for custom templates
+### Why using a `classRoute` util for custom templates?
 On generation of a custom rdf-route, a routing rule will be added to the `router.js` which makes use of the `classRoute` util.
 
 E.g.

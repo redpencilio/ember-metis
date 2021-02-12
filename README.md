@@ -178,5 +178,21 @@ ember generate rdf-route <route-name> --voc <rdf-type>
 
 Similarly, remove the custom route/controller/template using
 ```bash
-ember destroy rdf-route <route-name>
+ember delete rdf-route <route-name>
 ```
+
+## Discussion
+### Why using a `classRoute` util for custom templates
+On generation of a custom rdf-route, a routing rule will be added to the `router.js` which makes use of the `classRoute` util.
+
+E.g.
+
+```javascript
+  this.route('view', function() {
+    classRoute(this, 'person', {
+      class: 'http://xmlns.com/foaf/0.1/Person'
+    });
+  });
+```
+
+The `classRoute` util is a wrapper around the regular `this.route` functionality used for regular routes. In addition to the regular behaviour, the `classRoute` util also ensures the route-name and rdf:Class combination gets registered. This registration is used to redirect the user to the appropriate custom route when navigating through the subject pages based on the subject's rdf:Class.

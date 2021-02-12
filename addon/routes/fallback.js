@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
 import { inject as service } from '@ember/service';
 import fetch from 'fetch';
-import BuildUrl from 'build-url';
+import buildUrl from 'build-url';
 import RSVP from 'rsvp';
 
 export default class FallbackRoute extends Route {
@@ -34,7 +34,7 @@ export default class FallbackRoute extends Route {
     const subject = `${prefix}${path}`;
     const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : "/";
 
-    const requestDirectedLinksUrl = BuildUrl(backend, {
+    const requestDirectedLinksUrl = buildUrl(backend, {
       path: 'uri-info/direct',
       queryParams: {
         subject: subject,
@@ -43,7 +43,7 @@ export default class FallbackRoute extends Route {
       }
     });
 
-    const requestInverseLinksUrl = BuildUrl(backend, {
+    const requestInverseLinksUrl = buildUrl(backend, {
       path: 'uri-info/inverse',
       queryParams: {
         subject: subject,

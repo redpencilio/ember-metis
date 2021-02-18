@@ -81,7 +81,7 @@ export default class FallbackRoute extends Route {
           .map(({ object: { value } }) => value);
 
     for (let type of rdfTypes) {
-      if (this.env.metis.routes[type]) {
+      if (this.env.metis.routes?.[type]) {
         this.replaceWith(this.env.metis.routes[type], { queryParams: { resource: model.directed.subject } });
         return;
       }

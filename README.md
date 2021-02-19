@@ -93,6 +93,20 @@ Router.map(function() {
 Since `metisFallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
 
 
+##### Import styles
+Import the metis styles in your app.scss file
+```scss
+// VARIABLES
+@import "appuniversum/s-colors.scss";
+@import "appuniversum/s-global";
+@import "appuniversum/s-utilities"
+
+// other imports
+
+@import "metis";
+```
+
+
 
 ## How-to guides
 ### Provide human-readable labels for URIs on the subject page

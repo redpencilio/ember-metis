@@ -1,13 +1,16 @@
 {
   "name": "metis",
   "version": "0.3.1",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Default subject pages for your Linked Data resources.",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redpencilio/ember-metis.git"
+  },
   "license": "MIT",
-  "author": "",
+  "author": "redpencil.io",
   "directories": {
     "doc": "doc",
     "test": "tests"

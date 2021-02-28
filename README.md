@@ -92,7 +92,16 @@ Router.map(function() {
 
 Since `metisFallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
 
+#### Setup styling
+ember-metis currently depends on [ember-appuniversum](https://appuniversum.github.io/ember-appuniversum/docs/outline/getting-started) and [ember-cli-sass](https://github.com/adopted-ember-addons/ember-cli-sass) for styling.
 
+After installing both packages, import the `metis` styling as follows in your `app.scss`
+Import the metis styles in your app.scss file
+```scss
+// ... appuniversum imports
+
+@import "metis";
+```
 
 ## How-to guides
 ### Provide human-readable labels for URIs on the subject page

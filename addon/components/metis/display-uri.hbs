@@ -13,9 +13,9 @@
       </li>
     {{else}}
       <li class="au-c-list-horizontal__item">
-        <AuLink href={{@uri}}>
+        <a href={{@uri}}>
           <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />Volg link
-        </AuLink>
+        </a>
       </li>
     {{/if}}
     <li class="au-c-list-horizontal__item">
@@ -39,7 +39,7 @@
   {{else}}
     <ul class="au-c-list-horizontal">
       <li class="au-c-list-horizontal__item">
-        <AuLink href={{@uri}}>{{@uri}}</AuLink>
+        <a href={{@uri}}>{{@uri}}</a>
       </li>
     </ul>
   {{/if}}

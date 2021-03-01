@@ -1,23 +1,46 @@
 {{#if this.hasShort}}
-  <span {{on "click" (fn (mut this.showShort) (not this.showShort))}} aria-role="button">
+  <p>
     {{#if this.hasShort}}
       {{this.label}}
     {{else}}
       {{@uri}}
     {{/if}}
-  </span>
-  {{#if this.localBasePath}}
-    {{link-to "[open]" "fallback" this.localBasePath}}
-  {{else}}
-    <a href={{@uri}}>[open]</a>
-  {{/if}}
-    {{#if this.description}}
-  <div>{{this.description}}</div>
+  </p>
+  <ul class="au-c-list-horizontal au-u-margin-top-tiny">
+    {{#if this.localBasePath}}
+      <li class="au-c-list-horizontal__item">
+        {{#link-to "fallback" this.localBasePath class="au-c-link"}}<AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />Volg link{{/link-to}}
+      </li>
+    {{else}}
+      <li class="au-c-list-horizontal__item">
+        <AuLink href={{@uri}}>
+          <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />Volg link
+        </AuLink>
+      </li>
+    {{/if}}
+    <li class="au-c-list-horizontal__item">
+      <AuButton @skin="tertiary" {{on "click" (fn (mut this.showShort) (not this.showShort))}} aria-role="button">
+        {{#if this.showShort}}
+          <AuIcon @icon="link" @alignment="left" @ariaHidden="true" />
+          Toon URI
+        {{else}}
+          <AuIcon @icon="draft" @alignment="left" @ariaHidden="true" />
+          Toon label
+        {{/if}}
+      </AuButton>
+    </li>
+  </ul>
+  {{#if this.description}}
+    <p>{{this.description}}</p>
   {{/if}}
 {{else}}
   {{#if this.localBasePath}}
-    {{link-to @uri "fallback" this.localBasePath}}
+    {{#link-to "fallback" this.localBasePath class="au-c-link"}}{{@uri}}{{/link-to}}
   {{else}}
-    <a href={{@uri}}>{{@uri}}</a>
+    <ul class="au-c-list-horizontal">
+      <li class="au-c-list-horizontal__item">
+        <AuLink href={{@uri}}>{{@uri}}</AuLink>
+      </li>
+    </ul>
   {{/if}}
 {{/if}}

@@ -23,7 +23,7 @@ export default class ResourceLabelService extends Service {
       const response = await fetch(fetchUrl);
       const body = await response.json();
 
-      if (response.status == 200 && body.data.attributes) {
+      if (response.status == 200 && body.data && body.data.attributes) {
         this.cache[uri] = {
           prefLabel: body.data.attributes.label,
           description: body.data.attributes.comment

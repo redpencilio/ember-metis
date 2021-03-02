@@ -16,16 +16,17 @@
         {{else}}
 
           <div class="au-o-region">
-            <AuHeading class="au-u-word-break-break-all au-u-margin-bottom">Detailpagina URI</AuHeading>
-            <AuHeading @level="2" @skin="3" class="au-u-light">Deze pagina geeft informatie over het onderwerp
-              <AuLink href="{{this.model.directed.subject}}" class="au-u-word-break-word">{{this.model.directed.subject}}</AuLink> weer, door relaties en details te tonen.</AuHeading>
+            <AuHeading @level="1" @skin="1"class="au-u-word-break au-u-margin-bottom">Detailpagina voor onderwerp</AuHeading>
+            <p class="au-u-h3 au-u-light">Deze pagina geeft informatie over het onderwerp
+              <AuLink href="{{this.model.directed.subject}}" class="au-u-word-break">{{this.model.directed.subject}}</AuLink> weer, door relaties en details te tonen.
+            </p>
             {{!-- TODO: Add label in title as well --}}
           </div>
 
           <AuHr />
 
           <div class="au-o-region">
-            <AuHeading @level="3" @skin="2">Eigenschappen en relaties</AuHeading>
+            <AuHeading @level="2" @skin="3" class="au-u-margin-bottom-small">Eigenschappen en relaties</AuHeading>
             <p class="au-u-margin-bottom">Directe links van het onderwerp.</p>
 
             <div class="au-c-data-table__wrapper au-u-margin-bottom-large">
@@ -86,11 +87,9 @@
             </div>
           </div>
 
-          <AuHeading @level="3" @skin="2">Verwijzingen</AuHeading>
+          <AuHeading @level="3" @skin="2" class="au-u-margin-bottom-small">Verwijzingen</AuHeading>
           <p class="au-u-margin-bottom">Inverse links naar het onderwerp.</p>
           {{!-- <p class="u-spacer--small">{{model.subject}}</p> --}}
-
-
           <div class="au-c-data-table__wrapper au-u-margin-bottom-large">
             {{#if this.model.inverse.triples}}
               <table class="au-c-data-table__table">
@@ -103,7 +102,6 @@
                 <tbody>
                   {{#each this.model.inverse.triples as |triple|}}
                     <tr resource={{triple.subject}}>
-
                       <td property={{triple.predicate}} resource={{triple.object}}>
                         <Metis::DisplayUri @uri={{triple.predicate}} />
                       </td>
@@ -114,6 +112,7 @@
                   {{/each}}
                 </tbody>
               </table>
+
               {{#if this.model.inverse.triples}}
                 <Metis::Pagination
                   @count={{this.model.inverse.count}}

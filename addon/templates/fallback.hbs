@@ -6,7 +6,8 @@
         <div class="au-u-margin-bottom">
           <AuHeading class="au-u-margin-bottom">Detailpagina niet gevonden.</AuHeading>
           <AuHeading @level="2" @skin="3" class="au-u-light au-u-margin-bottom">Er werden geen relaties of details gevonden over
-            <AuLink href="{{this.model.directed.subject}}">{{this.model.directed.subject}}</AuLink>.</AuHeading>
+            <AuLink href="{{this.model.directed.subject}}">{{this.model.directed.subject}}</AuLink>.
+          </AuHeading>
         </div>
 
         <AuHr />
@@ -51,7 +52,7 @@
                             <Metis::DisplayUri @uri={{triple.predicate}} />
                           </td>
                           <td>
-                             <Metis::DisplayUri @uri={{triple.object.value}} />
+                            <Metis::DisplayUri @uri={{triple.object.value}} />
                           </td>
                         </tr>
                       {{else}}
@@ -69,14 +70,14 @@
                 </tbody>
               </table>
 
-               {{#if this.model.directed.triples}}
-                      <Metis::Pagination
-                        @count={{this.model.directed.count}}
-                        @size={{this.directedPageSize}}
-                        @page={{this.directedPageNumber}}
-                        @selectPage={{this.selectDirectedPage}}
-                      />
-                {{/if}}
+              {{#if this.model.directed.triples}}
+                <Metis::Pagination
+                  @count={{this.model.directed.count}}
+                  @size={{this.directedPageSize}}
+                  @page={{this.directedPageNumber}}
+                  @selectPage={{this.selectDirectedPage}}
+                />
+              {{/if}}
 
             {{else}}
               <p><AuHelpText @skin="tertiary">Geen directe links gevonden.</AuHelpText></p>
@@ -99,7 +100,7 @@
                 </tr>
               </thead>
               <tbody>
-              {{#each this.model.inverse.triples as |triple|}}
+                {{#each this.model.inverse.triples as |triple|}}
                   <tr resource={{triple.subject}}>
 
                     <td property={{triple.predicate}} resource={{triple.object}}>
@@ -108,10 +109,7 @@
                     <td>
                       <Metis::DisplayUri @uri={{triple.subject}} />
                     </td>
-
-                    {{!-- TODO: if we want it the property match human/machine way, we should have tis htirs column --}}
-                    {{!-- <td><Metis::DisplayUri @uri={{triple.object}} /></td> --}}
-                </tr>
+                  </tr>
                 {{/each}}
               </tbody>
             </table>

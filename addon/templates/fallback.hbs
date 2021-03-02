@@ -1,172 +1,120 @@
-<div class="au-c-body-container au-c-body-container--scroll">
-  <div class="au-o-region-large">
-    <div class="au-o-layout">
-      <div class="au-o-grid">
-        <div class="au-o-grid__item">
-          <div class="au-o-region-large">
-            <AuHeading class="au-u-margin-bottom-large">
-              Detailpagina URI
-            </AuHeading>
+<div class="au-o-region-large">
+  <div class="au-o-grid au-o-grid--center">
+    <div class="au-o-grid__item au-u-5-6 au-u-2-3@medium">
 
-            <p class="au-u-h3 metis-u-text-gray-600">
-              Deze pagina geeft informatie over het onderwerp
-              <a
-                href="{{this.model.directed.subject}}"
-                data-toggle="tooltip"
-                title="Onderwerp"
-                data-content="Onderwerp"
-                data-placement="top"
-                class="metis-u-word-break-all"
-              >
-                {{~this.model.directed.subject~}}
-              </a>
-              weer, door relaties en details te tonen.
-            </p>
-          </div>
+      {{#if @isEmpty}}
+        <div class="au-u-margin-bottom">
+          <AuHeading class="au-u-margin-bottom">Detailpagina niet gevonden.</AuHeading>
+          <AuHeading @level="2" @skin="3" class="au-u-light au-u-margin-bottom">Er werden geen relaties of details gevonden over
+            <AuLink href="{{this.model.directed.subject}}">{{this.model.directed.subject}}</AuLink>.</AuHeading>
+        </div>
 
-          <AuHr />
+        <AuHr />
 
-          <AuHeading
-            @level="2"
-            @skin="2"
-            class="au-u-margin-top au-u-margin-bottom-small word-break--break-all"
-          >
-            Eigenschappen en relaties
-          </AuHeading>
-          <p class="au-u-margin-bottom">
-            Directed links van het onderwerp.
-          </p>
+      {{else}}
 
-          <div class="au-u-margin-bottom-large">
-            <div class="au-c-data-table">
-              <div class="au-c-data-table__wrapper">
-                <table class="au-c-data-table__table">
-                  <thead>
-                    <tr class="au-c-data-table__header">
-                      <th class="data-table__header-title">
-                        Eigenschap{{! predicate }}
-                      </th>
-                      <th class="data-table__header-title">
-                        Onderwerp{{! object }}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {{#if this.isLoadingDirected}}
-                      <tr>
-                        <td>
-                          Aan het laden...
-                        </td>
-                        <td></td>
-                      </tr>
-                    {{else}}
-                      {{#each this.model.directed.triples as |triple|}}
-                        {{#if (eq triple.object.type "uri")}}
-                          <tr
-                            property={{triple.predicate}}
-                            resource={{triple.object.value}}
-                          >
-                            <td>
-                              <Metis::DisplayUri @uri={{triple.predicate}} />
-                            </td>
-                            <td class="metis-u-word-break-all">
-                              <Metis::DisplayUri @uri={{triple.object.value}} />
-                            </td>
-                          </tr>
-                        {{else}}
-                          <tr
-                            property={{triple.predicate}}
-                            content={{triple.object.value}}
-                          >
-                            <td>
-                              <Metis::DisplayUri @uri={{triple.predicate}} />
-                            </td>
-                            <td class="metis-u-word-break-all">
-                              {{triple.object.value}}
-                            </td>
-                          </tr>
-                        {{/if}}
-                      {{else}}
-                        <tr>
-                          <td colspan="100%" class="au-c-data-table__message">
-                            <p>
-                              Geen directe links gevonden.
-                            </p>
-                          </td>
-                        </tr>
-                      {{/each}}
-                    {{/if}}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        <div class="au-o-region">
+          <AuHeading class="c-u-word-break--break-all au-u-margin-bottom">Detailpagina URI</AuHeading>
+          <AuHeading @level="2" @skin="3" class="au-u-light">Deze pagina geeft informatie over het onderwerp
+            <AuLink href="{{this.model.directed.subject}}">{{this.model.directed.subject}}</AuLink> weer, door relaties en details te tonen.</AuHeading>
+          {{!-- TODO: Add label in title as well --}}
+        </div>
+
+        <AuHr />
+
+        <div class="au-o-region">
+          <AuHeading @level="3" @skin="2">Eigenschappen en relaties</AuHeading>
+          <p class="au-u-margin-bottom">Directe links van het onderwerp.</p>
+
+          <div class="au-c-data-table__wrapper au-u-margin-bottom-large">
             {{#if this.model.directed.triples}}
-              <Metis::Pagination
-                @count={{this.model.directed.count}}
-                @size={{this.directedPageSize}}
-                @page={{this.directedPageNumber}}
-                @selectPage={{this.selectDirectedPage}}
-              />
-            {{/if}}
-          </div>
-
-          <AuHeading @level="2" @skin="2" class="au-u-margin-bottom-small">
-            Verwijzingen
-          </AuHeading>
-          <p class="au-u-margin-bottom">
-            Inverse links naar het onderwerp.
-          </p>
-
-          <div class="au-u-margin-bottom-large">
-            <div class="au-c-data-table">
-              <div class="au-c-data-table__wrapper">
-                <table class="au-c-data-table__table">
-                  <thead>
-                    <tr class="au-c-data-table__header">
-                      <th class="data-table__header-title">
-                        Eigenschap{{! predicate }}
-                      </th>
-                      <th class="data-table__header-title">
-                        Onderwerp{{! object }}
-                      </th>
+              <table about={{this.model.subject}} class="au-c-data-table__table">
+                <thead>
+                  <tr class="au-c-data-table__header">
+                    <th class="data-table__header-title"><span>Eigenschap</span>{{!-- predicate --}}</th>
+                    <th class="data-table__header-title"><span>Onderwerp</span> {{!-- object --}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#if this.isLoadingDirected}}
+                    <tr>
+                      <td>
+                        Aan het laden...
+                      </td>
+                      <td></td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {{#if this.isLoadingInverse}}
-                      <tr>
-                        <td>
-                          Aan het laden...
-                        </td>
-                        <td></td>
-                      </tr>
-                    {{else}}
-                      {{#each this.model.inverse.triples as |triple|}}
-                        <tr resource={{triple.subject}}>
-                          <td
-                            property={{triple.predicate}}
-                            resource={{triple.object}}
-                          >
+                  {{else}}
+                    {{#each this.model.directed.triples as |triple|}}
+                      {{#if (eq triple.object.type "uri")}}
+                        <tr property={{triple.predicate}} resource={{triple.object.value}}>
+                          <td>
                             <Metis::DisplayUri @uri={{triple.predicate}} />
                           </td>
-                          <td class="metis-u-word-break-all">
-                            <Metis::DisplayUri @uri={{triple.subject}} />
+                          <td>
+                             <Metis::DisplayUri @uri={{triple.object.value}} />
                           </td>
                         </tr>
                       {{else}}
-                        <tr>
-                          <td colspan="100%" class="au-c-data-table__message">
-                            <p>
-                              Geen verwijzingen gevonden.
-                            </p>
+                        <tr property={{triple.predicate}} content={{triple.object.value}}>
+                          <td>
+                            <Metis::DisplayUri @uri={{triple.predicate}} />
+                          </td>
+                          <td>
+                            {{triple.object.value}}
                           </td>
                         </tr>
-                      {{/each}}
-                    {{/if}}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                      {{/if}}
+                    {{/each}}
+                  {{/if}}
+                </tbody>
+              </table>
 
+               {{#if this.model.directed.triples}}
+                      <Metis::Pagination
+                        @count={{this.model.directed.count}}
+                        @size={{this.directedPageSize}}
+                        @page={{this.directedPageNumber}}
+                        @selectPage={{this.selectDirectedPage}}
+                      />
+                {{/if}}
+
+            {{else}}
+              <p><AuHelpText @skin="tertiary">Geen directe links gevonden.</AuHelpText></p>
+            {{/if}}
+          </div>
+        </div>
+
+        <AuHeading @level="3" @skin="2">Verwijzingen</AuHeading>
+        <p class="au-u-margin-bottom">Inverse links naar het onderwerp.</p>
+        {{!-- <p class="u-spacer--small">{{model.subject}}</p> --}}
+
+
+        <div class="au-c-data-table__wrapper au-u-margin-bottom-large">
+          {{#if this.model.inverse.triples}}
+            <table class="au-c-data-table__table">
+              <thead>
+                <tr class="au-c-data-table__header">
+                  <th class="data-table__header-title"><span>Eigenschap</span>{{!-- predicate --}}</th>
+                  <th class="data-table__header-title"><span>Onderwerp</span> {{!-- object --}}</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each this.model.inverse.triples as |triple|}}
+                  <tr resource={{triple.subject}}>
+
+                    <td property={{triple.predicate}} resource={{triple.object}}>
+                      <Metis::DisplayUri @uri={{triple.predicate}} />
+                    </td>
+                    <td>
+                      <Metis::DisplayUri @uri={{triple.subject}} />
+                    </td>
+
+                    {{!-- TODO: if we want it the property match human/machine way, we should have tis htirs column --}}
+                    {{!-- <td><Metis::DisplayUri @uri={{triple.object}} /></td> --}}
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
             {{#if this.model.inverse.triples}}
               <Metis::Pagination
                 @count={{this.model.inverse.count}}
@@ -175,9 +123,17 @@
                 @selectPage={{this.selectInversePage}}
               />
             {{/if}}
-          </div>
+          {{else}}
+            <p><AuHelpText @skin="tertiary">Geen verwijzingen gevonden.</AuHelpText></p>
+          {{/if}}
         </div>
+      {{/if}}
+
+      <div class="au-u-margin-top">
+        <AuHeading @level="2" @skin="4" class="au-u-margin-bottom-small">Waarvoor dient deze website?</AuHeading>
+        <p>Deze website wordt gebruikt om de informatie over URI's die in kader van het project Lokale Besturen Linked Open Data gebruikt worden, te tonen op een leesbare en begrijpbare manier. Deze links kan u onder andere ontdekken op <AuLink href="https://publicatie.gelinkt-notuleren.vlaanderen.be" target="_blank">https://publicatie.gelinkt-notuleren.vlaanderen.be</AuLink>.</p>
       </div>
+
     </div>
   </div>
 </div>

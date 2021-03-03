@@ -1,14 +1,20 @@
 /* ==========================================================================
    #SHAME
    Very specific css and temporary css.
-   ========================================================================== */
+//    ========================================================================== */
 
-/* Make sure titles and tables shorten URL's */
-.au-c-heading a,
-.c-u-word-break--break-all,
-.au-c-data-table__table td {
-  word-break: break-word;
-}
+// /* To be replaced with appuniversum */
+// .au-u-word-break-word {
+//   word-break: break-word !important;
+// }
+
+// .au-u-word-break-all {
+//   word-break: break-all !important;
+// }
+
+// .au-u-word-white-space-nowrap {
+//   white-space: nowrap !important;
+// }
 
 /* Temporary header topbar */
 .temporary-header {

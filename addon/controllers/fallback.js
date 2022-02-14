@@ -6,16 +6,16 @@ import { tracked } from '@glimmer/tracking';
 export default class FallbackController extends Controller {
   queryParams = {
     directedPageNumber: {
-      type: 'number'
+      type: 'number',
     },
     directedPageSize: {
-      type: 'number'
+      type: 'number',
     },
     inversePageNumber: {
-      type: 'number'
+      type: 'number',
     },
     inversePageSize: {
-      type: 'number'
+      type: 'number',
     },
   };
 
@@ -28,7 +28,6 @@ export default class FallbackController extends Controller {
   @tracked isLoadingDirected = false;
   @tracked isLoadingInverse = false;
 
-
   constructor() {
     super(...arguments);
     const config = getOwner(this).resolveRegistration('config:environment');
@@ -36,6 +35,10 @@ export default class FallbackController extends Controller {
       this.directedPageSize = config.metis.pageSize.directed;
       this.inversePageSize = config.metis.pageSize.inverse;
     }
+  }
+
+  get isEmpty() {
+    return this.model.directed.count == 0 && this.model.inverse.count == 0;
   }
 
   @action

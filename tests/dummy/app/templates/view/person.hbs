@@ -7,7 +7,7 @@
             <div class="col--7-12 col--12-12--s">
               <div class="region typography u-spacer">
                 <h1 class="h1 word-break--break-all u-spacer--bottom--small">De detailpagina over deze persoon werd niet gevonden.</h1>
-                <p class="word-break--break-all">Er werden geen relaties of details gevonden over <a href="{{model.subject}}" data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp" data-placement="top">{{model.subject}}</a>.</p>
+                <p class="word-break--break-all">Er werden geen relaties of details gevonden over <a href="{{@model.subject}}" data-toggle="tooltip" title="Onderwerp" data-content="Onderwerp" data-placement="top">{{@model.subject}}</a>.</p>
               </div>
               <div class="region typography u-spacer">
                 <h2 class="h2">Waarvoor dient deze website?</h2>
@@ -112,9 +112,9 @@
 
               <h2 class="h2 sans-serif u-spacer--tiny word-break--break-all">Eigenschappen en relaties</h2>
               <p class="u-spacer">Directed links van het onderwerp.</p>
-              {{!-- <h2 class="h3 sans-serif u-spacer--tiny word-break--break-all">Extra informatie over <a href="{{model.subject}}" data-toggle="tooltip" title="{{model.subject}} a" data-content="{{model.subject}}" data-placement="top">label</a></h2> --}}
+              {{!-- <h2 class="h3 sans-serif u-spacer--tiny word-break--break-all">Extra informatie over <a href="{{@model.subject}}" data-toggle="tooltip" title="{{@model.subject}} a" data-content="{{@model.subject}}" data-placement="top">label</a></h2> --}}
 
-              {{#if model.triples.directed}}
+              {{#if @model.triples.directed}}
                 <div class="u-spacer--large">
                   <table class="data-table data-table--zebra">
                     <thead>
@@ -133,7 +133,7 @@
       						  			<a href="#">Open link</a>
       						  		</td>
       						  	</tr> --}}
-                      {{#each model.triples.directed as |triple|}}
+                      {{#each @model.triples.directed as |triple|}}
                         <tr>
                           {{!-- <td><Metis::DisplayUri @uri={{triple.subject}} /></td> --}}
                           <td><Metis::DisplayUri @uri={{triple.predicate}} /></td>
@@ -156,9 +156,9 @@
 
               <h2 class="h2 sans-serif u-spacer--tiny">Verwijzingen</h2>
               <p class="u-spacer">Inverse links naar het onderwerp.</p>
-              {{!-- <p class="u-spacer--small">{{model.subject}}</p> --}}
+              {{!-- <p class="u-spacer--small">{{@model.subject}}</p> --}}
 
-              {{#if model.triples.inverse}}
+              {{#if @model.triples.inverse}}
                 <div class="u-spacer--large">
                   <table class="data-table data-table--zebra">
                     <thead>
@@ -170,7 +170,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {{#each model.triples.inverse as |triple|}}
+                      {{#each @model.triples.inverse as |triple|}}
                         <tr>
                           {{!-- <td><Metis::DisplayUri @uri={{triple.subject}} /></td> --}}
                           <td><Metis::DisplayUri @uri={{triple.predicate}} /></td>

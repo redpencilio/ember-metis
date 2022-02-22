@@ -8,8 +8,8 @@ module.exports = function (defaults) {
       includePaths: [
         'node_modules/@appuniversum/appuniversum',
         'node_modules/@appuniversum/ember-appuniversum/app/styles',
-      ]
-    }
+      ],
+    },
   });
 
   app.import('node_modules/svgxuse/svgxuse.js');

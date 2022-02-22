@@ -16,8 +16,8 @@ export default class ResourceLabelService extends Service {
       const fetchUrl = buildUrl(this.backend, {
         path: 'resource-labels/info',
         queryParams: {
-          term: uri
-        }
+          term: uri,
+        },
       });
 
       const response = await fetch(fetchUrl);
@@ -26,12 +26,12 @@ export default class ResourceLabelService extends Service {
       if (response.status == 200 && body.data && body.data.attributes) {
         this.cache[uri] = {
           prefLabel: body.data.attributes.label,
-          description: body.data.attributes.comment
+          description: body.data.attributes.comment,
         };
       } else {
         this.cache[uri] = {
           prefLabel: null,
-          description: null
+          description: null,
         };
       }
     }

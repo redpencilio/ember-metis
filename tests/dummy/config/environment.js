@@ -8,7 +8,7 @@ module.exports = function (environment) {
     locationType: 'auto',
     metis: {
       routes: {},
-      baseUrl: "EMBER_METIS_BASE_URL"
+      baseUrl: 'EMBER_METIS_BASE_URL',
     },
     EmberENV: {
       FEATURES: {

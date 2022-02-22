@@ -8,10 +8,10 @@ export default class Router extends EmberRouter {
   rootURL = config.rootURL;
 }
 
-Router.map(function() {
-  this.route("view", function() {
+Router.map(function () {
+  this.route('view', function () {
     classRoute(this, 'person', {
-      class: 'http://www.w3.org/ns/person#Person'
+      class: 'http://www.w3.org/ns/person#Person',
     });
   });
 

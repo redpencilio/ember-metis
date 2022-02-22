@@ -29,12 +29,11 @@ export default class MetisDisplayUriComponent extends Component {
   }
 
   get localBasePath() {
-    const uri = this.args.uri || "";
+    const uri = this.args.uri || '';
 
     if (uri.startsWith(this.config.metis.baseUrl))
       return uri.slice(this.config.metis.baseUrl.length);
-    else
-      return null;
+    else return null;
   }
 
   get label() {

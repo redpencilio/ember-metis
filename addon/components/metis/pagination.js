@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
 export default class MetisPaginationComponent extends Component {
-
   get count() {
     return this.args.count || 0;
   }
@@ -16,11 +15,11 @@ export default class MetisPaginationComponent extends Component {
   }
 
   get startItem() {
-    return (this.size * this.page) + 1;
+    return this.size * this.page + 1;
   }
 
   get endItem() {
-    return Math.min((this.size * this.page) + this.size, this.count);
+    return Math.min(this.size * this.page + this.size, this.count);
   }
 
   get hasMultiplePages() {

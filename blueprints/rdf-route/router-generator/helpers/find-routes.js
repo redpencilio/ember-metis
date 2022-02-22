@@ -5,11 +5,16 @@ module.exports = function findRoutes(name, routes, identifier, addAction) {
   var routeFound = false; // default
 
   recast.visit(routes, {
-    visitExpressionStatement: function(path) {
+    visitExpressionStatement: function (path) {
       var node = path.node;
 
       // Checks if route exists
-      if (node.expression.callee.name == "classRoute" && node.expression.arguments.length > 0 && node.expression.arguments[0].type == "ThisExpression" && node.expression.arguments[1].value == name) {
+      if (
+        node.expression.callee.name == 'classRoute' &&
+        node.expression.arguments.length > 0 &&
+        node.expression.arguments[0].type == 'ThisExpression' &&
+        node.expression.arguments[1].value == name
+      ) {
         routeFound = true;
 
         // Check if findRoutes function is called by ADD & not REMOVE
@@ -22,8 +27,8 @@ module.exports = function findRoutes(name, routes, identifier, addAction) {
       } else {
         this.traverse(path);
       }
-    }
+    },
   });
 
-  return routeFound ;
+  return routeFound;
 };

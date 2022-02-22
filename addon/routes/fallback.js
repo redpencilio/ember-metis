@@ -8,16 +8,16 @@ import RSVP from 'rsvp';
 export default class FallbackRoute extends Route {
   queryParams = {
     directedPageNumber: {
-      refreshModel: true
+      refreshModel: true,
     },
     directedPageSize: {
-      refreshModel: true
+      refreshModel: true,
     },
     inversePageNumber: {
-      refreshModel: true
+      refreshModel: true,
     },
     inversePageSize: {
-      refreshModel: true
+      refreshModel: true,
     },
   };
 
@@ -28,18 +28,24 @@ export default class FallbackRoute extends Route {
     this.env = getOwner(this).resolveRegistration('config:environment');
   }
 
-  async model({ path, directedPageNumber, directedPageSize, inversePageNumber, inversePageSize }) {
+  async model({
+    path,
+    directedPageNumber,
+    directedPageSize,
+    inversePageNumber,
+    inversePageSize,
+  }) {
     const prefix = this.env.metis.baseUrl;
     const subject = `${prefix}${path}`;
-    const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : "/";
+    const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 
     const requestDirectedLinksUrl = buildUrl(backend, {
       path: 'uri-info/direct',
       queryParams: {
         subject: subject,
         pageNumber: directedPageNumber,
-        pageSize: directedPageSize
-      }
+        pageSize: directedPageSize,
+      },
     });
 
     const requestInverseLinksUrl = buildUrl(backend, {
@@ -47,26 +53,26 @@ export default class FallbackRoute extends Route {
       queryParams: {
         subject: subject,
         pageNumber: inversePageNumber,
-        pageSize: inversePageSize
-      }
+        pageSize: inversePageSize,
+      },
     });
 
     const response = await RSVP.hash({
       directed: (await fetch(requestDirectedLinksUrl)).json(),
-      inverse: (await fetch(requestInverseLinksUrl)).json()
+      inverse: (await fetch(requestInverseLinksUrl)).json(),
     });
 
     return {
       directed: {
         triples: response.directed.triples,
         subject: subject,
-        count: response.directed.count
+        count: response.directed.count,
       },
       inverse: {
         triples: response.inverse.triples,
         subject: subject,
-        count: response.inverse.count
-      }
+        count: response.inverse.count,
+      },
     };
   }
 
@@ -77,12 +83,17 @@ export default class FallbackRoute extends Route {
     // that request could be executed in the beforeModel-hook and a transition (if needed) can be triggered
     // before the model is loaded
     const rdfTypes = model.directed.triples
-          .filter(({ predicate }) => predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-          .map(({ object: { value } }) => value);
+      .filter(
+        ({ predicate }) =>
+          predicate == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+      )
+      .map(({ object: { value } }) => value);
 
     for (let type of rdfTypes) {
       if (this.env.metis.routes && this.env.metis.routes[type]) {
-        this.replaceWith(this.env.metis.routes[type], { queryParams: { resource: model.directed.subject } });
+        this.replaceWith(this.env.metis.routes[type], {
+          queryParams: { resource: model.directed.subject },
+        });
         return;
       }
     }

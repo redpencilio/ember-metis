@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@appuniversum/appuniversum": "^0.3.1",
-    "@appuniversum/ember-appuniversum": "https://github.com/appuniversum/ember-appuniversum.git#2c451bba503544000e3faa3797d7a9eb42b8e3c6",
+    "@appuniversum/ember-appuniversum": "^1.0.1",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@embroider/test-setup": "^0.48.1",

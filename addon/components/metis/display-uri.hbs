@@ -9,9 +9,9 @@
   <ul class="au-c-list-horizontal au-u-margin-top-tiny">
     {{#if this.localBasePath}}
       <li class="au-c-list-horizontal__item">
-        {{#link-to "fallback" this.localBasePath class="au-c-link"}}
+        <LinkTo @route="fallback" @model={{this.localBasePath}} class="au-c-link">
           <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />Volg link
-        {{/link-to}}
+        </LinkTo>
       </li>
     {{else}}
       <li class="au-c-list-horizontal__item">
@@ -37,9 +37,12 @@
   {{/if}}
 {{else}}
   {{#if this.localBasePath}}
-    {{#link-to "fallback" this.localBasePath class="au-c-link au-u-word-break-all"}}
+    <LinkTo
+      @route="fallback"
+      @model={{this.localBasePath}}
+      class="au-c-link au-u-word-break-all">
       {{@uri}}
-    {{/link-to}}
+    </LinkTo>
   {{else}}
     <ul class="au-c-list-horizontal">
       <li class="au-c-list-horizontal__item">

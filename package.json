@@ -44,7 +44,8 @@
     "@appuniversum/ember-appuniversum": "^0.11.0"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^0.11.0",
+    "@appuniversum/appuniversum": "^0.3.1",
+    "@appuniversum/ember-appuniversum": "https://github.com/appuniversum/ember-appuniversum.git#2c451bba503544000e3faa3797d7a9eb42b8e3c6",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@embroider/test-setup": "^0.48.1",
@@ -81,7 +82,8 @@
     "qunit": "^2.17.2",
     "qunit-dom": "^1.6.0",
     "sass": "^1.21.0",
-    "svgxuse": "^1.2.6"
+    "svgxuse": "^1.2.6",
+    "webpack": "^5.69.1"
   },
   "engines": {
     "node": "12.* || 14.* || >= 16"

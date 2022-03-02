@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 import buildUrl from 'build-url';
 import RSVP from 'rsvp';
+import { findRoute } from '../utils/class-route';
 
 export default class FallbackRoute extends Route {
   queryParams = {
@@ -90,8 +91,9 @@ export default class FallbackRoute extends Route {
       .map(({ object: { value } }) => value);
 
     for (let type of rdfTypes) {
-      if (this.env.metis.routes && this.env.metis.routes[type]) {
-        this.replaceWith(this.env.metis.routes[type], {
+      const customRoute = findRoute(type);
+      if (customRoute) {
+        this.replaceWith(customRoute, {
           queryParams: { resource: model.directed.subject },
         });
         return;

@@ -4,20 +4,22 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class FallbackController extends Controller {
-  queryParams = {
-    directedPageNumber: {
-      type: 'number',
-    },
-    directedPageSize: {
-      type: 'number',
-    },
-    inversePageNumber: {
-      type: 'number',
-    },
-    inversePageSize: {
-      type: 'number',
-    },
-  };
+  queryParams = [
+    {
+      directedPageNumber: {
+        type: 'number',
+      },
+      directedPageSize: {
+        type: 'number',
+      },
+      inversePageNumber: {
+        type: 'number',
+      },
+      inversePageSize: {
+        type: 'number',
+      },
+    }
+  ];
 
   @tracked directedPageNumber = 0;
   @tracked directedPageSize = 50;

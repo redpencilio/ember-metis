@@ -83,7 +83,6 @@ Finally, import and add the `metisFallbackRoute` util to your `router.js`
 import metisFallbackRoute from 'metis/utils/fallback-route';
 
 Router.map(function() {
-
   // ... other routes here
 
   metisFallbackRoute(this);

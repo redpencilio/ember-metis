@@ -6,7 +6,6 @@ module.exports = function (defaults) {
   const app = new EmberAddon(defaults, {
     sassOptions: {
       includePaths: [
-        'node_modules/@appuniversum/appuniversum',
         'node_modules/@appuniversum/ember-appuniversum/app/styles',
       ],
     },

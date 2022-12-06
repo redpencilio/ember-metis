@@ -42,7 +42,7 @@
     "recast": "^0.18.10"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^1.10.0",
+    "@appuniversum/ember-appuniversum": "^2.1.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.8.1",
     "@embroider/test-setup": "^1.8.3",

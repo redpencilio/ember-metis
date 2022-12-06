@@ -31,14 +31,14 @@
 
             <div class="au-c-data-table__wrapper au-u-margin-bottom-large">
               {{#if this.model.directed.triples}}
-                <table about={{this.model.subject}} class="au-c-data-table__table">
-                  <thead>
-                    <tr class="au-c-data-table__header">
-                      <th class="data-table__header-title"><span>Eigenschap</span>{{!-- predicate --}}</th>
-                      <th class="data-table__header-title"><span>Onderwerp</span> {{!-- object --}}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <AuTable about={{this.model.directed.subject}}>
+                <:header>
+                  <tr>
+                    <th>Eigenschap</th>
+                    <th>Waarde</th>
+                  </tr>
+                  </:header>
+                  <:body>
                     {{#if this.isLoadingDirected}}
                       <tr>
                         <td>
@@ -71,9 +71,8 @@
                         {{/if}}
                       {{/each}}
                     {{/if}}
-                  </tbody>
-                </table>
-
+                  </:body>
+                </AuTable>
                 {{#if this.model.directed.triples}}
                   <Metis::Pagination
                     @count={{this.model.directed.count}}
@@ -82,7 +81,6 @@
                     @selectPage={{this.selectDirectedPage}}
                   />
                 {{/if}}
-
               {{else}}
                 <p><AuHelpText @skin="tertiary">Geen directe links gevonden.</AuHelpText></p>
               {{/if}}
@@ -95,27 +93,35 @@
 
           <div class="au-c-data-table__wrapper au-u-margin-bottom-large">
             {{#if this.model.inverse.triples}}
-              <table class="au-c-data-table__table">
-                <thead>
-                  <tr class="au-c-data-table__header">
-                    <th class="data-table__header-title"><span>Eigenschap</span>{{!-- predicate --}}</th>
-                    <th class="data-table__header-title"><span>Onderwerp</span> {{!-- object --}}</th>
+              <AuTable>
+                <:header>
+                  <tr>
+                    <th>Eigenschap</th>
+                    <th>Onderwerp</th>
                   </tr>
-                </thead>
-                <tbody>
-                  {{#each this.model.inverse.triples as |triple|}}
-                    <tr resource={{triple.subject}}>
-                      <td property={{triple.predicate}} resource={{triple.object}}>
-                        <Metis::DisplayUri @uri={{triple.predicate}} />
-                      </td>
+                </:header>
+                <:body>
+                  {{#if this.isLoadingInverse}}
+                    <tr>
                       <td>
-                        <Metis::DisplayUri @uri={{triple.subject}} />
+                        Aan het laden...
                       </td>
+                      <td></td>
                     </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-
+                  {{else}}
+                    {{#each this.model.inverse.triples as |triple|}}
+                      <tr resource={{triple.subject}}>
+                        <td property={{triple.predicate}} resource={{triple.object}}>
+                          <Metis::DisplayUri @uri={{triple.predicate}} />
+                        </td>
+                        <td>
+                          <Metis::DisplayUri @uri={{triple.subject}} />
+                        </td>
+                      </tr>
+                    {{/each}}
+                  {{/if}}
+                </:body>
+              </AuTable>
               {{#if this.model.inverse.triples}}
                 <Metis::Pagination
                   @count={{this.model.inverse.count}}

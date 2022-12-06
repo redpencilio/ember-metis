@@ -1,32 +1,30 @@
-<AuToolbar @size="medium" @border="top">
-  <AuToolbarGroup class="au-c-toolbar__group--row">
-    <div class="au-c-pagination">
-      <ul class="au-c-pagination__list">
-        <li class="au-c-pagination__list-item">
-          <span class="au-u-hidden-visually">Resultaten </span><strong>{{this.startItem}} -
-            {{this.endItem}}</strong> van {{this.count}}
-        </li>
-        {{#if this.hasMultiplePages}}
-          {{#unless this.isFirstPage}}
-            <li class="au-c-pagination__list-item">
-              <AuButton @skin="tertiary" {{on "click" this.previousPage }}>
-                <AuIcon @icon="nav-left" @alignment="left" />
-                vorige
-                <span class="au-u-hidden-visually"> {{this.size}} resultaten</span>
-              </AuButton>
-            </li>
-          {{/unless}}
-          {{#unless this.isLastPage}}
-            <li class="au-c-pagination__list-item">
-              <AuButton @skin="tertiary" {{on "click" this.nextPage }}>
-                volgende
-                <span class="au-u-hidden-visually"> {{this.size}} resultaten</span>
-                <AuIcon @icon="nav-right" @alignment="right" />
-              </AuButton>
-            </li>
-          {{/unless}}
-        {{/if}}
-      </ul>
+<AuToolbar @size="medium" @border="top" @wowrap={{true}}>
+  <div class="au-c-pagination">
+    <div class="au-c-pagination__list-item">
+      {{#if this.hasMultiplePages}}
+        {{#unless this.isFirstPage}}
+          <AuButton @skin="link" @icon="nav-left" @iconAlignment="left" {{on "click" this.previousPage }}>
+            Vorige pagina
+          </AuButton>
+        {{/unless}}
+      {{/if}}
     </div>
-  </AuToolbarGroup>
+    <p>
+      <span class="au-u-hidden-visually">Resultaten </span>
+      <strong>
+        {{this.startItem}} - {{this.endItem}}
+      </strong>
+      van
+      {{this.count}}
+    </p>
+    <div class="au-c-pagination__list-item">
+      {{#if this.hasMultiplePages}}
+        {{#unless this.isLastPage}}
+          <AuButton @skin="link" @icon="nav-right" @iconAlignment="right" {{on "click" this.nextPage }}>
+            Volgende pagina
+          </AuButton>
+        {{/unless}}
+      {{/if}}
+    </div>
+  </div>
 </AuToolbar>

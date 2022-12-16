@@ -27,6 +27,8 @@ export default class FallbackRoute extends Route {
   constructor() {
     super(...arguments);
     this.env = getOwner(this).resolveRegistration('config:environment');
+
+    this.templateName = this.env.metis.fallbackTemplate || 'fallback';
   }
 
   async model({

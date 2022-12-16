@@ -169,6 +169,16 @@ E.g.
   }
 ```
 
+#### Fallback template (optional)
+Handlebars template to render the fallback page. Defaults to `fallback` as provided by the addon. Useful to customize the fallback page. The route and controller for the `fallback` page are provided by the addon, also when using a custom template.
+
+E.g.
+```javascript
+  metis: {
+    fallbackTemplate: "my-custom/fallback"
+  }
+```
+
 #### Pagination (optional)
 By default ember-metis only shows the first 50 directed and inverse relations for a subject URI. The default page size for both directions can be configured via `pageSize`.
 

@@ -14,13 +14,13 @@ Add the following snippet to the `docker-compose.yml` file of your backend stack
 ```yaml
 services:
   uri-info:
-    image: redpencil/mu-uri-info-service:0.2.0
+    image: redpencil/mu-uri-info-service:0.210
   resource-labels-cache:
-    image: semtech/mu-cache:2.0.1
+    image: semtech/mu-cache:2.0.2
     links:
       - resource-labels:backend
   resource-labels:
-    image: lblod/resource-label-service:0.0.3
+    image: lblod/resource-label-service:0.3.2
 ```
 
 The `uri-info` and `resource-labels` services assume the triplestore is available as `database` in your stack. If not, provide the appropriate docker alias to the service in the `docker-compose.yml`.
@@ -48,15 +48,17 @@ ember-metis requires [Ember FastBoot](https://github.com/ember-fastboot/ember-cl
 ember install ember-cli-fastboot
 ```
 
-For local development using `ember serve` ember-metis requires `BACKEND_URL` as a sandbox global when running in fastboot mode. The value of `BACKEND_URL` must be the same URL you pass as proxy URL in `ember serve --proxy`. Typically `http://localhost/` (or `http://host` when serving the frontend from a Docker container).
+For local development using `ember serve` ember-metis requires `BACKEND_URL` as a sandbox global when running in fastboot mode. The value of `BACKEND_URL` must be the same URL you pass as proxy URL in `ember serve --proxy`. Typically `http://localhost/` (or `http://host` when serving the frontend from a Docker container using [eds](https://github.com/madnificent/docker-ember#eds)).
 
 To define the sandbox global, add the follow content to `./config/fastboot.js` in your frontend application:
 ```javascript
 module.exports = function(environment) {
   return {
-    sandboxGlobals: {
-      BACKEND_URL: "http://localhost/",
-    }
+    buildSandboxGlobals(defaultGlobals) {
+      return Object.assign({}, defaultGlobals, {
+        BACKEND_URL: 'localhost',
+      });
+    },
   };
 };
 ```

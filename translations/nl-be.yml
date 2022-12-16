@@ -1,0 +1,35 @@
+fallback:
+  not-found:
+    header: "Detailpagina niet gevonden"
+    subheader:
+      prefix: "Er werden geen relaties of details gevonden over"
+      postfix: ""
+  header: "Detailpagina voor onderwerp"
+  subheader:
+    prefix: "Deze pagina geeft informatie over het onderwerp"
+    postfix: "weer, door relaties en details te tonen."
+  sections:
+    direct-triples:
+      header: "Eigenschappen en relaties"
+      subheader: "Directe links van het onderwerp."
+      not-found: "Geen directe links gevonden."
+    inverse-triples:
+      header: "Verwijzingen"
+      subheader: "Inverse links naar het onderwerp."
+      not-found: "Geen verwijzingen gevonden."
+  table:
+    loading: "Aan het laden..."
+    columns:
+      subject: "Onderwerp"
+      property: "Eigenschap"
+      value: "Waarde"
+display-uri:
+  follow-url: "Volg link"
+  follow-external-url: "Volg link (extern)"
+  show-uri: "Toon URI"
+  show-label: "Toon label"
+pagination:
+  previous-page: "Vorige pagina"
+  next-page: "Volgende pagina"
+  results: "Resultaten"
+  of: "van"

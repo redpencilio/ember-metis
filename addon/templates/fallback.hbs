@@ -5,9 +5,15 @@
 
         {{#if this.isEmpty}}
           <div class="au-u-margin-bottom">
-            <AuHeading class="au-u-margin-bottom">Detailpagina niet gevonden.</AuHeading>
-            <AuHeading @level="2" @skin="3" class="au-u-light au-u-margin-bottom">Er werden geen relaties of details gevonden over
-              <AuLink href="{{this.model.directed.subject}}">{{this.model.directed.subject}}</AuLink>.
+            <AuHeading class="au-u-margin-bottom">
+              {{t "fallback.not-found.header"}}
+            </AuHeading>
+            <AuHeading @level="2" @skin="3" class="au-u-light au-u-margin-bottom">
+              {{t "fallback.not-found.subheader.prefix"}}
+              <AuLink href="{{this.model.directed.subject}}">
+                {{this.model.directed.subject}}
+              </AuLink>
+              {{t "fallback.not-found.subheader.postfix"}}
             </AuHeading>
           </div>
 
@@ -16,33 +22,40 @@
         {{else}}
 
           <div class="au-o-region">
-            <AuHeading @level="1" @skin="1"class="au-u-word-break au-u-margin-bottom">Detailpagina voor onderwerp</AuHeading>
-            <p class="au-u-h3 au-u-light">Deze pagina geeft informatie over het onderwerp
-              <AuLink href="{{this.model.directed.subject}}" class="au-u-word-break">{{this.model.directed.subject}}</AuLink> weer, door relaties en details te tonen.
+            <AuHeading @level="1" @skin="1"class="au-u-word-break au-u-margin-bottom">
+              {{t "fallback.header"}}
+            </AuHeading>
+            <p class="au-u-h3 au-u-light">
+              {{t "fallback.subheader.prefix"}}
+              <AuLink href="{{this.model.directed.subject}}" class="au-u-word-break">{{this.model.directed.subject}}</AuLink>
+              {{t "fallback.subheader.postfix"}}
             </p>
-            {{!-- TODO: Add label in title as well --}}
           </div>
 
           <AuHr />
 
           <div class="au-o-region">
-            <AuHeading @level="2" @skin="3" class="au-u-margin-bottom-small">Eigenschappen en relaties</AuHeading>
-            <p class="au-u-margin-bottom">Directe links van het onderwerp.</p>
+            <AuHeading @level="2" @skin="3" class="au-u-margin-bottom-small">
+              {{t "fallback.sections.direct-triples.header"}}
+            </AuHeading>
+            <p class="au-u-margin-bottom">
+              {{t "fallback.sections.direct-triples.subheader"}}
+            </p>
 
             <div class="au-c-data-table__wrapper au-u-margin-bottom-large">
               {{#if this.model.directed.triples}}
                 <AuTable about={{this.model.directed.subject}}>
                 <:header>
                   <tr>
-                    <th>Eigenschap</th>
-                    <th>Waarde</th>
+                    <th>{{t "fallback.table.columns.property"}}</th>
+                    <th>{{t "fallback.table.columns.value"}}</th>
                   </tr>
                   </:header>
                   <:body>
                     {{#if this.isLoadingDirected}}
                       <tr>
                         <td>
-                          Aan het laden...
+                          {{t "fallback.table.loading"}}
                         </td>
                         <td></td>
                       </tr>
@@ -82,29 +95,36 @@
                   />
                 {{/if}}
               {{else}}
-                <p><AuHelpText @skin="tertiary">Geen directe links gevonden.</AuHelpText></p>
+                <p>
+                  <AuHelpText @skin="tertiary">
+                    {{t "fallback.sections.direct-triples.not-found"}}
+                  </AuHelpText>
+                </p>
               {{/if}}
             </div>
           </div>
 
-          <AuHeading @level="3" @skin="2" class="au-u-margin-bottom-small">Verwijzingen</AuHeading>
-          <p class="au-u-margin-bottom">Inverse links naar het onderwerp.</p>
-          {{!-- <p class="u-spacer--small">{{model.subject}}</p> --}}
+          <AuHeading @level="3" @skin="2" class="au-u-margin-bottom-small">
+            {{t "fallback.sections.inverse-triples.header"}}
+          </AuHeading>
+          <p class="au-u-margin-bottom">
+            {{t "fallback.sections.inverse-triples.subheader"}}
+          </p>
 
           <div class="au-c-data-table__wrapper au-u-margin-bottom-large">
             {{#if this.model.inverse.triples}}
               <AuTable>
                 <:header>
                   <tr>
-                    <th>Eigenschap</th>
-                    <th>Onderwerp</th>
+                    <th>{{t "fallback.table.columns.property"}}</th>
+                    <th>{{t "fallback.table.columns.subject"}}</th>
                   </tr>
                 </:header>
                 <:body>
                   {{#if this.isLoadingInverse}}
                     <tr>
                       <td>
-                        Aan het laden...
+                        {{t "fallback.table.loading"}}
                       </td>
                       <td></td>
                     </tr>
@@ -131,7 +151,11 @@
                 />
               {{/if}}
             {{else}}
-              <p><AuHelpText @skin="tertiary">Geen verwijzingen gevonden.</AuHelpText></p>
+                <p>
+                  <AuHelpText @skin="tertiary">
+                    {{t "fallback.sections.inverse-triples.not-found"}}
+                  </AuHelpText>
+                </p>
             {{/if}}
           </div>
         {{/if}}

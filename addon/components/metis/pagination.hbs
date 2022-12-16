@@ -4,24 +4,24 @@
       {{#if this.hasMultiplePages}}
         {{#unless this.isFirstPage}}
           <AuButton @skin="link" @icon="nav-left" @iconAlignment="left" {{on "click" this.previousPage }}>
-            Vorige pagina
+            {{t "pagination.previous-page"}}
           </AuButton>
         {{/unless}}
       {{/if}}
     </div>
     <p>
-      <span class="au-u-hidden-visually">Resultaten </span>
+      <span class="au-u-hidden-visually">{{t "pagination.results"}} </span>
       <strong>
         {{this.startItem}} - {{this.endItem}}
       </strong>
-      van
+      {{t "pagination.of"}}
       {{this.count}}
     </p>
     <div class="au-c-pagination__list-item">
       {{#if this.hasMultiplePages}}
         {{#unless this.isLastPage}}
           <AuButton @skin="link" @icon="nav-right" @iconAlignment="right" {{on "click" this.nextPage }}>
-            Volgende pagina
+            {{t "pagination.next-page"}}
           </AuButton>
         {{/unless}}
       {{/if}}

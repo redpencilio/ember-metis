@@ -10,13 +10,13 @@
     {{#if this.localBasePath}}
       <li class="au-c-list-horizontal__item">
         <LinkTo @route="fallback" @model={{this.localBasePath}} class="au-c-link">
-          <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />Volg link
+          <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />{{t "display-uri.follow-url"}}
         </LinkTo>
       </li>
     {{else}}
       <li class="au-c-list-horizontal__item">
         <a href={{@uri}} class="au-c-link">
-          <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />Volg link (extern)
+          <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />{{t "display-uri.follow-external-url"}}
         </a>
       </li>
     {{/if}}
@@ -24,10 +24,10 @@
       <AuButton @skin="tertiary" {{on "click" (fn (mut this.showShort) (not this.showShort))}} aria-role="button">
         {{#if this.showShort}}
           <AuIcon @icon="link" @alignment="left" @ariaHidden="true" />
-          Toon URI
+          {{t "display-uri.show-uri"}}
         {{else}}
           <AuIcon @icon="draft" @alignment="left" @ariaHidden="true" />
-          Toon label
+          {{t "display-uri.show-label"}}
         {{/if}}
       </AuButton>
     </li>

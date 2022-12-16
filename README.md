@@ -105,6 +105,22 @@ Import the metis styles in your app.scss file
 ```
 
 ## How-to guides
+### Change the locale to nl-be
+Ember-metis uses [ember-intl](https://ember-intl.github.io/ember-intl/) for internationalization. By default the locale is set to `en-us` unless otherwise configured in the host app. To configure the locale in your host app, add the following application instance initializer:
+
+```javascript
+// app/instance-initializers/locale.js
+
+export function initialize(appInstance) {
+  // Set default locale for intl
+  const intl = appInstance.lookup('service:intl');
+  intl.setLocale(['nl-be']);
+}
+
+export default {
+  initialize,
+};
+```
 ### Provide human-readable labels for URIs on the subject page
 Check the README of the [resource label service](https://github.com/lblod/resource-label-service/#db-information) how to insert human-readable labels in the triplestore. Once the labels are available, they will be automatically picked up by ember-metis.
 

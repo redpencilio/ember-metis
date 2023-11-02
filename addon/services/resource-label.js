@@ -1,6 +1,6 @@
 import Service, { inject } from '@ember/service';
 import buildUrl from 'build-url';
-import fetch from 'fetch';
+import fetch, { Headers } from 'fetch';
 
 export default class ResourceLabelService extends Service {
   @inject fastboot;
@@ -20,7 +20,10 @@ export default class ResourceLabelService extends Service {
         },
       });
 
-      const response = await fetch(fetchUrl);
+      const response = await fetch(
+        fetchUrl, {
+          headers: new Headers({ "accept": "application/vnd.api+json" })
+        });
       const body = await response.json();
 
       if (response.status == 200 && body.data && body.data.attributes) {

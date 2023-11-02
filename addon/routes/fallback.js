@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
 import { inject as service } from '@ember/service';
-import fetch from 'fetch';
+import fetch, { Headers } from 'fetch';
 import buildUrl from 'build-url';
 import RSVP from 'rsvp';
 import { findRoute } from '../utils/class-route';
@@ -61,8 +61,16 @@ export default class FallbackRoute extends Route {
     });
 
     const response = await RSVP.hash({
-      directed: (await fetch(requestDirectedLinksUrl)).json(),
-      inverse: (await fetch(requestInverseLinksUrl)).json(),
+      directed: (await fetch(
+        requestDirectedLinksUrl, {
+          headers: new Headers({ "accept": "application/vnd.api+json" })
+        }
+      )).json(),
+      inverse: (await fetch(
+        requestInverseLinksUrl, {
+          headers: new Headers({ "accept": "application/vnd.api+json" })
+        }
+      )).json(),
     });
 
     return {

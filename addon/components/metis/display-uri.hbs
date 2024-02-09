@@ -21,12 +21,14 @@
       </li>
     {{/if}}
     <li class="au-c-list-horizontal__item">
-      <AuButton @skin="tertiary" {{on "click" (fn (mut this.showShort) (not this.showShort))}} aria-role="button">
+      <AuButton
+        @skin="link"
+        @icon={{if this.showShort "link" "draft"}}
+        {{on "click" (fn (mut this.showShort) (not this.showShort))}}
+      >
         {{#if this.showShort}}
-          <AuIcon @icon="link" @alignment="left" @ariaHidden="true" />
           {{t "display-uri.show-uri"}}
         {{else}}
-          <AuIcon @icon="draft" @alignment="left" @ariaHidden="true" />
           {{t "display-uri.show-label"}}
         {{/if}}
       </AuButton>

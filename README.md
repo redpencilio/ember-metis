@@ -63,9 +63,16 @@ module.exports = function(environment) {
 };
 ```
 
+#### Setup Appuniversum
+ember-metis depends on components from the [ember-appuniversum addon](https://github.com/appuniversum/ember-appuniversum). Follow the [getting started guide](https://appuniversum.github.io/ember-appuniversum/?path=/story/outline-getting-started--page) to set that up first.
+
+#### Install ember-metis
 Install the ember-metis addon in your application.
+
+> ember-metis hasn't been published to npm yet, but you can use the github uri instead
+
 ```bash
-ember install ember-metis
+npm install -D github:redpencilio/ember-metis#v0.8.1
 ```
 
 Add the following configuration to `./config/environment.js`:
@@ -92,17 +99,6 @@ Router.map(function() {
 ```
 
 Since `metisFallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
-
-#### Setup styling
-ember-metis currently depends on [ember-appuniversum](https://appuniversum.github.io/ember-appuniversum/docs/outline/getting-started) and [ember-cli-sass](https://github.com/adopted-ember-addons/ember-cli-sass) for styling.
-
-After installing both packages, import the `metis` styling as follows in your `app.scss`
-Import the metis styles in your app.scss file
-```scss
-// ... appuniversum imports
-
-@import "metis";
-```
 
 ## How-to guides
 ### Change the locale to nl-be

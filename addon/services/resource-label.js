@@ -20,10 +20,9 @@ export default class ResourceLabelService extends Service {
         },
       });
 
-      const response = await fetch(
-        fetchUrl, {
-          headers: new Headers({ "accept": "application/vnd.api+json" })
-        });
+      const response = await fetch(fetchUrl, {
+        headers: new Headers({ accept: 'application/vnd.api+json' }),
+      });
       const body = await response.json();
 
       if (response.status == 200 && body.data && body.data.attributes) {

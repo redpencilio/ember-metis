@@ -73,7 +73,7 @@ CustomRouterGenerator.prototype._add = function (routeName, routes, options) {
 
   // if the route does not exists yet then add the route
   if (!routeExists) {
-    route = routeNode(routeName, options);
+    const route = routeNode(routeName, options);
     routes.push(route);
   }
 };

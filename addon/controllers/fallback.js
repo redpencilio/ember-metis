@@ -18,7 +18,7 @@ export default class FallbackController extends Controller {
       inversePageSize: {
         type: 'number',
       },
-    }
+    },
   ];
 
   @tracked directedPageNumber = 0;

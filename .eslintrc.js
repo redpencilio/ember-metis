@@ -31,6 +31,7 @@ module.exports = {
         './index.js',
         './testem.js',
         './blueprints/*/index.js',
+        './blueprints/rdf-route/router-generator/**/*.js',
         './config/**/*.js',
         './tests/dummy/config/**/*.js',
       ],

@@ -5,25 +5,6 @@
 
 /* Make sure the sparql query table does not overflow and the buttons are positioned correctly */
 
-.yasgui .controlbar {
-  justify-content: flex-end;
-  margin-bottom: 1rem;
-}
-
-.yasgui .autocompleteWrapper {
-  display: none !important;
-}
-
 a.au-c-button:not(.au-c-button--secondary):not(.au-c-button--tertiary) {
   color: $au-white;
-}
-
-.yasgui table.dataTable {
-  width: auto !important;
-}
-
-.yasgui td,
-.yasgui td {
-  word-break: break-word !important;
-  text-align: left;
 }

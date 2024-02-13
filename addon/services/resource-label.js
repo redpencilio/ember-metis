@@ -2,16 +2,32 @@ import Service, { inject } from '@ember/service';
 import buildUrl from 'build-url';
 import fetch, { Headers } from 'fetch';
 
+const SHOEBOX_KEY = 'resource-label-cache';
 export default class ResourceLabelService extends Service {
   @inject fastboot;
+  backend = '/';
+  cache = {};
 
   constructor() {
     super(...arguments);
-    this.cache = {};
-    this.backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
+
+    if (this.fastboot.isFastBoot) {
+      this.backend = window.BACKEND_URL;
+    } else {
+      this.cache = this.fastboot.shoebox.retrieve(SHOEBOX_KEY) || {};
+    }
   }
 
   async fetchPrefLabel(uri) {
+    const promise = this._fetchPrefLabel(uri);
+    if (this.fastboot.isFastBoot) {
+      this.fastboot.deferRendering(promise);
+    }
+
+    return await promise;
+  }
+
+  async _fetchPrefLabel(uri) {
     if (!this.cache[uri]) {
       const fetchUrl = buildUrl(this.backend, {
         path: 'resource-labels/info',
@@ -35,6 +51,10 @@ export default class ResourceLabelService extends Service {
           prefLabel: null,
           description: null,
         };
+      }
+
+      if (this.fastboot.isFastBoot) {
+        this.fastboot.shoebox.put(SHOEBOX_KEY, this.cache);
       }
     }
 

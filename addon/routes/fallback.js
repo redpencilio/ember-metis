@@ -61,16 +61,16 @@ export default class FallbackRoute extends Route {
     });
 
     const response = await RSVP.hash({
-      directed: (await fetch(
-        requestDirectedLinksUrl, {
-          headers: new Headers({ "accept": "application/vnd.api+json" })
-        }
-      )).json(),
-      inverse: (await fetch(
-        requestInverseLinksUrl, {
-          headers: new Headers({ "accept": "application/vnd.api+json" })
-        }
-      )).json(),
+      directed: (
+        await fetch(requestDirectedLinksUrl, {
+          headers: new Headers({ accept: 'application/vnd.api+json' }),
+        })
+      ).json(),
+      inverse: (
+        await fetch(requestInverseLinksUrl, {
+          headers: new Headers({ accept: 'application/vnd.api+json' }),
+        })
+      ).json(),
     });
 
     return {

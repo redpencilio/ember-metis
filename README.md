@@ -84,19 +84,19 @@ let ENV = {
 
 The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the base URL of your production environment.
 
-Finally, import and add the `metisFallbackRoute` util to your `router.js`
+Finally, import and add the `fallbackRoute` util to your `router.js`
 
 ```javascript
-import { metisFallbackRoute } from 'ember-metis';
+import { fallbackRoute } from 'ember-metis';
 
 Router.map(function() {
   // ... other routes here
 
-  metisFallbackRoute(this);
+  fallbackRoute(this);
 });
 ```
 
-Since `metisFallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
+Since `fallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
 
 ## How-to guides
 ### Change the locale to nl-be
@@ -126,7 +126,7 @@ Before you generate your first custom route/template, import the `classRoute` ut
 ```javascript
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
-import { classRoute, metisFallbackRoute } from 'ember-metis';   // <---- Edit this line
+import { classRoute, fallbackRoute } from 'ember-metis';   // <---- Edit this line
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -136,7 +136,7 @@ export default class Router extends EmberRouter {
 Router.map(function() {
   // other routes
   this.route('view', function() { });  // <---- Add this line
-  metisFallbackRoute(this);
+  fallbackRoute(this);
 });
 ```
 

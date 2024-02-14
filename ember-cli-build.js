@@ -9,6 +9,9 @@ module.exports = function (defaults) {
         'node_modules/@appuniversum/ember-appuniversum/app/styles',
       ],
     },
+    '@appuniversum/ember-appuniversum': {
+      disableWormholeElement: true,
+    },
   });
 
   app.import('node_modules/svgxuse/svgxuse.js');

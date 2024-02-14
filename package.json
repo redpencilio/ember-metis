@@ -29,6 +29,12 @@
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each"
   },
+  "overrides": {
+    "inputmask": "^5.0.9-beta.45"
+  },
+  "overridesComments": {
+    "inputmask": "5.0.8 is incompatible with FastBoot, remove the override once inputmask ships a new stable version, or when Appuniversum depends on the beta as well: https://github.com/appuniversum/ember-appuniversum/issues/462"
+  },
   "dependencies": {
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",

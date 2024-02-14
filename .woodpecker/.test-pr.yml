@@ -1,0 +1,21 @@
+steps:
+  install:
+    image: danlynn/ember-cli:4.12.1
+    commands:
+      - npm install
+  lint-js:
+    image: danlynn/ember-cli:4.12.1
+    group: lint
+    commands:
+      - npm run lint:js
+  lint-hbs:
+    image: danlynn/ember-cli:4.12.1
+    group: lint
+    commands:
+      - npm run lint:hbs
+  test:
+    image: danlynn/ember-cli:4.12.1
+    commands:
+      - npm run test:ember
+when:
+  event: pull_request

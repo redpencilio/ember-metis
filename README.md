@@ -87,7 +87,7 @@ The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the
 Finally, import and add the `metisFallbackRoute` util to your `router.js`
 
 ```javascript
-import metisFallbackRoute from 'ember-metis/utils/fallback-route';
+import { metisFallbackRoute } from 'ember-metis';
 
 Router.map(function() {
   // ... other routes here
@@ -100,7 +100,7 @@ Since `metisFallbackRoute` matches all paths, it's best to put the route at the 
 
 ## How-to guides
 ### Change the locale to nl-be
-Ember-metis uses [ember-intl](https://ember-intl.github.io/ember-intl/) for internationalization. By default the locale is set to `en-us` unless otherwise configured in the host app. To configure the locale in your host app, add the following application instance initializer:
+ember-metis uses [ember-intl](https://ember-intl.github.io/ember-intl/) for internationalization. By default the locale is set to `en-us` unless otherwise configured in the host app. To configure the locale in your host app, add the following application instance initializer:
 
 ```javascript
 // app/instance-initializers/locale.js
@@ -126,8 +126,7 @@ Before you generate your first custom route/template, import the `classRoute` ut
 ```javascript
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
-import metisFallbackRoute from 'ember-metis/utils/fallback-route';
-import classRoute from 'ember-metis/utils/class-route';   // <---- Add this line
+import { classRoute, metisFallbackRoute } from 'ember-metis';   // <---- Edit this line
 
 export default class Router extends EmberRouter {
   location = config.locationType;

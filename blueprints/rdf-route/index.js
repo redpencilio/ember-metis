@@ -39,7 +39,7 @@ module.exports = {
         )
       );
       console.log(
-        chalk.red("import classRoute from 'metis/utils/class-route';")
+        chalk.red("import classRoute from 'ember-metis/utils/class-route';")
       );
       throw new Error('Check ember-metis README for more information');
     }

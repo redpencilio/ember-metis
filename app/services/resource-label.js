@@ -1,1 +1,1 @@
-export { default } from 'metis/services/resource-label';
+export { default } from 'ember-metis/services/resource-label';

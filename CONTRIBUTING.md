@@ -3,7 +3,7 @@
 ## Installation
 
 * `git clone <repository-url>`
-* `cd metis`
+* `cd ember-metis`
 * `npm install`
 
 ## Linting

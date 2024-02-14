@@ -69,10 +69,8 @@ ember-metis depends on components from the [ember-appuniversum addon](https://gi
 #### Install ember-metis
 Install the ember-metis addon in your application.
 
-> ember-metis hasn't been published to npm yet, but you can use the github uri instead
-
 ```bash
-npm install -D github:redpencilio/ember-metis#v0.8.1
+npm install -D ember-metis
 ```
 
 Add the following configuration to `./config/environment.js`:
@@ -89,7 +87,7 @@ The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the
 Finally, import and add the `metisFallbackRoute` util to your `router.js`
 
 ```javascript
-import metisFallbackRoute from 'metis/utils/fallback-route';
+import metisFallbackRoute from 'ember-metis/utils/fallback-route';
 
 Router.map(function() {
   // ... other routes here
@@ -128,8 +126,8 @@ Before you generate your first custom route/template, import the `classRoute` ut
 ```javascript
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
-import metisFallbackRoute from 'metis/utils/fallback-route';
-import classRoute from 'metis/utils/class-route';   // <---- Add this line
+import metisFallbackRoute from 'ember-metis/utils/fallback-route';
+import classRoute from 'ember-metis/utils/class-route';   // <---- Add this line
 
 export default class Router extends EmberRouter {
   location = config.locationType;

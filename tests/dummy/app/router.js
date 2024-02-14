@@ -1,7 +1,7 @@
 import EmberRouter from '@ember/routing/router';
 import config from 'dummy/config/environment';
-import metisFallbackRoute from 'metis/utils/fallback-route';
-import classRoute from 'metis/utils/class-route';
+import metisFallbackRoute from 'ember-metis/utils/fallback-route';
+import classRoute from 'ember-metis/utils/class-route';
 
 export default class Router extends EmberRouter {
   location = config.locationType;

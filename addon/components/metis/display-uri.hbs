@@ -9,24 +9,26 @@
   <ul class="au-c-list-horizontal au-u-margin-top-tiny">
     {{#if this.localBasePath}}
       <li class="au-c-list-horizontal__item">
-        <LinkTo @route="fallback" @model={{this.localBasePath}} class="au-c-link">
-          <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />{{t "display-uri.follow-url"}}
-        </LinkTo>
+        <AuLink @route="fallback" @model={{this.localBasePath}} @icon="link-external">
+          {{t "display-uri.follow-url"}}
+        </AuLink>
       </li>
     {{else}}
       <li class="au-c-list-horizontal__item">
-        <a href={{@uri}} class="au-c-link">
-          <AuIcon @icon="link-external" @alignment="left" @ariaHidden="true" />{{t "display-uri.follow-external-url"}}
-        </a>
+        <AuLinkExternal @icon="link-external" href={{@uri}}>
+          {{t "display-uri.follow-external-url"}}
+        </AuLinkExternal>
       </li>
     {{/if}}
     <li class="au-c-list-horizontal__item">
-      <AuButton @skin="tertiary" {{on "click" (fn (mut this.showShort) (not this.showShort))}} aria-role="button">
+      <AuButton
+        @skin="link"
+        @icon={{if this.showShort "link" "draft"}}
+        {{on "click" (fn (mut this.showShort) (not this.showShort))}}
+      >
         {{#if this.showShort}}
-          <AuIcon @icon="link" @alignment="left" @ariaHidden="true" />
           {{t "display-uri.show-uri"}}
         {{else}}
-          <AuIcon @icon="draft" @alignment="left" @ariaHidden="true" />
           {{t "display-uri.show-label"}}
         {{/if}}
       </AuButton>
@@ -37,16 +39,16 @@
   {{/if}}
 {{else}}
   {{#if this.localBasePath}}
-    <LinkTo
+    <AuLink
       @route="fallback"
       @model={{this.localBasePath}}
-      class="au-c-link au-u-word-break-all">
+      class="au-u-word-break-all">
       {{@uri}}
-    </LinkTo>
+    </AuLink>
   {{else}}
     <ul class="au-c-list-horizontal">
       <li class="au-c-list-horizontal__item">
-        <a href={{@uri}} class="au-c-link au-u-word-break-all">{{@uri}}</a>
+        <AuLinkExternal href={{@uri}} class="au-u-word-break-all">{{@uri}}</AuLinkExternal>
       </li>
     </ul>
   {{/if}}

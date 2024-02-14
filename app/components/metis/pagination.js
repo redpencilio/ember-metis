@@ -1,1 +1,1 @@
-export { default } from 'metis/components/metis/pagination';
+export { default } from 'ember-metis/components/metis/pagination';

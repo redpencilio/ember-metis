@@ -18,9 +18,11 @@
 /.gitignore
 /.prettierignore
 /.prettierrc.js
+/.release-it.json
 /.template-lintrc.js
 /.travis.yml
 /.watchmanconfig
+/.woodpecker/
 /bower.json
 /config/ember-try.js
 /CONTRIBUTING.md

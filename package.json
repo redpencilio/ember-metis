@@ -48,6 +48,9 @@
     "ember-truth-helpers": "^4.0.3",
     "recast": "^0.18.10"
   },
+  "dependenciesComments": {
+    "chalk": "chalk v5 is an esm-only package which we can't use in our node code since they are cjs modules"
+  },
   "peerDependencies": {
     "@appuniversum/ember-appuniversum": "^2.18.0 || ^3.0.0",
     "ember-cli-fastboot": "^4.1.2"

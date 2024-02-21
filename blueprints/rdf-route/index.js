@@ -28,19 +28,21 @@ module.exports = {
     let source = fs.readFileSync(routerPath, 'utf-8');
 
     // Check if the gen-class-route module is imported
-    let importRegx = /()class-route()/gi;
-    let checkImport = importRegx.test(source);
+    let pathImportRegx = /()class-route()/gi;
+    let rootImportRegx =
+      /import\s*\{\s*(?:\w+\s*(?:as\s*\w+\s*)?,)*\s*classRoute(?:\s*as\s*\w+)?(?:\s*,\s*\w+\s*(?:as\s*\w+)?)*\s*\}\s*from\s*['"]ember-metis['"];/gm;
+
+    let checkImport =
+      pathImportRegx.test(source) || rootImportRegx.test(source);
 
     if (!checkImport) {
       console.log('\n');
       console.log(
         chalk.red(
-          'You need to import the classRoute util in your router.js file first.'
+          'You need to import the `classRoute` util in your router.js file first.'
         )
       );
-      console.log(
-        chalk.red("import classRoute from 'ember-metis/utils/class-route';")
-      );
+      console.log(chalk.red("import { classRoute } from 'ember-metis';"));
       throw new Error('Check ember-metis README for more information');
     }
 

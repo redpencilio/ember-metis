@@ -20,6 +20,9 @@ export default class FallbackRoute extends Route {
     inversePageSize: {
       refreshModel: true,
     },
+    resourceUrl: {
+      refreshModel: true,
+    },
   };
 
   @service fastboot;

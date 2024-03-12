@@ -20,7 +20,7 @@ export default class FallbackRoute extends Route {
     inversePageSize: {
       refreshModel: true,
     },
-    resourceUrl: {
+    resourceUri: {
       refreshModel: true,
     },
   };
@@ -46,11 +46,11 @@ export default class FallbackRoute extends Route {
     directedPageSize,
     inversePageNumber,
     inversePageSize,
-    resourceUrl,
+    resourceUri,
   }) {
     let subject;
-    if (resourceUrl?.length) {
-      subject = resourceUrl;
+    if (resourceUri?.length) {
+      subject = resourceUri;
     } else {
       const prefix = this.env.metis.baseUrl;
       subject = `${prefix}${path}`;

@@ -32,7 +32,7 @@ export default class ExternalRoute extends Route {
     super(...arguments);
     this.env = getOwner(this).resolveRegistration('config:environment');
 
-    this.templateName = this.env.metis.fallbackTemplate || 'fallback';
+    this.templateName = 'external';
 
     // Simply accessing the service works around this issue: https://github.com/ember-intl/ember-intl/issues/1826
     // We do it in the addon code, so apps aren't forced to do it when they might not even be using ember-intl.

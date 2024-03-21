@@ -80,10 +80,16 @@
                             resource={{triple.object.value}}
                           >
                             <td>
-                              <Metis::DisplayUri @uri={{triple.predicate}} />
+                              <Metis::DisplayUri
+                                @uri={{triple.predicate}}
+                                @type='predicate'
+                              />
                             </td>
                             <td>
-                              <Metis::DisplayUri @uri={{triple.object.value}} />
+                              <Metis::DisplayUri
+                                @uri={{triple.object.value}}
+                                @type='object'
+                              />
                             </td>
                           </tr>
                         {{else}}
@@ -92,7 +98,10 @@
                             content={{triple.object.value}}
                           >
                             <td>
-                              <Metis::DisplayUri @uri={{triple.predicate}} />
+                              <Metis::DisplayUri
+                                @uri={{triple.predicate}}
+                                @type='predicate'
+                              />
                             </td>
                             <td>
                               <span class='au-u-word-break'>
@@ -154,10 +163,16 @@
                           property={{triple.predicate}}
                           resource={{triple.object}}
                         >
-                          <Metis::DisplayUri @uri={{triple.predicate}} />
+                          <Metis::DisplayUri
+                            @uri={{triple.predicate}}
+                            @type='predicate'
+                          />
                         </td>
                         <td>
-                          <Metis::DisplayUri @uri={{triple.subject}} />
+                          <Metis::DisplayUri
+                            @uri={{triple.subject}}
+                            @type='subject'
+                          />
                         </td>
                       </tr>
                     {{/each}}

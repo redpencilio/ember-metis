@@ -1,1 +1,1 @@
-export { default } from 'ember-metis/templates/external';
+export { default } from '@andreo141/ember-metis/templates/external';

@@ -1,1 +1,1 @@
-export { default } from 'ember-metis/routes/external';
+export { default } from '@andreo141/ember-metis/routes/external';

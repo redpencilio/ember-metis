@@ -1,3 +1,3 @@
-export { default as classRoute } from '@andreo141/ember-metis/utils/class-route';
-export { default as fallbackRoute } from '@andreo141/ember-metis/utils/fallback-route';
-export { default as externalRoute } from '@andreo141/ember-metis/utils/external-route';
+export { default as classRoute } from 'ember-metis/utils/class-route';
+export { default as fallbackRoute } from 'ember-metis/utils/fallback-route';
+export { default as externalRoute } from 'ember-metis/utils/external-route';

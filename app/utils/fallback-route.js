@@ -1,1 +1,1 @@
-export { default } from '@andreo141/ember-metis/utils/fallback-route';
+export { default } from 'ember-metis/utils/fallback-route';

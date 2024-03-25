@@ -1,1 +1,1 @@
-export { default } from '@andreo141/ember-metis/templates/fallback';
+export { default } from 'ember-metis/templates/fallback';

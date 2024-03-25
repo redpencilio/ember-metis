@@ -1,1 +1,1 @@
-export { default } from '@andreo141/ember-metis/utils/class-route';
+export { default } from 'ember-metis/utils/class-route';

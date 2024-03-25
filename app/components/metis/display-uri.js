@@ -1,1 +1,1 @@
-export { default } from '@andreo141/ember-metis/components/metis/display-uri';
+export { default } from 'ember-metis/components/metis/display-uri';

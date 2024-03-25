@@ -1,35 +1,41 @@
 fallback:
   not-found:
-    header: "Subject page not found"
+    header: 'Subject page not found'
     subheader:
-      prefix: "No relations or properties found about"
-      postfix: ""
-  header: "Subject page"
+      prefix: 'No relations or properties found about'
+      postfix: ''
+external:
+  not-found:
+    header: 'Detailpagina niet gevonden'
+    subheader:
+      prefix: 'Er werden geen relaties of details gevonden over'
+      postfix: ''
+  header: 'Subject page'
   subheader:
-    prefix: "This page lists information about subject"
-    postfix: "by displaying relations and properties"
+    prefix: 'This page lists information about subject'
+    postfix: 'by displaying relations and properties'
   sections:
     direct-triples:
-      header: "Properties and relations"
-      subheader: "Direct links from the subject."
-      not-found: "No direct links found."
+      header: 'Properties and relations'
+      subheader: 'Direct links from the subject.'
+      not-found: 'No direct links found.'
     inverse-triples:
-      header: "References"
-      subheader: "Inverse links to the subject."
-      not-found: "No references found."
+      header: 'References'
+      subheader: 'Inverse links to the subject.'
+      not-found: 'No references found.'
   table:
-    loading: "Loading..."
+    loading: 'Loading...'
     columns:
-      subject: "Subject"
-      property: "Property"
-      value: "Value"
+      subject: 'Subject'
+      property: 'Property'
+      value: 'Value'
 display-uri:
-  follow-url: "Follow URL"
-  follow-external-url: "Follow URL (external)"
-  show-uri: "Show URI"
-  show-label: "Show label"
+  follow-url: 'Follow URL'
+  follow-external-url: 'Follow URL (external)'
+  show-uri: 'Show URI'
+  show-label: 'Show label'
 pagination:
-  previous-page: "Previous page"
-  next-page: "Next page"
-  results: "Resultaten"
-  of: "of"
+  previous-page: 'Previous page'
+  next-page: 'Next page'
+  results: 'Resultaten'
+  of: 'of'

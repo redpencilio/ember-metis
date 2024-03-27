@@ -20,9 +20,6 @@ export default class FallbackRoute extends Route {
     inversePageSize: {
       refreshModel: true,
     },
-    resourceUri: {
-      refreshModel: true,
-    },
   };
 
   @service fastboot;
@@ -46,16 +43,9 @@ export default class FallbackRoute extends Route {
     directedPageSize,
     inversePageNumber,
     inversePageSize,
-    resourceUri,
   }) {
-    let subject;
-    if (resourceUri?.length) {
-      subject = resourceUri;
-    } else {
-      const prefix = this.env.metis.baseUrl;
-      subject = `${prefix}${path}`;
-    }
-
+    const prefix = this.env.metis.baseUrl;
+    const subject = `${prefix}${path}`;
     const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 
     const requestDirectedLinksUrl = buildUrl(backend, {

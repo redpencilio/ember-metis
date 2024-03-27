@@ -1,6 +1,6 @@
 {
   "name": "ember-metis",
-  "version": "0.9.9",
+  "version": "0.9.0",
   "description": "Default subject pages for your Linked Data resources.",
   "keywords": [
     "ember-addon"

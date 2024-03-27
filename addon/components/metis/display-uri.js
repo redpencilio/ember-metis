@@ -56,7 +56,12 @@ export default class MetisDisplayUriComponent extends Component {
   }
 
   get constructInternalPath() {
-    const baseUrl = `${window.BACKEND_URL}/external/`;
+    let baseUrl;
+    if (!window.BACKEND_URL) {
+      baseUrl = `${window?.location?.protocol}//${window?.location?.host}/external`;
+    } else {
+      baseUrl = `${window.BACKEND_URL}/external`;
+    }
     const queryParams = `?resourceUri=${encodeURIComponent(this.args.uri)}`;
     return `${baseUrl}${queryParams}`;
   }

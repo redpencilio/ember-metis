@@ -41,7 +41,6 @@ export default class ExternalRoute extends Route {
   }
 
   async model({
-    path,
     directedPageNumber,
     directedPageSize,
     inversePageNumber,
@@ -49,8 +48,6 @@ export default class ExternalRoute extends Route {
     resourceUri,
   }) {
     let subject = resourceUri;
-    const prefix = this.env.metis.baseUrl;
-    subject = `${prefix}${path}`;
 
     const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 

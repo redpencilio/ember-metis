@@ -3,33 +3,37 @@
     {{#if this.hasShort}}
       {{this.label}}
     {{else}}
-      <p class="au-u-word-break-all">{{@uri}}</p>
+      <p class='au-u-word-break-all'>{{@uri}}</p>
     {{/if}}
   </p>
-  <ul class="au-c-list-horizontal au-u-margin-top-tiny">
+  <ul class='au-c-list-horizontal au-u-margin-top-tiny'>
     {{#if this.localBasePath}}
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="fallback" @model={{this.localBasePath}} @icon="link-external">
-          {{t "display-uri.follow-url"}}
+      <li class='au-c-list-horizontal__item'>
+        <AuLink
+          @route='fallback'
+          @model={{this.localBasePath}}
+          @icon='link-external'
+        >
+          {{t 'display-uri.follow-url'}}
         </AuLink>
       </li>
     {{else}}
-      <li class="au-c-list-horizontal__item">
-        <AuLinkExternal @icon="link-external" href={{@uri}}>
-          {{t "display-uri.follow-external-url"}}
+      <li class='au-c-list-horizontal__item'>
+        <AuLinkExternal @icon='link-external' href={{@uri}}>
+          {{t 'display-uri.follow-external-url'}}
         </AuLinkExternal>
       </li>
     {{/if}}
-    <li class="au-c-list-horizontal__item">
+    <li class='au-c-list-horizontal__item'>
       <AuButton
-        @skin="link"
-        @icon={{if this.showShort "link" "draft"}}
-        {{on "click" (fn (mut this.showShort) (not this.showShort))}}
+        @skin='link'
+        @icon={{if this.showShort 'link' 'draft'}}
+        {{on 'click' (fn (mut this.showShort) (not this.showShort))}}
       >
         {{#if this.showShort}}
-          {{t "display-uri.show-uri"}}
+          {{t 'display-uri.show-uri'}}
         {{else}}
-          {{t "display-uri.show-label"}}
+          {{t 'display-uri.show-label'}}
         {{/if}}
       </AuButton>
     </li>
@@ -38,18 +42,34 @@
     <p>{{this.description}}</p>
   {{/if}}
 {{else}}
+
   {{#if this.localBasePath}}
+
     <AuLink
-      @route="fallback"
+      @route='fallback'
       @model={{this.localBasePath}}
-      class="au-u-word-break-all">
+      class='au-u-word-break-all'
+    >
       {{@uri}}
     </AuLink>
   {{else}}
-    <ul class="au-c-list-horizontal">
-      <li class="au-c-list-horizontal__item">
-        <AuLinkExternal href={{@uri}} class="au-u-word-break-all">{{@uri}}</AuLinkExternal>
+    <ul class='au-c-list-horizontal'>
+      <li class='au-c-list-horizontal__item'>
+        <AuLinkExternal
+          href={{@uri}}
+          class='au-u-word-break-all'
+        >{{@uri}}</AuLinkExternal>
       </li>
     </ul>
+    {{#if (or (eq @type 'object') (eq @type 'subject'))}}
+      <p>Internal path:</p>
+      <AuLink
+        @route='external'
+        @query={{hash resourceUri=@uri}}
+        class='au-u-word-break-all'
+      >
+        {{this.constructInternalPath}}
+      </AuLink>
+    {{/if}}
   {{/if}}
 {{/if}}

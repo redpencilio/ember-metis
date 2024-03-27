@@ -30,7 +30,6 @@ export default class MetisDisplayUriComponent extends Component {
 
   get localBasePath() {
     const uri = this.args.uri || '';
-
     if (uri.startsWith(this.config.metis.baseUrl))
       return uri.slice(this.config.metis.baseUrl.length);
     else return null;
@@ -54,5 +53,16 @@ export default class MetisDisplayUriComponent extends Component {
 
   get hasShort() {
     return this.externalPreflabel;
+  }
+
+  get constructInternalPath() {
+    let baseUrl;
+    if (!window.BACKEND_URL) {
+      baseUrl = `${window?.location?.protocol}//${window?.location?.host}/external`;
+    } else {
+      baseUrl = `${window.BACKEND_URL}/external`;
+    }
+    const queryParams = `?resourceUri=${encodeURIComponent(this.args.uri)}`;
+    return `${baseUrl}${queryParams}`;
   }
 }

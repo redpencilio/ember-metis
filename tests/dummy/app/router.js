@@ -1,6 +1,6 @@
 import EmberRouter from '@ember/routing/router';
 import config from 'dummy/config/environment';
-import { classRoute, fallbackRoute } from 'ember-metis';
+import { classRoute, fallbackRoute, externalRoute } from 'ember-metis';
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -13,6 +13,6 @@ Router.map(function () {
       class: 'http://www.w3.org/ns/person#Person',
     });
   });
-
+  externalRoute(this);
   fallbackRoute(this);
 });

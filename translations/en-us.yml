@@ -4,11 +4,30 @@ fallback:
     subheader:
       prefix: 'No relations or properties found about'
       postfix: ''
+  header: 'Subject page'
+  subheader:
+    prefix: 'This page lists information about subject'
+    postfix: 'by displaying relations and properties'
+  sections:
+    direct-triples:
+      header: 'Properties and relations'
+      subheader: 'Direct links from the subject.'
+      not-found: 'No direct links found.'
+    inverse-triples:
+      header: 'References'
+      subheader: 'Inverse links to the subject.'
+      not-found: 'No references found.'
+  table:
+    loading: 'Loading...'
+    columns:
+      subject: 'Subject'
+      property: 'Property'
+      value: 'Value'
 external:
   not-found:
-    header: 'Detailpagina niet gevonden'
+    header: 'Subject page not found'
     subheader:
-      prefix: 'Er werden geen relaties of details gevonden over'
+      prefix: 'No relations or properties found about'
       postfix: ''
   header: 'Subject page'
   subheader:

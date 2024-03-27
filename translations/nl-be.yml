@@ -4,6 +4,7 @@ fallback:
     subheader:
       prefix: 'Er werden geen relaties of details gevonden over'
       postfix: ''
+  header: 'Detailpagina voor onderwerp'
   subheader:
     prefix: 'Deze pagina geeft informatie over het onderwerp'
     postfix: 'weer, door relaties en details te tonen.'
@@ -28,6 +29,7 @@ external:
     subheader:
       prefix: 'Er werden geen relaties of details gevonden over'
       postfix: ''
+  header: 'Detailpagina voor onderwerp'
   subheader:
     prefix: 'Deze pagina geeft informatie over het onderwerp'
     postfix: 'weer, door relaties en details te tonen.'

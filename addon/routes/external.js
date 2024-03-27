@@ -48,13 +48,9 @@ export default class ExternalRoute extends Route {
     inversePageSize,
     resourceUri,
   }) {
-    let subject;
-    if (resourceUri?.length) {
-      subject = resourceUri;
-    } else {
-      const prefix = this.env.metis.baseUrl;
-      subject = `${prefix}${path}`;
-    }
+    let subject = resourceUri;
+    const prefix = this.env.metis.baseUrl;
+    subject = `${prefix}${path}`;
 
     const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 

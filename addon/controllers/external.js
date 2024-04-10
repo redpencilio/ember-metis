@@ -18,7 +18,7 @@ export default class ExternalController extends Controller {
       inversePageSize: {
         type: 'number',
       },
-      resourceUri: {
+      resource: {
         type: 'string',
       },
     },
@@ -33,7 +33,7 @@ export default class ExternalController extends Controller {
   @tracked isLoadingDirected = false;
   @tracked isLoadingInverse = false;
 
-  @tracked resourceUri = '';
+  @tracked resource = '';
 
   constructor() {
     super(...arguments);

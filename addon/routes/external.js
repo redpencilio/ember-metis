@@ -20,7 +20,7 @@ export default class ExternalRoute extends Route {
     inversePageSize: {
       refreshModel: true,
     },
-    resourceUri: {
+    resource: {
       refreshModel: true,
     },
   };
@@ -45,9 +45,9 @@ export default class ExternalRoute extends Route {
     directedPageSize,
     inversePageNumber,
     inversePageSize,
-    resourceUri,
+    resource,
   }) {
-    let subject = resourceUri;
+    let subject = resource;
 
     const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 

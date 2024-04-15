@@ -23,6 +23,15 @@
           {{t 'display-uri.follow-external-url'}}
         </AuLinkExternal>
       </li>
+      <li class='au-c-list-horizontal__item'>
+        <AuLink @icon="link-external"
+          @route='external'
+          @query={{hash resource=@uri}}
+          class='au-u-word-break-all'
+        >
+          {{t 'display-uri.follow-internal-url'}}
+        </AuLink>
+      </li>
     {{/if}}
     <li class='au-c-list-horizontal__item'>
       <AuButton
@@ -61,15 +70,18 @@
         >{{@uri}}</AuLinkExternal>
       </li>
     </ul>
-    {{#if (or (eq @type 'object') (eq @type 'subject'))}}
-      <p>Internal path:</p>
-      <AuLink
-        @route='external'
-        @query={{hash resource=@uri}}
-        class='au-u-word-break-all'
-      >
-        {{this.constructInternalPath}}
-      </AuLink>
-    {{/if}}
+      {{#if (or (eq @type 'object') (eq @type 'subject'))}}
+        <ul class="au-c-list-horizontal">
+        <li class='au-c-list-horizontal__item'>
+          <AuLink @icon="link-external"
+            @route='external'
+            @query={{hash resource=@uri}}
+            class='au-u-word-break-all'
+          >
+            {{t 'display-uri.follow-internal-url'}}
+          </AuLink>
+        </li>
+        </ul>
+      {{/if}}
   {{/if}}
 {{/if}}

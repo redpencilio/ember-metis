@@ -50,8 +50,8 @@ external:
       value: "Waarde"
 display-uri:
   follow-url: "Volg link"
-  follow-external-url: "Interne link"
-  follow-internal-url: "Externe link"
+  follow-external-url: "Externe link"
+  follow-internal-url: "Interne link"
   show-uri: "Toon URI"
   show-label: "Toon label"
 pagination:

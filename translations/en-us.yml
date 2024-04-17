@@ -50,7 +50,8 @@ external:
       value: "Value"
 display-uri:
   follow-url: "Follow URL"
-  follow-external-url: "Follow URL (external)"
+  follow-external-url: "External link"
+  follow-internal-url: "Internal link"
   show-uri: "Show URI"
   show-label: "Show label"
 pagination:

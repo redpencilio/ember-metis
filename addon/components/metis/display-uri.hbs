@@ -9,11 +9,7 @@
   <ul class="au-c-list-horizontal au-u-margin-top-tiny">
     {{#if this.localBasePath}}
       <li class="au-c-list-horizontal__item">
-        <AuLink
-          @route="fallback"
-          @model={{this.localBasePath}}
-          @icon="link-external"
-        >
+        <AuLink @route="fallback" @model={{this.localBasePath}} @icon="link-external">
           {{t "display-uri.follow-url"}}
         </AuLink>
       </li>
@@ -52,23 +48,17 @@
     <p>{{this.description}}</p>
   {{/if}}
 {{else}}
-
   {{#if this.localBasePath}}
-
     <AuLink
       @route="fallback"
       @model={{this.localBasePath}}
-      class="au-u-word-break-all"
-    >
+      class="au-u-word-break-all">
       {{@uri}}
     </AuLink>
   {{else}}
     <ul class="au-c-list-horizontal">
       <li class="au-c-list-horizontal__item">
-        <AuLinkExternal
-          href={{@uri}}
-          class="au-u-word-break-all"
-        >{{@uri}}</AuLinkExternal>
+        <AuLinkExternal href={{@uri}} class="au-u-word-break-all">{{@uri}}</AuLinkExternal>
       </li>
     </ul>
     {{#if (or (eq @type "object") (eq @type "subject"))}}

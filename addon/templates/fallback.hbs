@@ -8,11 +8,7 @@
             <AuHeading class="au-u-margin-bottom">
               {{t "fallback.not-found.header"}}
             </AuHeading>
-            <AuHeading
-              @level="2"
-              @skin="3"
-              class="au-u-light au-u-margin-bottom"
-            >
+            <AuHeading @level="2" @skin="3" class="au-u-light au-u-margin-bottom">
               {{t "fallback.not-found.subheader.prefix"}}
               <AuLink href="{{this.model.directed.subject}}">
                 {{this.model.directed.subject}}
@@ -26,22 +22,14 @@
         {{else}}
 
           <div class="au-o-region">
-            <AuHeading
-              @level="1"
-              @skin="1"
-              class="au-u-word-break au-u-margin-bottom"
-            >
+            <AuHeading @level="1" @skin="1" class="au-u-word-break au-u-margin-bottom">
               {{t "fallback.header"}}
             </AuHeading>
             <p class="au-u-h3 au-u-light">
               {{t "fallback.subheader.prefix"}}
-              <AuLink
-                href="{{this.model.directed.subject}}"
-                class="au-u-word-break"
-              >{{this.model.directed.subject}}</AuLink>
+              <AuLink href="{{this.model.directed.subject}}" class="au-u-word-break">{{this.model.directed.subject}}</AuLink>
               {{t "fallback.subheader.postfix"}}
             </p>
-
           </div>
 
           <AuHr />
@@ -74,33 +62,18 @@
                     {{else}}
                       {{#each this.model.directed.triples as |triple|}}
                         {{#if (eq triple.object.type "uri")}}
-                          <tr
-                            property={{triple.predicate}}
-                            resource={{triple.object.value}}
-                          >
+                          <tr property={{triple.predicate}} resource={{triple.object.value}}>
                             <td>
-                              <Metis::DisplayUri
-                                @uri={{triple.predicate}}
-                                @type="predicate"
-                              />
+                              <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
                             </td>
                             <td>
-                              <Metis::DisplayUri
-                                @uri={{triple.object.value}}
-                                @type="object"
-                              />
+                              <Metis::DisplayUri @uri={{triple.object.value}} @type="object"/>
                             </td>
                           </tr>
                         {{else}}
-                          <tr
-                            property={{triple.predicate}}
-                            content={{triple.object.value}}
-                          >
+                          <tr property={{triple.predicate}} content={{triple.object.value}}>
                             <td>
-                              <Metis::DisplayUri
-                                @uri={{triple.predicate}}
-                                @type="predicate"
-                              />
+                              <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
                             </td>
                             <td>
                               <span class="au-u-word-break">
@@ -158,20 +131,11 @@
                   {{else}}
                     {{#each this.model.inverse.triples as |triple|}}
                       <tr resource={{triple.subject}}>
-                        <td
-                          property={{triple.predicate}}
-                          resource={{triple.object}}
-                        >
-                          <Metis::DisplayUri
-                            @uri={{triple.predicate}}
-                            @type="predicate"
-                          />
+                        <td property={{triple.predicate}} resource={{triple.object}}>
+                          <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
                         </td>
                         <td>
-                          <Metis::DisplayUri
-                            @uri={{triple.subject}}
-                            @type="subject"
-                          />
+                          <Metis::DisplayUri @uri={{triple.subject}} @type="subject"/>
                         </td>
                       </tr>
                     {{/each}}

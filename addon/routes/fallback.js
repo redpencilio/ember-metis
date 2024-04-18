@@ -1,10 +1,10 @@
-import Route from "@ember/routing/route";
-import { getOwner } from "@ember/application";
-import { inject as service } from "@ember/service";
-import fetch, { Headers } from "fetch";
-import buildUrl from "build-url";
-import RSVP from "rsvp";
-import { findRoute } from "../utils/class-route";
+import Route from '@ember/routing/route';
+import { getOwner } from '@ember/application';
+import { inject as service } from '@ember/service';
+import fetch, { Headers } from 'fetch';
+import buildUrl from 'build-url';
+import RSVP from 'rsvp';
+import { findRoute } from '../utils/class-route';
 
 export default class FallbackRoute extends Route {
   queryParams = {
@@ -27,9 +27,9 @@ export default class FallbackRoute extends Route {
 
   constructor() {
     super(...arguments);
-    this.env = getOwner(this).resolveRegistration("config:environment");
+    this.env = getOwner(this).resolveRegistration('config:environment');
 
-    this.templateName = this.env.metis.fallbackTemplate || "fallback";
+    this.templateName = this.env.metis.fallbackTemplate || 'fallback';
 
     // Simply accessing the service works around this issue: https://github.com/ember-intl/ember-intl/issues/1826
     // We do it in the addon code, so apps aren't forced to do it when they might not even be using ember-intl.
@@ -46,10 +46,10 @@ export default class FallbackRoute extends Route {
   }) {
     const prefix = this.env.metis.baseUrl;
     const subject = `${prefix}${path}`;
-    const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : "/";
+    const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 
     const requestDirectedLinksUrl = buildUrl(backend, {
-      path: "uri-info/direct",
+      path: 'uri-info/direct',
       queryParams: {
         subject: subject,
         pageNumber: directedPageNumber,
@@ -58,7 +58,7 @@ export default class FallbackRoute extends Route {
     });
 
     const requestInverseLinksUrl = buildUrl(backend, {
-      path: "uri-info/inverse",
+      path: 'uri-info/inverse',
       queryParams: {
         subject: subject,
         pageNumber: inversePageNumber,
@@ -69,12 +69,12 @@ export default class FallbackRoute extends Route {
     const response = await RSVP.hash({
       directed: (
         await fetch(requestDirectedLinksUrl, {
-          headers: new Headers({ accept: "application/vnd.api+json" }),
+          headers: new Headers({ accept: 'application/vnd.api+json' }),
         })
       ).json(),
       inverse: (
         await fetch(requestInverseLinksUrl, {
-          headers: new Headers({ accept: "application/vnd.api+json" }),
+          headers: new Headers({ accept: 'application/vnd.api+json' }),
         })
       ).json(),
     });
@@ -102,7 +102,7 @@ export default class FallbackRoute extends Route {
     const rdfTypes = model.directed.triples
       .filter(
         ({ predicate }) =>
-          predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+          predicate == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
       )
       .map(({ object: { value } }) => value);
 

@@ -1,25 +1,25 @@
-import Controller from "@ember/controller";
-import { getOwner } from "@ember/application";
-import { action } from "@ember/object";
-import { tracked } from "@glimmer/tracking";
+import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class ExternalController extends Controller {
   queryParams = [
     {
       directedPageNumber: {
-        type: "number",
+        type: 'number',
       },
       directedPageSize: {
-        type: "number",
+        type: 'number',
       },
       inversePageNumber: {
-        type: "number",
+        type: 'number',
       },
       inversePageSize: {
-        type: "number",
+        type: 'number',
       },
       resource: {
-        type: "string",
+        type: 'string',
       },
     },
   ];
@@ -33,11 +33,11 @@ export default class ExternalController extends Controller {
   @tracked isLoadingDirected = false;
   @tracked isLoadingInverse = false;
 
-  @tracked resource = "";
+  @tracked resource = '';
 
   constructor() {
     super(...arguments);
-    const config = getOwner(this).resolveRegistration("config:environment");
+    const config = getOwner(this).resolveRegistration('config:environment');
     if (config.metis && config.metis.pageSize) {
       this.directedPageSize = config.metis.pageSize.directed;
       this.inversePageSize = config.metis.pageSize.inverse;

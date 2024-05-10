@@ -14,9 +14,12 @@
               class="au-u-light au-u-margin-bottom"
             >
               {{t "external.not-found.subheader.prefix"}}
-              <AuLink href="{{this.model.directed.subject}}">
+              <AuLinkExternal
+                href="{{this.model.directed.subject}}"
+                class="au-u-word-break-all"
+              >
                 {{this.model.directed.subject}}
-              </AuLink>
+              </AuLinkExternal>
               {{t "external.not-found.subheader.postfix"}}
             </AuHeading>
           </div>
@@ -28,16 +31,18 @@
             <AuHeading
               @level="1"
               @skin="1"
-              class="au-u-word-break au-u-margin-bottom"
+              class="au-u-margin-bottom"
             >
               {{t "external.header"}}
             </AuHeading>
             <p class="au-u-h3 au-u-light">
               {{t "external.subheader.prefix"}}
-              <AuLink
+              <AuLinkExternal
                 href="{{this.model.directed.subject}}"
-                class="au-u-word-break"
-              >{{this.model.directed.subject}}</AuLink>
+                class="au-u-word-break-all"
+              >
+                {{this.model.directed.subject}}
+              </AuLinkExternal>
               {{t "external.subheader.postfix"}}
             </p>
 

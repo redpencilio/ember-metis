@@ -3,8 +3,8 @@
        model=(if this.isLocal this.localBasePath null)
        query=(if this.isLocal null (hash resource=@uri))
        route=(if this.isLocal "fallback" "external")
-       label=(if this.isShort this.label @uri)
-       extraClass=(if this.isShort "" "au-u-word-break-all"))
+       label=(if this.hasShort this.label @uri)
+       extraClass=(if this.hasShort "" "au-u-word-break-all"))
        as |routeInfo|}}
     <AuLink
       @route={{routeInfo.route}}

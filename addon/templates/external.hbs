@@ -6,40 +6,56 @@
         {{#if this.isEmpty}}
           <div class="au-u-margin-bottom">
             <AuHeading class="au-u-margin-bottom">
-              {{t "fallback.not-found.header"}}
+              {{t "external.not-found.header"}}
             </AuHeading>
-            <AuHeading @level="2" @skin="3" class="au-u-light au-u-margin-bottom">
-              {{t "fallback.not-found.subheader.prefix"}}
-              <AuLink href="{{this.model.directed.subject}}">
+            <AuHeading
+              @level="2"
+              @skin="3"
+              class="au-u-light au-u-margin-bottom"
+            >
+              {{t "external.not-found.subheader.prefix"}}
+              <AuLinkExternal
+                href="{{this.model.directed.subject}}"
+                class="au-u-word-break-all"
+              >
                 {{this.model.directed.subject}}
-              </AuLink>
-              {{t "fallback.not-found.subheader.postfix"}}
+              </AuLinkExternal>
+              {{t "external.not-found.subheader.postfix"}}
             </AuHeading>
           </div>
 
           <AuHr />
 
         {{else}}
-
           <div class="au-o-region">
-            <AuHeading @level="1" @skin="1" class="au-u-word-break au-u-margin-bottom">
-              {{t "fallback.header"}}
+            <AuHeading
+              @level="1"
+              @skin="1"
+              class="au-u-margin-bottom"
+            >
+              {{t "external.header"}}
             </AuHeading>
             <p class="au-u-h3 au-u-light">
-              {{t "fallback.subheader.prefix"}}
-              <AuLink href="{{this.model.directed.subject}}" class="au-u-word-break">{{this.model.directed.subject}}</AuLink>
-              {{t "fallback.subheader.postfix"}}
+              {{t "external.subheader.prefix"}}
+              <AuLinkExternal
+                href="{{this.model.directed.subject}}"
+                class="au-u-word-break-all"
+              >
+                {{this.model.directed.subject}}
+              </AuLinkExternal>
+              {{t "external.subheader.postfix"}}
             </p>
+
           </div>
 
           <AuHr />
 
           <div class="au-o-region">
             <AuHeading @level="2" @skin="3" class="au-u-margin-bottom-small">
-              {{t "fallback.sections.direct-triples.header"}}
+              {{t "external.sections.direct-triples.header"}}
             </AuHeading>
             <p class="au-u-margin-bottom">
-              {{t "fallback.sections.direct-triples.subheader"}}
+              {{t "external.sections.direct-triples.subheader"}}
             </p>
 
             <div class="au-u-margin-bottom-large">
@@ -47,33 +63,48 @@
                 <AuTable about={{this.model.directed.subject}}>
                   <:header>
                     <tr>
-                      <th>{{t "fallback.table.columns.property"}}</th>
-                      <th>{{t "fallback.table.columns.value"}}</th>
+                      <th>{{t "external.table.columns.property"}}</th>
+                      <th>{{t "external.table.columns.value"}}</th>
                     </tr>
                   </:header>
                   <:body>
                     {{#if this.isLoadingDirected}}
                       <tr>
                         <td>
-                          {{t "fallback.table.loading"}}
+                          {{t "external.table.loading"}}
                         </td>
                         <td></td>
                       </tr>
                     {{else}}
                       {{#each this.model.directed.triples as |triple|}}
                         {{#if (eq triple.object.type "uri")}}
-                          <tr property={{triple.predicate}} resource={{triple.object.value}}>
+                          <tr
+                            property={{triple.predicate}}
+                            resource={{triple.object.value}}
+                          >
                             <td>
-                              <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
+                              <Metis::DisplayUri
+                                @uri={{triple.predicate}}
+                                @type="predicate"
+                              />
                             </td>
                             <td>
-                              <Metis::DisplayUri @uri={{triple.object.value}} @type="object"/>
+                              <Metis::DisplayUri
+                                @uri={{triple.object.value}}
+                                @type="object"
+                              />
                             </td>
                           </tr>
                         {{else}}
-                          <tr property={{triple.predicate}} content={{triple.object.value}}>
+                          <tr
+                            property={{triple.predicate}}
+                            content={{triple.object.value}}
+                          >
                             <td>
-                              <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
+                              <Metis::DisplayUri
+                                @uri={{triple.predicate}}
+                                @type="predicate"
+                              />
                             </td>
                             <td>
                               <span class="au-u-word-break">
@@ -97,7 +128,7 @@
               {{else}}
                 <p>
                   <AuHelpText @skin="tertiary">
-                    {{t "fallback.sections.direct-triples.not-found"}}
+                    {{t "external.sections.direct-triples.not-found"}}
                   </AuHelpText>
                 </p>
               {{/if}}
@@ -105,10 +136,10 @@
           </div>
 
           <AuHeading @level="3" @skin="2" class="au-u-margin-bottom-small">
-            {{t "fallback.sections.inverse-triples.header"}}
+            {{t "external.sections.inverse-triples.header"}}
           </AuHeading>
           <p class="au-u-margin-bottom">
-            {{t "fallback.sections.inverse-triples.subheader"}}
+            {{t "external.sections.inverse-triples.subheader"}}
           </p>
 
           <div class="au-u-margin-bottom-large">
@@ -116,26 +147,35 @@
               <AuTable>
                 <:header>
                   <tr>
-                    <th>{{t "fallback.table.columns.property"}}</th>
-                    <th>{{t "fallback.table.columns.subject"}}</th>
+                    <th>{{t "external.table.columns.property"}}</th>
+                    <th>{{t "external.table.columns.subject"}}</th>
                   </tr>
                 </:header>
                 <:body>
                   {{#if this.isLoadingInverse}}
                     <tr>
                       <td>
-                        {{t "fallback.table.loading"}}
+                        {{t "external.table.loading"}}
                       </td>
                       <td></td>
                     </tr>
                   {{else}}
                     {{#each this.model.inverse.triples as |triple|}}
                       <tr resource={{triple.subject}}>
-                        <td property={{triple.predicate}} resource={{triple.object}}>
-                          <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
+                        <td
+                          property={{triple.predicate}}
+                          resource={{triple.object}}
+                        >
+                          <Metis::DisplayUri
+                            @uri={{triple.predicate}}
+                            @type="predicate"
+                          />
                         </td>
                         <td>
-                          <Metis::DisplayUri @uri={{triple.subject}} @type="subject"/>
+                          <Metis::DisplayUri
+                            @uri={{triple.subject}}
+                            @type="subject"
+                          />
                         </td>
                       </tr>
                     {{/each}}
@@ -153,7 +193,7 @@
             {{else}}
               <p>
                 <AuHelpText @skin="tertiary">
-                  {{t "fallback.sections.inverse-triples.not-found"}}
+                  {{t "external.sections.inverse-triples.not-found"}}
                 </AuHelpText>
               </p>
             {{/if}}

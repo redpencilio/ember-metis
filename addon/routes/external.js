@@ -6,7 +6,7 @@ import buildUrl from 'build-url';
 import RSVP from 'rsvp';
 import { findRoute } from '../utils/class-route';
 
-export default class FallbackRoute extends Route {
+export default class ExternalRoute extends Route {
   queryParams = {
     directedPageNumber: {
       refreshModel: true,
@@ -20,6 +20,9 @@ export default class FallbackRoute extends Route {
     inversePageSize: {
       refreshModel: true,
     },
+    resource: {
+      refreshModel: true,
+    },
   };
 
   @service fastboot;
@@ -29,7 +32,7 @@ export default class FallbackRoute extends Route {
     super(...arguments);
     this.env = getOwner(this).resolveRegistration('config:environment');
 
-    this.templateName = this.env.metis.fallbackTemplate || 'fallback';
+    this.templateName = 'external';
 
     // Simply accessing the service works around this issue: https://github.com/ember-intl/ember-intl/issues/1826
     // We do it in the addon code, so apps aren't forced to do it when they might not even be using ember-intl.
@@ -38,14 +41,14 @@ export default class FallbackRoute extends Route {
   }
 
   async model({
-    path,
     directedPageNumber,
     directedPageSize,
     inversePageNumber,
     inversePageSize,
+    resource,
   }) {
-    const prefix = this.env.metis.baseUrl;
-    const subject = `${prefix}${path}`;
+    let subject = resource;
+
     const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 
     const requestDirectedLinksUrl = buildUrl(backend, {

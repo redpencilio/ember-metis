@@ -1,3 +1,3 @@
-export default function metisFallbackRoute(router) {
+export default function fallbackRoute(router) {
   router.route('fallback', { path: '/*path' });
 }

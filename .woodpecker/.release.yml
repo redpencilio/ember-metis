@@ -1,0 +1,13 @@
+steps:
+  install:
+    image: node:18
+    commands:
+      - npm install
+  release:
+    image: plugins/npm
+    settings:
+      token:
+        from_secret: npm_access_token
+when:
+  event: tag
+  tag: v*

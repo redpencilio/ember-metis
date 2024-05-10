@@ -56,7 +56,7 @@ module.exports = function(environment) {
   return {
     buildSandboxGlobals(defaultGlobals) {
       return Object.assign({}, defaultGlobals, {
-        BACKEND_URL: 'localhost',
+        BACKEND_URL: 'http://localhost',
       });
     },
   };
@@ -69,10 +69,8 @@ ember-metis depends on components from the [ember-appuniversum addon](https://gi
 #### Install ember-metis
 Install the ember-metis addon in your application.
 
-> ember-metis hasn't been published to npm yet, but you can use the github uri instead
-
 ```bash
-npm install -D github:redpencilio/ember-metis#v0.8.1
+npm install -D ember-metis
 ```
 
 Add the following configuration to `./config/environment.js`:
@@ -86,23 +84,23 @@ let ENV = {
 
 The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the base URL of your production environment.
 
-Finally, import and add the `metisFallbackRoute` util to your `router.js`
+Finally, import and add the `fallbackRoute` util to your `router.js`
 
 ```javascript
-import metisFallbackRoute from 'metis/utils/fallback-route';
+import { fallbackRoute } from 'ember-metis';
 
 Router.map(function() {
   // ... other routes here
 
-  metisFallbackRoute(this);
+  fallbackRoute(this);
 });
 ```
 
-Since `metisFallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
+Since `fallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
 
 ## How-to guides
 ### Change the locale to nl-be
-Ember-metis uses [ember-intl](https://ember-intl.github.io/ember-intl/) for internationalization. By default the locale is set to `en-us` unless otherwise configured in the host app. To configure the locale in your host app, add the following application instance initializer:
+ember-metis uses [ember-intl](https://ember-intl.github.io/ember-intl/) for internationalization. By default the locale is set to `en-us` unless otherwise configured in the host app. To configure the locale in your host app, add the following application instance initializer:
 
 ```javascript
 // app/instance-initializers/locale.js
@@ -128,8 +126,7 @@ Before you generate your first custom route/template, import the `classRoute` ut
 ```javascript
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
-import metisFallbackRoute from 'metis/utils/fallback-route';
-import classRoute from 'metis/utils/class-route';   // <---- Add this line
+import { classRoute, fallbackRoute } from 'ember-metis';   // <---- Edit this line
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -139,7 +136,7 @@ export default class Router extends EmberRouter {
 Router.map(function() {
   // other routes
   this.route('view', function() { });  // <---- Add this line
-  metisFallbackRoute(this);
+  fallbackRoute(this);
 });
 ```
 

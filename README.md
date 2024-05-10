@@ -56,7 +56,7 @@ module.exports = function(environment) {
   return {
     buildSandboxGlobals(defaultGlobals) {
       return Object.assign({}, defaultGlobals, {
-        BACKEND_URL: 'localhost',
+        BACKEND_URL: 'http://localhost',
       });
     },
   };

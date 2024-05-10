@@ -28,6 +28,10 @@ export default class MetisDisplayUriComponent extends Component {
     }
   }
 
+  get isLocal() {
+    return this.localBasePath && true;
+  }
+
   get localBasePath() {
     const uri = this.args.uri || '';
     if (uri.startsWith(this.config.metis.baseUrl))

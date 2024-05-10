@@ -49,7 +49,7 @@ external:
       property: "Property"
       value: "Value"
 display-uri:
-  follow-url: "Follow URL"
+  follow-url: "Internal link"
   follow-external-url: "External link"
   follow-internal-url: "Internal link"
   show-uri: "Show URI"

@@ -49,7 +49,7 @@ external:
       property: "Eigenschap"
       value: "Waarde"
 display-uri:
-  follow-url: "Volg link"
+  follow-url: "Interne link"
   follow-external-url: "Externe link"
   follow-internal-url: "Interne link"
   show-uri: "Toon URI"

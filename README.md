@@ -14,7 +14,7 @@ Add the following snippet to the `docker-compose.yml` file of your backend stack
 ```yaml
 services:
   uri-info:
-    image: redpencil/mu-uri-info-service:0.210
+    image: redpencil/mu-uri-info-service:0.2.1
   resource-labels-cache:
     image: semtech/mu-cache:2.0.2
     links:
@@ -87,11 +87,12 @@ The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the
 Finally, import and add the `fallbackRoute` util to your `router.js`
 
 ```javascript
-import { fallbackRoute } from 'ember-metis';
+import { fallbackRoute, externalRoute } from 'ember-metis';
 
 Router.map(function() {
   // ... other routes here
 
+  externalRoute(this);
   fallbackRoute(this);
 });
 ```
@@ -99,6 +100,21 @@ Router.map(function() {
 Since `fallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
 
 ## How-to guides
+### Upgrade from 0.9.0
+Since 0.10.0 there is a `externalRoute` which must also be exposed in your `router.js`.
+
+```javascript
+import { fallbackRoute, externalRoute } from 'ember-metis'; // <-- Add externalRoute import
+
+Router.map(function() {
+  // ... other routes here
+
+  externalRoute(this); // <-- Add this line before fallbackRoute
+  fallbackRoute(this);
+});
+```
+
+
 ### Change the locale to nl-be
 ember-metis uses [ember-intl](https://ember-intl.github.io/ember-intl/) for internationalization. By default the locale is set to `en-us` unless otherwise configured in the host app. To configure the locale in your host app, add the following application instance initializer:
 
@@ -126,7 +142,7 @@ Before you generate your first custom route/template, import the `classRoute` ut
 ```javascript
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
-import { classRoute, fallbackRoute } from 'ember-metis';   // <---- Edit this line
+import { classRoute, fallbackRoute, externalRoute } from 'ember-metis';   // <---- Edit this line
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -136,6 +152,8 @@ export default class Router extends EmberRouter {
 Router.map(function() {
   // other routes
   this.route('view', function() { });  // <---- Add this line
+
+  externalRoute(this);
   fallbackRoute(this);
 });
 ```

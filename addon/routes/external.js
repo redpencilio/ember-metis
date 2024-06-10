@@ -33,11 +33,6 @@ export default class ExternalRoute extends Route {
     this.env = getOwner(this).resolveRegistration('config:environment');
 
     this.templateName = 'external';
-
-    // Simply accessing the service works around this issue: https://github.com/ember-intl/ember-intl/issues/1826
-    // We do it in the addon code, so apps aren't forced to do it when they might not even be using ember-intl.
-    // TODO: remove this once the issue is fixed upstream
-    this.intl;
   }
 
   async model({

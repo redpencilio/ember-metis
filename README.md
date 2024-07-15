@@ -50,6 +50,8 @@ ember install ember-cli-fastboot
 
 For local development using `ember serve` ember-metis requires `BACKEND_URL` as a sandbox global when running in fastboot mode. The value of `BACKEND_URL` must be the same URL you pass as proxy URL in `ember serve --proxy`. Typically `http://localhost/` (or `http://host` when serving the frontend from a Docker container using [eds](https://github.com/madnificent/docker-ember#eds)).
 
+If your app depends on Ember Data >= v4.12 you will need some additional sandbox globals to support `fetch` in Fastboot.
+
 To define the sandbox global, add the follow content to `./config/fastboot.js` in your frontend application:
 ```javascript
 module.exports = function(environment) {
@@ -57,6 +59,22 @@ module.exports = function(environment) {
     buildSandboxGlobals(defaultGlobals) {
       return Object.assign({}, defaultGlobals, {
         BACKEND_URL: 'http://localhost',
+
+        // Fastboot support for Ember Data >= 4.12
+        AbortController,
+        ReadableStream:
+        typeof ReadableStream !== "undefined"
+          ? ReadableStream
+          : require("node:stream/web").ReadableStream,
+        WritableStream:
+        typeof WritableStream !== "undefined"
+          ? WritableStream
+          : require("node:stream/web").WritableStream,
+        TransformStream:
+        typeof TransformStream !== "undefined"
+          ? TransformStream
+          : require("node:stream/web").TransformStream,
+        Headers: typeof Headers !== "undefined" ? Headers : undefined,
       });
     },
   };

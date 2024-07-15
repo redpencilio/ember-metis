@@ -81,6 +81,30 @@ module.exports = function(environment) {
 };
 ```
 
+When using Ember Data add the following `fastbootDependencies` section in `package.json`, next to `dependencies` and `devDependencies`:
+```javascript
+{
+  "devDependencies": {
+    // ... dependencies here
+  },
+  "fastbootDependencies": [
+    "crypto"
+  ]
+}
+```
+
+Finally, configure a host whitelist for Fastboot in your frontend's `./config/environment.js`:
+```javascript
+module.exports = function (environment) {
+  const ENV = {
+    // ... other config here ...
+    fastboot: {
+      hostWhitelist: ['backend',/^host:\d+$/,/^localhost:\d+$/]
+    }
+  }
+}
+```
+
 #### Setup Appuniversum
 ember-metis depends on components from the [ember-appuniversum addon](https://github.com/appuniversum/ember-appuniversum). Follow the [getting started guide](https://appuniversum.github.io/ember-appuniversum/?path=/story/outline-getting-started--page) to set that up first.
 
@@ -93,11 +117,14 @@ npm install -D ember-metis
 
 Add the following configuration to `./config/environment.js`:
 ```javascript
-let ENV = {
-  metis: {
-    baseUrl: "http://data.lblod.info/"
-  },
-  ...
+module.exports = function (environment) {
+  const ENV = {
+    // ... other config here ...
+    metis: {
+      baseUrl: "http://data.lblod.info/"
+    }
+  }
+}
 ```
 
 The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the base URL of your production environment.

@@ -8,7 +8,7 @@ module.exports = function (environment) {
     locationType: 'history',
     metis: {
       routes: {},
-      baseUrl: 'EMBER_METIS_BASE_URL',
+      baseUrl: '{{METIS_BASE_URL}}',
     },
     EmberENV: {
       FEATURES: {
@@ -29,6 +29,11 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+    const { METIS_BASE_URL } = process.env;
+    if (METIS_BASE_URL) {
+      ENV.metis.baseUrl = METIS_BASE_URL;
+    }
   }
 
   if (environment === 'test') {

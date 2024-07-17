@@ -32,3 +32,24 @@ export function defineRoute(routeString, options) {
 export function findRoute(rdfType) {
   return routes[rdfType];
 }
+
+/**
+ * Get route name by rdf-type
+ */
+export function findRouteByType(triples) {
+  const rdfTypes = triples
+    .filter(
+      ({ predicate }) =>
+        predicate == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+    )
+    .map(({ object: { value } }) => value);
+
+  for (let type of rdfTypes) {
+    const customRoute = findRoute(type);
+    if (customRoute) {
+      return customRoute;
+    }
+  }
+
+  return null;
+}

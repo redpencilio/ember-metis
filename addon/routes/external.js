@@ -1,10 +1,8 @@
 import Route from '@ember/routing/route';
-import { getOwner } from '@ember/application';
 import { inject as service } from '@ember/service';
-import fetch, { Headers } from 'fetch';
-import buildUrl from 'build-url';
 import RSVP from 'rsvp';
-import { findRoute } from '../utils/class-route';
+import { findRouteByType } from '../utils/class-route';
+import fetchUriInfo from '../utils/fetch-uri-info';
 
 export default class ExternalRoute extends Route {
   queryParams = {
@@ -25,13 +23,12 @@ export default class ExternalRoute extends Route {
     },
   };
 
+  @service router;
   @service fastboot;
   @service intl;
 
   constructor() {
     super(...arguments);
-    this.env = getOwner(this).resolveRegistration('config:environment');
-
     this.templateName = 'external';
   }
 
@@ -42,52 +39,28 @@ export default class ExternalRoute extends Route {
     inversePageSize,
     resource,
   }) {
-    let subject = resource;
-
+    const subject = resource;
     const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 
-    const requestDirectedLinksUrl = buildUrl(backend, {
-      path: 'uri-info/direct',
-      queryParams: {
-        subject: subject,
-        pageNumber: directedPageNumber,
-        pageSize: directedPageSize,
-      },
-    });
-
-    const requestInverseLinksUrl = buildUrl(backend, {
-      path: 'uri-info/inverse',
-      queryParams: {
-        subject: subject,
-        pageNumber: inversePageNumber,
-        pageSize: inversePageSize,
-      },
-    });
-
     const response = await RSVP.hash({
-      directed: (
-        await fetch(requestDirectedLinksUrl, {
-          headers: new Headers({ accept: 'application/vnd.api+json' }),
-        })
-      ).json(),
-      inverse: (
-        await fetch(requestInverseLinksUrl, {
-          headers: new Headers({ accept: 'application/vnd.api+json' }),
-        })
-      ).json(),
+      directed: await fetchUriInfo(
+        backend,
+        subject,
+        directedPageNumber,
+        directedPageSize
+      ),
+      inverse: await fetchUriInfo(
+        backend,
+        subject,
+        inversePageNumber,
+        inversePageSize,
+        'inverse'
+      ),
     });
 
     return {
-      directed: {
-        triples: response.directed.triples,
-        subject: subject,
-        count: response.directed.count,
-      },
-      inverse: {
-        triples: response.inverse.triples,
-        subject: subject,
-        count: response.inverse.count,
-      },
+      directed: response.directed,
+      inverse: response.inverse,
     };
   }
 
@@ -97,21 +70,11 @@ export default class ExternalRoute extends Route {
     // If uri-info service provides an endpoint to get the rdf:Class of a given resource,
     // that request could be executed in the beforeModel-hook and a transition (if needed) can be triggered
     // before the model is loaded
-    const rdfTypes = model.directed.triples
-      .filter(
-        ({ predicate }) =>
-          predicate == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
-      )
-      .map(({ object: { value } }) => value);
-
-    for (let type of rdfTypes) {
-      const customRoute = findRoute(type);
-      if (customRoute) {
-        this.replaceWith(customRoute, {
-          queryParams: { resource: model.directed.subject },
-        });
-        return;
-      }
+    const customRoute = findRouteByType(model.directed.triples);
+    if (customRoute) {
+      this.router.replaceWith(customRoute, {
+        queryParams: { resource: model.directed.subject },
+      });
     }
   }
 

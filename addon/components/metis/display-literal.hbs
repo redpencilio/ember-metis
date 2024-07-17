@@ -1,0 +1,9 @@
+{{#if @language}}
+  <p class="au-u-word-break">
+    {{@value}} <span class="au-u-muted">@{{@language}}</span>
+  </p>
+{{else}}
+  <p class="au-u-word-break">
+    {{@value}}
+  </p>
+{{/if}}

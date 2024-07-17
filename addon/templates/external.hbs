@@ -107,9 +107,9 @@
                               />
                             </td>
                             <td>
-                              <span class="au-u-word-break">
-                                {{triple.object.value}}
-                              </span>
+                              <Metis::DisplayLiteral
+                                @value={{triple.object.value}}
+                                @language={{get triple.object "xml:lang"}} />
                             </td>
                           </tr>
                         {{/if}}

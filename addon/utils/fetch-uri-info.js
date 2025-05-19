@@ -8,7 +8,7 @@ export default async function fetchUriInfo(
   size,
   direction = 'direct'
 ) {
-  const baseUrl = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
+  const baseUrl = fastboot.isFastBoot ? window.BACKEND_URL : '/';
 
   const url = buildUrl(baseUrl, {
     path: `uri-info/${direction}`,

@@ -40,7 +40,7 @@ export function findRouteByType(triples) {
   const rdfTypes = triples
     .filter(
       ({ predicate }) =>
-        predicate == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+        predicate == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
     )
     .map(({ object: { value } }) => value);
 

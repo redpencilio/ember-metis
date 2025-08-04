@@ -46,14 +46,14 @@ export default class ExternalRoute extends Route {
         this.fastboot,
         subject,
         directedPageNumber,
-        directedPageSize
+        directedPageSize,
       ),
       inverse: await fetchUriInfo(
         this.fastboot,
         subject,
         inversePageNumber,
         inversePageSize,
-        'inverse'
+        'inverse',
       ),
     });
 

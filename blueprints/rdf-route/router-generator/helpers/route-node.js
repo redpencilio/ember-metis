@@ -11,7 +11,7 @@ module.exports = function routeNode(name, options) {
       b.objectExpression([
         b.property('init', b.identifier('class'), b.literal(options)),
       ]),
-    ])
+    ]),
   );
 
   return node;

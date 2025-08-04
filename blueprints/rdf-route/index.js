@@ -39,8 +39,8 @@ module.exports = {
       console.log('\n');
       console.log(
         chalk.red(
-          'You need to import the `classRoute` util in your router.js file first.'
-        )
+          'You need to import the `classRoute` util in your router.js file first.',
+        ),
       );
       console.log(chalk.red("import { classRoute } from 'ember-metis';"));
       throw new Error('Check ember-metis README for more information');
@@ -50,7 +50,7 @@ module.exports = {
     let namePart = options.entity.name.split('/');
     if (namePart.length > 1) {
       throw new Error(
-        "Nested rdf-routes are not supported yet. Notice that rdf-routes are already automatically nested under 'view'."
+        "Nested rdf-routes are not supported yet. Notice that rdf-routes are already automatically nested under 'view'.",
       );
     }
   },
@@ -107,7 +107,7 @@ function updateRouter(action, options) {
     this._writeStatusToUI(
       chalk[color],
       action + ' route',
-      'view/' + entity.name
+      'view/' + entity.name,
     );
   }
 }

@@ -42,17 +42,15 @@ export default class FallbackRoute extends Route {
     const prefix = this.env.metis.baseUrl;
     const subject = `${prefix}${path}`;
 
-    const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
-
     const response = await RSVP.hash({
       directed: await fetchUriInfo(
-        backend,
+        this.fastboot,
         subject,
         directedPageNumber,
         directedPageSize
       ),
       inverse: await fetchUriInfo(
-        backend,
+        this.fastboot,
         subject,
         inversePageNumber,
         inversePageSize,

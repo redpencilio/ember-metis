@@ -40,17 +40,16 @@ export default class ExternalRoute extends Route {
     resource,
   }) {
     const subject = resource;
-    const backend = this.fastboot.isFastBoot ? window.BACKEND_URL : '/';
 
     const response = await RSVP.hash({
       directed: await fetchUriInfo(
-        backend,
+        this.fastboot,
         subject,
         directedPageNumber,
         directedPageSize
       ),
       inverse: await fetchUriInfo(
-        backend,
+        this.fastboot,
         subject,
         inversePageNumber,
         inversePageSize,

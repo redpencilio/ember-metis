@@ -179,8 +179,68 @@ export default {
 ### Provide human-readable labels for URIs on the subject page
 Check the README of the [resource label service](https://github.com/lblod/resource-label-service/#db-information) how to insert human-readable labels in the triplestore. Once the labels are available, they will be automatically picked up by ember-metis.
 
-### Setup a custom template for a specific resource type
-For some resources you may want to display a custom template instead of the default one provided by ember-metis. The addon supports custom templates per resource type. E.g. you can provide a custom template for all resources of type `http://xmlns.com/foaf/0.1/Person`.
+### Customize the resource view
+To allow you to customize the appearance of the resource pages, the addon offers two components:
+
+- `<Metis::ResourcePage />` containing the entire content of the resource page without layout wrappers
+- `<Metis::ResourceMetadata />` containing only the tables rendering direct and inverse triples without additional description
+
+You may use these components anywhere in your application, given that you provide them with `@model` and `@controller` attributes containing a metis route model and a metis controller instance, respectively.
+
+For a minimal working use case, define your own route instead of the fallback route in `router.js`:
+
+```javascript
+Router.map(function() {
+  // ... other routes here
+
+  externalRoute(this);
+  this.route('metis', { path: '/*path' }); // <-- Replace fallbackRoute(this) with this line
+});
+```
+
+Then create the corresponding route and controller extending the addon's ones:
+
+```javascript
+// app/routes/metis.js
+
+import FallbackRoute from 'ember-metis/routes/fallback';
+
+export default class MetisRoute extends FallbackRoute {
+  templateName = 'metis';
+}
+```
+
+```javascript
+// app/controllers/metis.js
+
+import FallbackController from 'ember-metis/controllers/fallback';
+
+export default class MetisController extends FallbackController {
+  // additional arbitrary logic
+}
+
+```
+
+And finally define your template, using one of the provided components and arbitrary additional content.
+```handlebars
+<!-- app/templates/metis.hbs -->
+
+<div>
+  {{#if this.isEmpty}}
+    Bad luck!
+  {{else}}
+    <Metis::ResourceMetadata
+      @model={{@model}}
+      @controller={{this}}
+    />
+  {{/if}}
+</div>
+```
+
+To see the components used in practice, refer to the `addon/templates/external.hbs` and `addon/components/metis/resource-page.hbs` files.
+
+### Setup a custom template for a specific resource type only
+You might wish to display a custom template only for specific resource types. E.g. you can provide a custom template for all resources of type `http://xmlns.com/foaf/0.1/Person`.
 
 Before you generate your first custom route/template, import the `classRoute` util in `router.js` and define a `view` route at the root level:
 

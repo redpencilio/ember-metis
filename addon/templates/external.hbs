@@ -2,59 +2,9 @@
   <div class="au-o-region-large">
     <div class="au-o-grid au-o-grid--center">
       <div class="au-o-grid__item au-u-5-6 au-u-2-3@medium">
-
-        {{#if this.isEmpty}}
-          <div class="au-u-margin-bottom">
-            <AuHeading class="au-u-margin-bottom">
-              {{t "external.not-found.header"}}
-            </AuHeading>
-            <AuHeading
-              @level="2"
-              @skin="3"
-              class="au-u-light au-u-margin-bottom"
-            >
-              {{t "external.not-found.subheader.prefix"}}
-              <AuLinkExternal
-                href="{{this.model.directed.subject}}"
-                class="au-u-word-break-all"
-              >
-                {{this.model.directed.subject}}
-              </AuLinkExternal>
-              {{t "external.not-found.subheader.postfix"}}
-            </AuHeading>
-          </div>
-
-          <AuHr />
-
-        {{else}}
-          <div class="au-o-region">
-            <AuHeading
-              @level="1"
-              @skin="1"
-              class="au-u-margin-bottom"
-            >
-              {{t "external.header"}}
-            </AuHeading>
-            <p class="au-u-h3 au-u-light">
-              {{t "external.subheader.prefix"}}
-              <AuLinkExternal
-                href="{{this.model.directed.subject}}"
-                class="au-u-word-break-all"
-              >
-                {{this.model.directed.subject}}
-              </AuLinkExternal>
-              {{t "external.subheader.postfix"}}
-            </p>
-
-          </div>
-
-          <AuHr />
-
-          <Metis::ResourceMetadata
-            @model={{@model}}
-            @controller={{this}}
-          />
-        {{/if}}
+        <Metis::ResourcePage
+          @model={{@model}}
+          @controller={{this}} />
       </div>
     </div>
   </div>

@@ -1,0 +1,66 @@
+{{#if @controller.isEmpty}}
+  <div class="au-u-margin-bottom">
+    <AuHeading class="au-u-margin-bottom">
+      {{this.t "not-found.header"}}
+    </AuHeading>
+    <AuHeading
+      @level="2"
+      @skin="3"
+      class="au-u-light au-u-margin-bottom"
+    >
+      {{this.t "not-found.subheader.prefix"}}
+
+      {{#if (eq this.routeType "fallback")}}
+      <AuLink href="{{@model.directed.subject}}">
+        {{@model.directed.subject}}
+      </AuLink>
+      {{else}}
+      <AuLinkExternal
+        href="{{@model.directed.subject}}"
+        class="au-u-word-break-all"
+      >
+        {{@model.directed.subject}}
+      </AuLinkExternal>
+      {{/if}}
+
+      {{this.t "not-found.subheader.postfix"}}
+    </AuHeading>
+  </div>
+
+  <AuHr />
+
+{{else}}
+  <div class="au-o-region">
+    <AuHeading
+      @level="1"
+      @skin="1"
+      class="au-u-margin-bottom"
+    >
+      {{this.t "header"}}
+    </AuHeading>
+    <p class="au-u-h3 au-u-light">
+      {{this.t "subheader.prefix"}}
+
+  {{#if (eq this.routeType "fallback")}}
+    <AuLink href="{{@model.directed.subject}}" class="au-u-word-break">{{@model.directed.subject}}</AuLink>
+  {{else}}
+      <AuLinkExternal
+        href="{{@model.directed.subject}}"
+        class="au-u-word-break-all"
+      >
+        {{@model.directed.subject}}
+      </AuLinkExternal>
+  {{/if}}
+
+      {{this.t "subheader.postfix"}}
+    </p>
+
+  </div>
+
+  <AuHr />
+
+  <Metis::ResourceMetadata
+    @model={{@model}}
+    @controller={{@controller}}
+  />
+{{/if}}

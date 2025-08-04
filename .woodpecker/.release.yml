@@ -9,5 +9,5 @@ steps:
       token:
         from_secret: npm_access_token
 when:
-  event: tag
-  tag: v*
+  - event: tag
+    ref: refs/tags/*

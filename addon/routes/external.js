@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import { findRouteByType } from '../utils/class-route';
 import fetchUriInfo from '../utils/fetch-uri-info';
+import { getOwner } from '@ember/application';
 
 export default class ExternalRoute extends Route {
   queryParams = {
@@ -29,6 +30,7 @@ export default class ExternalRoute extends Route {
 
   constructor() {
     super(...arguments);
+    this.env = getOwner(this).resolveRegistration('config:environment');
     this.templateName = 'external';
   }
 
@@ -40,6 +42,10 @@ export default class ExternalRoute extends Route {
     resource,
   }) {
     const subject = resource;
+    const serviceBase =
+      this.env.metis.serviceBase === 'SERVICE_BASE'
+        ? '/'
+        : this.env.metis.serviceBase;
 
     const response = await RSVP.hash({
       directed: await fetchUriInfo(
@@ -47,6 +53,8 @@ export default class ExternalRoute extends Route {
         subject,
         directedPageNumber,
         directedPageSize,
+        'direct',
+        serviceBase,
       ),
       inverse: await fetchUriInfo(
         this.fastboot,
@@ -54,6 +62,7 @@ export default class ExternalRoute extends Route {
         inversePageNumber,
         inversePageSize,
         'inverse',
+        serviceBase,
       ),
     });
 

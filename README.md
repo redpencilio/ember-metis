@@ -2,6 +2,13 @@
 
 Ember addon providing default subject pages for your Linked Data resources. The default subject page lists all incoming and outgoing relations of a resource. The addon allows to override subject pagess per resource types with a custom template.
 
+## Compatibility
+
+- Ember.js v4.12 or above
+- Ember CLI v4.12 or above
+- Node.js v18 or above
+
+
 ## Getting started
 ### Adding ember-metis to your application
 #### Setup the backend

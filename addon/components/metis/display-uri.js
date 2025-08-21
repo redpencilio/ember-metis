@@ -47,14 +47,6 @@ export default class MetisDisplayUriComponent extends Component {
     }
   }
 
-  get description() {
-    if (this.description) {
-      return this.description;
-    } else {
-      return null;
-    }
-  }
-
   get hasShort() {
     return this.externalPreflabel;
   }

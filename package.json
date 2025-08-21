@@ -42,7 +42,6 @@
     "@embroider/macros": "^1.18.2",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
-    "build-url": "^6.0.1",
     "chalk": "^4.1.2",
     "ember-auto-import": "^2.8.1",
     "ember-cli-babel": "^8.2.0",
@@ -116,5 +115,8 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "volta": {
+    "node": "20.19.4"
   }
 }

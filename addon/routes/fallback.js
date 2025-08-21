@@ -49,6 +49,10 @@ export default class FallbackRoute extends Route {
     inversePageSize,
   }) {
     const prefix = this.env.metis.baseUrl;
+    const serviceBase =
+      this.env.metis.serviceBase === '{{METIS_SERVICE_BASE}}'
+        ? '/'
+        : this.env.metis.serviceBase;
     const subject = `${prefix}${path}`;
 
     const response = await RSVP.hash({
@@ -57,6 +61,8 @@ export default class FallbackRoute extends Route {
         subject,
         directedPageNumber,
         directedPageSize,
+        'direct',
+        serviceBase,
       ),
       inverse: await fetchUriInfo(
         this.fastboot,
@@ -64,6 +70,7 @@ export default class FallbackRoute extends Route {
         inversePageNumber,
         inversePageSize,
         'inverse',
+        serviceBase,
       ),
     });
 

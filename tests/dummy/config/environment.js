@@ -8,7 +8,11 @@ module.exports = function (environment) {
     locationType: 'history',
     metis: {
       routes: {},
-      baseUrl: 'EMBER_METIS_BASE_URL',
+      baseUrl: '/',
+      serviceBaseUrl: '/data',
+    },
+    fastboot: {
+      hostWhitelist: [/^localhost(:[0-9]*)?/, 'localhost', /^.*$/],
     },
     EmberENV: {
       EXTEND_PROTOTYPES: false,

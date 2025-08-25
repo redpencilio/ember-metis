@@ -6,14 +6,14 @@
        label=(if this.hasShort this.label @uri)
        extraClass=(if this.hasShort "" "au-u-word-break-all"))
        as |routeInfo|}}
-    <AuLink
+    <Metis::Link
       @route={{routeInfo.route}}
       @model={{routeInfo.model}}
       @query={{routeInfo.query}}
       class={{routeInfo.extraClass}}
     >
       {{routeInfo.label}}
-    </AuLink>
+    </Metis::Link>
   {{/let}}
 </p>
 
@@ -23,37 +23,34 @@
 
 <ul class="au-c-list-horizontal au-u-margin-top-tiny">
   <li class="au-c-list-horizontal__item">
-    <AuLinkExternal @icon="link-external" href={{@uri}}>
+    <Metis::LinkExternal @icon="link-external" href={{@uri}}>
       {{t "display-uri.follow-external-url"}}
-    </AuLinkExternal>
+    </Metis::LinkExternal>
   </li>
 
   {{#unless this.isLocal}}
     <li class="au-c-list-horizontal__item">
-      <AuLink
+      <Metis::Link
         @icon="link-external"
         @route="external"
         @query={{hash resource=@uri}}
         class="au-u-word-break-all"
       >
         {{t "display-uri.follow-internal-url"}}
-      </AuLink>
+      </Metis::Link>
     </li>
   {{/unless}}
 
   {{#if this.hasShort}}
     <li class="au-c-list-horizontal__item">
-      <AuButton
-        @skin="link"
-        @icon={{if this.showShort "link" "draft"}}
-        {{on "click" (fn (mut this.showShort) (not this.showShort))}}
+      <Metis::Button @icon={{if this.showShort "link" "draft"}} {{on "click" (fn (mut this.showShort) (not this.showShort))}}
       >
         {{#if this.showShort}}
           {{t "display-uri.show-uri"}}
         {{else}}
           {{t "display-uri.show-label"}}
         {{/if}}
-      </AuButton>
+      </Metis::Button>
     </li>
   {{/if}}
 </ul>

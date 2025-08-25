@@ -1,9 +1,9 @@
 {{#if @controller.isEmpty}}
   <div class="au-u-margin-bottom">
-    <AuHeading class="au-u-margin-bottom">
+    <Metis::Heading class="au-u-margin-bottom">
       {{this.t "not-found.header"}}
-    </AuHeading>
-    <AuHeading
+    </Metis::Heading>
+    <Metis::Heading
       @level="2"
       @skin="3"
       class="au-u-light au-u-margin-bottom"
@@ -11,45 +11,45 @@
       {{this.t "not-found.subheader.prefix"}}
 
       {{#if (eq this.routeType "fallback")}}
-      <AuLink href="{{@model.directed.subject}}">
+      <Metis::Link href="{{@model.directed.subject}}">
         {{@model.directed.subject}}
-      </AuLink>
+      </Metis::Link>
       {{else}}
-      <AuLinkExternal
+      <Metis::LinkExternal
         href="{{@model.directed.subject}}"
         class="au-u-word-break-all"
       >
         {{@model.directed.subject}}
-      </AuLinkExternal>
+      </Metis::LinkExternal>
       {{/if}}
 
       {{this.t "not-found.subheader.postfix"}}
-    </AuHeading>
+    </Metis::Heading>
   </div>
 
-  <AuHr />
+  <Metis::Hr />
 
 {{else}}
   <div class="au-o-region">
-    <AuHeading
+    <Metis::Heading
       @level="1"
       @skin="1"
       class="au-u-margin-bottom"
     >
       {{this.t "header"}}
-    </AuHeading>
+    </Metis::Heading>
     <p class="au-u-h3 au-u-light">
       {{this.t "subheader.prefix"}}
 
   {{#if (eq this.routeType "fallback")}}
-    <AuLink href="{{@model.directed.subject}}" class="au-u-word-break">{{@model.directed.subject}}</AuLink>
+    <Metis::Link href="{{@model.directed.subject}}" class="au-u-word-break">{{@model.directed.subject}}</Metis::Link>
   {{else}}
-      <AuLinkExternal
+      <Metis::LinkExternal
         href="{{@model.directed.subject}}"
         class="au-u-word-break-all"
       >
         {{@model.directed.subject}}
-      </AuLinkExternal>
+      </Metis::LinkExternal>
   {{/if}}
 
       {{this.t "subheader.postfix"}}
@@ -57,7 +57,7 @@
 
   </div>
 
-  <AuHr />
+  <Metis::Hr />
 
   <Metis::ResourceMetadata
     @model={{@model}}

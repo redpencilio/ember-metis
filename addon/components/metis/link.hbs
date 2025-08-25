@@ -1,0 +1,13 @@
+<LinkTo
+  @route={{@route}}
+  @models={{if @model (array @model) (array)}}
+  @query={{@query}}
+  class="au-c-link"
+  ...attributes
+>
+  {{#if @icon}}
+    <Metis::Icon @icon={{@icon}} />
+  {{/if}}
+
+  {{yield}}
+</LinkTo>

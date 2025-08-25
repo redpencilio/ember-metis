@@ -1,11 +1,11 @@
-<AuToolbar @size="medium" @nowrap={{true}}>
+<Metis::Toolbar>
   <div class="au-c-pagination">
     <div class="au-c-pagination__list-item">
       {{#if this.hasMultiplePages}}
         {{#unless this.isFirstPage}}
-          <AuButton @skin="link" @icon="nav-left" @iconAlignment="left" {{on "click" this.previousPage }}>
+          <Metis::Button @icon="nav-left" @iconAlignment="left" {{on "click" this.previousPage }}>
             {{t "pagination.previous-page"}}
-          </AuButton>
+          </Metis::Button>
         {{/unless}}
       {{/if}}
     </div>
@@ -20,11 +20,11 @@
     <div class="au-c-pagination__list-item">
       {{#if this.hasMultiplePages}}
         {{#unless this.isLastPage}}
-          <AuButton @skin="link" @icon="nav-right" @iconAlignment="right" {{on "click" this.nextPage }}>
+          <Metis::Button @icon="nav-right" @iconAlignment="right" {{on "click" this.nextPage }}>
             {{t "pagination.next-page"}}
-          </AuButton>
+          </Metis::Button>
         {{/unless}}
       {{/if}}
     </div>
   </div>
-</AuToolbar>
+</Metis::Toolbar>

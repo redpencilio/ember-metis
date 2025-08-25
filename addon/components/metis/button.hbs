@@ -1,0 +1,11 @@
+<button class="au-c-button au-c-button--link" type="button" ...attributes>
+  {{#if (or (not @iconAlignment) (eq @iconAlignment "left"))}}
+    <Metis::Icon @icon={{@icon}} />
+  {{/if}}
+
+  {{yield}}
+
+  {{#if (eq @iconAlignment "right")}}
+    <Metis::Icon @icon={{@icon}} />
+  {{/if}}
+</button>

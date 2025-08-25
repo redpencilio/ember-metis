@@ -7,9 +7,6 @@ module.exports = function (defaults) {
     sassOptions: {
       includePaths: ['./styles'],
     },
-    '@appuniversum/ember-appuniversum': {
-      disableWormholeElement: true,
-    },
   });
 
   app.import('node_modules/svgxuse/svgxuse.js');

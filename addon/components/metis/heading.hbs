@@ -1,7 +1,7 @@
 {{#if (eq @level "3")}}
   <h3 class="au-c-heading au-c-heading--{{or @skin 1}}" ...attributes>{{yield}}</h3>
-  {{else if (eq @level "2")}}
+{{else if (eq @level "2")}}
   <h2 class="au-c-heading au-c-heading--{{or @skin 1}}" ...attributes>{{yield}}</h2>
 {{else}}
   <h1 class="au-c-heading au-c-heading--{{or @skin 1}}" ...attributes>{{yield}}</h1>
-  {{/if}}
+{{/if}}

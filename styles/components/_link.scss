@@ -1,0 +1,32 @@
+.au-c-link {
+  display: inline-flex;
+  gap: 0.6rem;
+  align-items: center;
+  font-family: var(--au-font);
+  transition: color var(--au-transition), -webkit-text-decoration var(--au-transition);
+  transition: color var(--au-transition), text-decoration var(--au-transition);
+  transition: color var(--au-transition), text-decoration var(--au-transition), -webkit-text-decoration var(--au-transition);
+  font-weight: var(--au-regular);
+  text-decoration-color: var(--au-blue-300);
+}
+
+.au-c-link, .au-c-link:visited {
+  color: var(--au-blue-700);
+}
+
+.au-c-link:hover, .au-c-link:focus {
+  color: var(--au-blue-900);
+  text-decoration-color: var(--au-blue-200);
+}
+
+.au-c-link:focus {
+  outline: var(--au-outline);
+  outline-offset: var(--au-outline-offset);
+}
+
+.au-c-link.is-active {
+  font-weight: var(--au-medium);
+  color: var(--au-gray-900);
+  text-decoration: none;
+  pointer-events: none;
+}

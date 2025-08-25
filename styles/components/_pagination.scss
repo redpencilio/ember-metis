@@ -1,0 +1,19 @@
+.au-c-pagination {
+  font-size: var(--au-h6);
+  line-height: var(--au-global-line-height);
+  color: var(--au-gray-700);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.au-c-pagination__list {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.au-c-pagination__list-item + .au-c-pagination__list-item {
+  margin-left: 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 0.1rem solid var(--au-divider-color);
+}

@@ -1,0 +1,111 @@
+.au-c-button {
+  font-size: var(--au-h6);
+  line-height: 3.2rem;
+  font-family: var(--au-font);
+  font-weight: var(--au-regular);
+  cursor: pointer;
+  height: 3.6rem;
+  text-decoration: none;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0 1.2rem;
+  border-radius: var(--au-radius);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--au-transition), background-color var(--au-transition), border-color var(--au-transition), box-shadow var(--au-transition);
+}
+
+.au-c-button, .au-c-button:visited {
+  color: var(--au-white);
+  background-color: var(--au-blue-700);
+  border: 0.2rem solid var(--au-blue-700);
+}
+
+.au-c-button:hover, .au-c-button:focus-visible {
+  color: var(--au-white);
+  background-color: var(--au-blue-900);
+  border-color: var(--au-blue-900);
+  text-decoration: none;
+}
+
+.au-c-button:focus {
+  outline: 0;
+}
+
+.au-c-button:focus-visible {
+  outline: var(--au-outline);
+  outline-offset: var(--au-outline-offset);
+}
+
+.au-c-button:active {
+  border-color: var(--au-blue-900);
+  background-color: var(--au-blue-900);
+}
+
+.au-c-button.is-disabled, .au-c-button.is-disabled:hover, .au-c-button.is-disabled:focus-visible, .au-c-button.is-disabled:active {
+  cursor: not-allowed;
+  color: var(--au-gray-700);
+  background-color: var(--au-gray-300);
+  border-color: var(--au-gray-300);
+}
+
+.au-c-button.is-loading, .au-c-button.is-loading:hover {
+  position: relative;
+  color: var(--au-gray-700);
+  background-color: var(--au-gray-300);
+  border-color: var(--au-gray-300);
+}
+
+.au-c-button:not(.au-c-button--secondary):not(.au-c-button--link).is-active {
+  background-color: var(--au-blue-900);
+  border-color: var(--au-blue-900);
+}
+
+.au-c-button--link {
+  font-size: inherit;
+  border-color: transparent;
+  padding: 0 0.6rem 0;
+  height: 2.4rem;
+  line-height: 2.4rem;
+}
+
+.au-c-button--link, .au-c-button--link:visited {
+  color: var(--au-blue-700);
+  background-color: transparent;
+  text-decoration: underline;
+  text-decoration-color: var(--au-blue-300);
+}
+
+.au-c-button--link:hover, .au-c-button--link:focus-visible, .au-c-button--link:active {
+  color: var(--au-blue-900);
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-color: var(--au-blue-200);
+}
+
+.au-c-button--link.is-disabled, .au-c-button--link.is-disabled:hover, .au-c-button--link.is-disabled:focus-visible, .au-c-button--link.is-disabled:active {
+  color: var(--au-gray-700);
+  background-color: transparent;
+  text-decoration: none;
+  border-color: transparent;
+}
+
+.au-c-button--link.is-loading, .au-c-button--link.is-loading:hover {
+  color: var(--au-gray-700);
+  background-color: transparent;
+  border-color: transparent;
+  text-decoration: none;
+}
+
+.au-c-button--link.is-active {
+  color: var(--au-gray-900);
+  font-weight: var(--au-medium);
+}

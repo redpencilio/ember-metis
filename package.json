@@ -55,12 +55,10 @@
     "chalk": "chalk v5 is an esm-only package which we can't use in our node code since they are cjs modules"
   },
   "peerDependencies": {
-    "@appuniversum/ember-appuniversum": "^3.0.0",
     "ember-cli-fastboot": "^4.1.2",
     "ember-source": ">= 4.0.0"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^3.8.0",
     "@babel/eslint-parser": "^7.25.1",
     "@babel/plugin-proposal-decorators": "^7.24.7",
     "@ember/optional-features": "^2.1.0",

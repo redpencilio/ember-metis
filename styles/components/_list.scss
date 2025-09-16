@@ -1,0 +1,20 @@
+.au-c-list-horizontal {
+  display: flex;
+  align-items: center;
+}
+
+.au-c-list-horizontal__item {
+  display: flex;
+  align-items: center;
+}
+
+.au-c-list-horizontal__item + .au-c-list-horizontal__item {
+  margin-left: 1.2rem;
+  padding-left: 1.2rem;
+  border-left: 1px dotted var(--au-gray-300);
+}
+
+.au-c-list-horizontal__item > .au-c-button,
+.au-c-list-horizontal__item > .ember-view > .au-c-button {
+  margin-left: -0.6rem;
+}

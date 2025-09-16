@@ -112,9 +112,6 @@ module.exports = function (environment) {
 }
 ```
 
-#### Setup Appuniversum
-ember-metis depends on components from the [ember-appuniversum addon](https://github.com/appuniversum/ember-appuniversum). Follow the [getting started guide](https://appuniversum.github.io/ember-appuniversum/?path=/story/outline-getting-started--page) to set that up first.
-
 #### Install ember-metis
 Install the ember-metis addon in your application.
 
@@ -135,6 +132,26 @@ module.exports = function (environment) {
 ```
 
 The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the base URL of your production environment.
+
+Then, add the styles to your included path and include them in your stylesheet:
+```javascript
+// ember-cli-build.js
+
+module.exports = function (defaults) {
+  const app = new EmberApp(defaults, {
+    sassOptions: {
+      includePaths: [ 'node_modules/ember-metis/styles' ],
+    },
+  })
+  // ...
+};
+```
+
+```scss
+// app/styles/app.scss
+
+@import "ember-metis/styles";
+``````
 
 Finally, import and add the `fallbackRoute` util to your `router.js`
 
@@ -186,8 +203,29 @@ export default {
 ### Provide human-readable labels for URIs on the subject page
 Check the README of the [resource label service](https://github.com/lblod/resource-label-service/#db-information) how to insert human-readable labels in the triplestore. Once the labels are available, they will be automatically picked up by ember-metis.
 
-### Customize the resource view
-To allow you to customize the appearance of the resource pages, the addon offers two components:
+### Customize the appearance
+
+#### Customize a few components
+To allow you to customize the appearance of the resource page, the template is composed of multiple small components. You can override any of them to change the component's appearance on all resource pages.
+
+For instance, if you want to show different levels of headings with different colors, add the following to your `app/components/metis/heading.hbs`:
+```handlebars
+{{#if (eq @level "3")}}
+  <h3 class="text-red" ...attributes>{{yield}}</h3>
+{{else if (eq @level "2")}}
+  <h2 class="text-blue" ...attributes>{{yield}}</h2>
+{{else}}
+  <h1 class="text-green" ...attributes>{{yield}}</h1>
+{{/if}}
+```
+
+This component will automatically be used for all metis headings instead of the default one. To see the components available for overriding and take inspiration in the default templates, see the `addon/components/metis` folder.
+
+Alternatively, you can specify your own styles to be applied to the components' classes.
+
+
+#### Customize the whole template
+If you wish to customize the entire resource page template instead of overriding individual components (e.g., to display the properties table next to some other content), the addon offers two components:
 
 - `<Metis::ResourcePage />` containing the entire content of the resource page without layout wrappers
 - `<Metis::ResourceMetadata />` containing only the tables rendering direct and inverse triples without additional description
@@ -246,7 +284,7 @@ And finally define your template, using one of the provided components and arbit
 
 To see the components used in practice, refer to the `addon/templates/external.hbs` and `addon/components/metis/resource-page.hbs` files.
 
-### Setup a custom template for a specific resource type only
+#### Customize the template for a specific resource type only
 You might wish to display a custom template only for specific resource types. E.g. you can provide a custom template for all resources of type `http://xmlns.com/foaf/0.1/Person`.
 
 Before you generate your first custom route/template, import the `classRoute` util in `router.js` and define a `view` route at the root level:

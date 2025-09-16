@@ -1,0 +1,50 @@
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+// Help text
+.au-c-help-text {
+  font-size: var(--au-small);
+  line-height: var(--au-global-line-height);
+  display: block;
+  color: var(--au-gray-900);
+  margin-top: 0.6rem;
+}
+
+.au-c-help-text + .au-c-help-text {
+  margin-top: 0;
+}
+
+.au-c-help-text--tertiary {
+  color: var(--au-gray-700);
+  font-style: italic;
+}
+
+// Hr
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  border: 0;
+  border-top: var(--bs-border-width) solid;
+  opacity: 0.25;
+}
+
+.au-c-hr {
+  margin: 1.2rem 0;
+  border: none;
+  border-bottom: 1px solid var(--au-gray-300);
+}
+
+// Icon
+.au-c-icon {
+  display: inline-block;
+  width: var(--au-icon-size);
+  height: var(--au-icon-size);
+  position: relative;
+  vertical-align: baseline;
+  bottom: 0.05ex;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}

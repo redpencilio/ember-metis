@@ -1,0 +1,56 @@
+:root {
+  // Colors
+  --au-white: #ffffff;
+  --au-gray-300: #cfd5dd;
+  --au-gray-700: #687483;
+  --au-gray-900: #333332;
+  --au-blue-200: #e4ebf5;
+  --au-blue-300: #b2ccef;
+  --au-blue-700: #0055cc;
+  --au-blue-900: #003b8e;
+
+  // UI colors
+  --au-divider-color: #e8ebee;
+
+  // Typography
+  --au-global-line-height: 1.5;
+  --au-font: "flanders-sans", BlinkMacSystemFont, -apple-system, "Segoe UI",
+  Roboto, Helvetica, Arial, sans-serif;
+  --au-light: 300;
+  --au-regular: 400;
+  --au-medium: 500;
+  --au-base: 1.5rem;
+  --au-small: 1.4rem;
+  --au-h6: 1.6rem;
+  --au-h5: 1.8rem;
+  --au-h4: 2rem;
+  --au-h3-small: 2.2rem;
+  --au-h3: 2.6rem;
+  --au-h2-small: 2.6rem;
+  --au-h2: 3.2rem;
+  --au-h1-small: 3rem;
+  --au-h1-medium: 4rem;
+  --au-h1: 4.4rem;
+
+  // Icons
+  --au-icon-size: 1.3rem;
+
+  // UI
+  --au-radius: 0.3rem;
+  --au-outline: #5990de 0.3rem solid;
+  --au-outline-offset: 0.2rem;
+  --au-transition: 0.125s cubic-bezier(0.19, 1, 0.22, 1);
+  --au-z-index-alpha: 1;
+}
+
+@import "components/button";
+@import "components/heading";
+@import "components/link";
+@import "components/list";
+@import "components/other";
+@import "components/pagination";
+@import "components/table";
+@import "components/toolbar";
+@import "font";
+@import "objects";
+@import "utilities";

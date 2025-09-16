@@ -1,0 +1,16 @@
+.au-c-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--au-h6);
+}
+
+.au-c-toolbar--medium {
+  padding: 0.6rem 1.8rem;
+}
+
+.au-c-toolbar--nowrap {
+  flex-wrap: nowrap;
+  align-items: normal;
+}

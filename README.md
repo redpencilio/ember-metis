@@ -48,8 +48,8 @@ Next, make the service endpoints available in `./config/dispatcher/dispatcher.ex
   end
 
 ```
-#### Setup the frontend
-ember-metis requires [Ember FastBoot](https://github.com/ember-fastboot/ember-cli-fastboot). Install the addon in your application if it's not yet available:
+#### Using with `ember-cli-fastboot`
+ember-metis provides optional support for [Ember FastBoot](https://github.com/ember-fastboot/ember-cli-fastboot). Install the `ember-cli-fastboot` addon in your application if you want to use it.
 
 ```bash
 ember install ember-cli-fastboot

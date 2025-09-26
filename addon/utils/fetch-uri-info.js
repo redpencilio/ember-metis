@@ -8,7 +8,7 @@ export default async function fetchUriInfo(
   size,
   direction = 'direct',
 ) {
-  const baseUrl = fastboot.isFastBoot ? window.BACKEND_URL : '/';
+  const baseUrl = fastboot?.isFastBoot ? window.BACKEND_URL : '/';
 
   const url = buildUrl(baseUrl, {
     path: `uri-info/${direction}`,
@@ -23,7 +23,7 @@ export default async function fetchUriInfo(
     await fetch(url, {
       headers: new Headers({
         accept: 'application/vnd.api+json',
-        ...(fastboot.isFastBoot
+        ...(fastboot?.isFastBoot
           ? {
               Cookie: fastboot.request?.headers.get('Cookie'),
             }

@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import { findRouteByType } from '../utils/class-route';
 import fetchUriInfo from '../utils/fetch-uri-info';
+import { getOwner } from '../utils/compat/get-owner';
 
 export default class ExternalRoute extends Route {
   queryParams = {
@@ -24,12 +25,15 @@ export default class ExternalRoute extends Route {
   };
 
   @service router;
-  @service fastboot;
   @service intl;
 
   constructor() {
     super(...arguments);
     this.templateName = 'external';
+  }
+
+  get fastboot() {
+    return getOwner(this).lookup('service:fastboot');
   }
 
   async model({

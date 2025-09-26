@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { getOwner } from '@ember/application';
+import { getOwner } from '../utils/compat/get-owner';
 import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import { findRouteByType } from '../utils/class-route';
@@ -22,7 +22,6 @@ export default class FallbackRoute extends Route {
   };
 
   @service router;
-  @service fastboot;
   @service intl;
 
   constructor() {
@@ -30,6 +29,10 @@ export default class FallbackRoute extends Route {
     this.env = getOwner(this).resolveRegistration('config:environment');
 
     this.templateName = this.env.metis.fallbackTemplate || 'fallback';
+  }
+
+  get fastboot() {
+    return getOwner(this).lookup('service:fastboot');
   }
 
   async model({

@@ -31,6 +31,12 @@ export default class FallbackRoute extends Route {
     this.templateName = this.env.metis.fallbackTemplate || 'fallback';
   }
 
+  /**
+   * We are not sure the `fastboot` service is available in the host app,
+   * as using fastboot with this addon is optional.
+   * Instead of injecting the service through the `@service` decorator (which always expects the service to be present, else will throw an error),
+   * we lookup the service dynamically in a getter.
+   */
   get fastboot() {
     return getOwner(this).lookup('service:fastboot');
   }

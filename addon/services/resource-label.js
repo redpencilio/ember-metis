@@ -1,5 +1,4 @@
 import Service from '@ember/service';
-import buildUrl from 'build-url';
 import fetch, { Headers } from 'fetch';
 import { getOwner } from '../utils/compat/get-owner';
 const SHOEBOX_KEY = 'resource-label-cache';
@@ -11,7 +10,7 @@ export default class ResourceLabelService extends Service {
     super(...arguments);
 
     if (this.fastboot?.isFastBoot) {
-      this.backend = window.BACKEND_URL;
+      this.backend = (typeof window !== 'undefined' ? window.BACKEND_URL : null) || '/';
     } else {
       this.cache = this.fastboot?.shoebox.retrieve(SHOEBOX_KEY) || {};
     }
@@ -38,12 +37,18 @@ export default class ResourceLabelService extends Service {
 
   async _fetchPrefLabel(uri) {
     if (!this.cache[uri]) {
-      const fetchUrl = buildUrl(this.backend, {
-        path: 'resource-labels/info',
-        queryParams: {
-          term: uri,
-        },
-      });
+      const baseUrl = (this.backend && this.backend.endsWith('/')) ? this.backend.slice(0, -1) : (this.backend || '/');
+
+      // Fallback for URLSearchParams in FastBoot environment
+      let params;
+      if (typeof URLSearchParams !== 'undefined') {
+        params = new URLSearchParams({ term: uri });
+      } else {
+        // Manual query string construction for FastBoot
+        params = `term=${encodeURIComponent(uri)}`;
+      }
+
+      const fetchUrl = `${baseUrl}/resource-labels/info?${params}`;
 
       const response = await fetch(fetchUrl, {
         headers: new Headers({ accept: 'application/vnd.api+json' }),

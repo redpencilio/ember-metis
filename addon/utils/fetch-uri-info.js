@@ -9,14 +9,25 @@ export default async function fetchUriInfo(
   // serviceBaseUrl is only useful when the service is running somewhere separate from the frontend
   // it can also be useful if the frontend and services are running on another path than '/'
 ) {
-  let baseUrl = fastboot.isFastBoot ? window.BACKEND_URL : serviceBaseUrl;
-  baseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : `${baseUrl}`;
+  let baseUrl = fastboot.isFastBoot ? (typeof window !== 'undefined' ? window.BACKEND_URL : serviceBaseUrl) : serviceBaseUrl;
+  baseUrl = baseUrl && baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : `${baseUrl || serviceBaseUrl}`;
 
-  const params = new URLSearchParams({
-    subject,
-    pagenumber: number,
-    pagesize: size,
-  });
+  // Fallback for URLSearchParams in FastBoot environment
+  let params;
+  if (typeof URLSearchParams !== 'undefined') {
+    params = new URLSearchParams({
+      subject,
+      pagenumber: number,
+      pagesize: size,
+    });
+  } else {
+    // Manual query string construction for FastBoot
+    const queryParts = [];
+    if (subject) queryParts.push(`subject=${encodeURIComponent(subject)}`);
+    if (number) queryParts.push(`pagenumber=${encodeURIComponent(number)}`);
+    if (size) queryParts.push(`pagesize=${encodeURIComponent(size)}`);
+    params = queryParts.join('&');
+  }
 
   const url = `${baseUrl}/uri-info/${direction}?${params}`;
 

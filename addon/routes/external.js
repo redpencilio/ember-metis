@@ -29,7 +29,8 @@ export default class ExternalRoute extends Route {
 
   constructor() {
     super(...arguments);
-    this.templateName = 'external';
+
+    this.templateName = this.env.metis.externalTemplate || 'external';
   }
 
   /**

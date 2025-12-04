@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import fetch, { Headers } from 'fetch';
 import { getOwner } from '../utils/compat/get-owner';
+import { createUrlParams } from '../utils/url-params';
 const SHOEBOX_KEY = 'resource-label-cache';
 export default class ResourceLabelService extends Service {
   backend = '/';
@@ -48,14 +49,7 @@ export default class ResourceLabelService extends Service {
           ? baseUrl.slice(0, -1)
           : `${baseUrl || serviceBaseUrl}`;
 
-      // Fallback for URLSearchParams in FastBoot environment
-      let params;
-      if (typeof URLSearchParams !== 'undefined') {
-        params = new URLSearchParams({ term: uri });
-      } else {
-        // Manual query string construction for FastBoot
-        params = `term=${encodeURIComponent(uri)}`;
-      }
+      const params = createUrlParams({ term: uri });
 
       const fetchUrl = `${baseUrl}/resource-labels/info?${params}`;
 

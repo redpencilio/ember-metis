@@ -1,4 +1,5 @@
 import fetch, { Headers } from 'fetch';
+import { createUrlParams } from './url-params';
 export default async function fetchUriInfo(
   fastboot,
   subject,
@@ -19,22 +20,11 @@ export default async function fetchUriInfo(
       ? baseUrl.slice(0, -1)
       : `${baseUrl || serviceBaseUrl}`;
 
-  // Fallback for URLSearchParams in FastBoot environment
-  let params;
-  if (typeof URLSearchParams !== 'undefined') {
-    params = new URLSearchParams({
-      subject,
-      pagenumber: number,
-      pagesize: size,
-    });
-  } else {
-    // Manual query string construction for FastBoot
-    const queryParts = [];
-    if (subject) queryParts.push(`subject=${encodeURIComponent(subject)}`);
-    if (number) queryParts.push(`pagenumber=${encodeURIComponent(number)}`);
-    if (size) queryParts.push(`pagesize=${encodeURIComponent(size)}`);
-    params = queryParts.join('&');
-  }
+  const params = createUrlParams({
+    subject,
+    pagenumber: number,
+    pagesize: size,
+  });
 
   const url = `${baseUrl}/uri-info/${direction}?${params}`;
   const response = await fetch(url, {

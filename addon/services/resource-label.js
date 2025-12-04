@@ -27,8 +27,8 @@ export default class ResourceLabelService extends Service {
     return getOwner(this).lookup('service:fastboot');
   }
 
-  async fetchPrefLabel(uri) {
-    const promise = this._fetchPrefLabel(uri);
+  async fetchPrefLabel(uri, serviceBaseUrl = '/') {
+    const promise = this._fetchPrefLabel(uri, serviceBaseUrl);
     if (this.fastboot?.isFastBoot) {
       this.fastboot.deferRendering(promise);
     }
@@ -36,12 +36,17 @@ export default class ResourceLabelService extends Service {
     return await promise;
   }
 
-  async _fetchPrefLabel(uri) {
+  async _fetchPrefLabel(uri, serviceBaseUrl = '/') {
     if (!this.cache[uri]) {
-      const baseUrl =
-        this.backend && this.backend.endsWith('/')
-          ? this.backend.slice(0, -1)
-          : this.backend || '/';
+      let baseUrl = this.fastboot?.isFastBoot
+        ? typeof window !== 'undefined'
+          ? window.BACKEND_URL
+          : serviceBaseUrl
+        : serviceBaseUrl;
+      baseUrl =
+        baseUrl && baseUrl.endsWith('/')
+          ? baseUrl.slice(0, -1)
+          : `${baseUrl || serviceBaseUrl}`;
 
       // Fallback for URLSearchParams in FastBoot environment
       let params;
@@ -55,7 +60,14 @@ export default class ResourceLabelService extends Service {
       const fetchUrl = `${baseUrl}/resource-labels/info?${params}`;
 
       const response = await fetch(fetchUrl, {
-        headers: new Headers({ accept: 'application/vnd.api+json' }),
+        headers: new Headers({
+          accept: 'application/vnd.api+json',
+          ...(this.fastboot?.isFastBoot
+            ? {
+                Cookie: this.fastboot.request?.headers.get('Cookie'),
+              }
+            : {}),
+        }),
       });
       const body = await response.json();
 

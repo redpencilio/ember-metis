@@ -22,7 +22,11 @@ export default class MetisDisplayUriComponent extends Component {
     this.description = null;
 
     if (this.args.uri) {
-      const entry = await this.labelService.fetchPrefLabel(this.args.uri);
+      const serviceBase = this.config.metis?.serviceBase || '/';
+      const entry = await this.labelService.fetchPrefLabel(
+        this.args.uri,
+        serviceBase,
+      );
       this.externalPreflabel = entry.prefLabel;
       this.description = entry.description;
     }

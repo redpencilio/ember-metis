@@ -51,10 +51,7 @@ export default class ExternalRoute extends Route {
     resource,
   }) {
     const subject = resource;
-    const serviceBase =
-      this.env.metis.serviceBase === 'SERVICE_BASE'
-        ? '/'
-        : this.env.metis.serviceBase;
+    const serviceBase = this.env.metis?.serviceBase || '/';
 
     const response = await RSVP.hash({
       directed: await fetchUriInfo(

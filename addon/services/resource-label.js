@@ -10,7 +10,8 @@ export default class ResourceLabelService extends Service {
     super(...arguments);
 
     if (this.fastboot?.isFastBoot) {
-      this.backend = (typeof window !== 'undefined' ? window.BACKEND_URL : null) || '/';
+      this.backend =
+        (typeof window !== 'undefined' ? window.BACKEND_URL : null) || '/';
     } else {
       this.cache = this.fastboot?.shoebox.retrieve(SHOEBOX_KEY) || {};
     }
@@ -37,7 +38,10 @@ export default class ResourceLabelService extends Service {
 
   async _fetchPrefLabel(uri) {
     if (!this.cache[uri]) {
-      const baseUrl = (this.backend && this.backend.endsWith('/')) ? this.backend.slice(0, -1) : (this.backend || '/');
+      const baseUrl =
+        this.backend && this.backend.endsWith('/')
+          ? this.backend.slice(0, -1)
+          : this.backend || '/';
 
       // Fallback for URLSearchParams in FastBoot environment
       let params;

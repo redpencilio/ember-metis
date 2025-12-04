@@ -338,6 +338,27 @@ E.g.
     }
   }
 ```
+
+#### Service base URL (experimental)
+**Note: This configuration is typically not needed for standard semantic.works applications.**
+
+For custom deployment scenarios where backend services are not available at the standard paths, you can configure a custom service base URL:
+
+E.g.
+```javascript
+  metis: {
+    baseUrl: "http://data.lblod.info/",
+    serviceBase: "http://backend.example.com/"
+  }
+```
+
+The `serviceBase` specifies the base URL where the required backend services (uri-info and resource-labels) are available. This is useful when:
+- Services are deployed on a different domain than the frontend
+- Services are available under a custom path prefix
+- Running in non-standard deployment configurations
+
+For typical semantic.works applications using the standard stack, this configuration should not be necessary.
+
 ### Generators
 #### rdf-route
 Generate a custom route/controller/template per rdf:type using

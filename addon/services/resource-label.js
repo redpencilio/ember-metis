@@ -1,7 +1,7 @@
 import Service from '@ember/service';
-import buildUrl from 'build-url';
 import fetch, { Headers } from 'fetch';
 import { getOwner } from '../utils/compat/get-owner';
+import { createUrlParams } from '../utils/url-params';
 const SHOEBOX_KEY = 'resource-label-cache';
 export default class ResourceLabelService extends Service {
   backend = '/';
@@ -11,7 +11,8 @@ export default class ResourceLabelService extends Service {
     super(...arguments);
 
     if (this.fastboot?.isFastBoot) {
-      this.backend = window.BACKEND_URL;
+      this.backend =
+        (typeof window !== 'undefined' ? window.BACKEND_URL : null) || '/';
     } else {
       this.cache = this.fastboot?.shoebox.retrieve(SHOEBOX_KEY) || {};
     }
@@ -27,8 +28,8 @@ export default class ResourceLabelService extends Service {
     return getOwner(this).lookup('service:fastboot');
   }
 
-  async fetchPrefLabel(uri) {
-    const promise = this._fetchPrefLabel(uri);
+  async fetchPrefLabel(uri, serviceBaseUrl = '/') {
+    const promise = this._fetchPrefLabel(uri, serviceBaseUrl);
     if (this.fastboot?.isFastBoot) {
       this.fastboot.deferRendering(promise);
     }
@@ -36,17 +37,31 @@ export default class ResourceLabelService extends Service {
     return await promise;
   }
 
-  async _fetchPrefLabel(uri) {
+  async _fetchPrefLabel(uri, serviceBaseUrl = '/') {
     if (!this.cache[uri]) {
-      const fetchUrl = buildUrl(this.backend, {
-        path: 'resource-labels/info',
-        queryParams: {
-          term: uri,
-        },
-      });
+      let baseUrl = this.fastboot?.isFastBoot
+        ? typeof window !== 'undefined'
+          ? window.BACKEND_URL
+          : serviceBaseUrl
+        : serviceBaseUrl;
+      baseUrl =
+        baseUrl && baseUrl.endsWith('/')
+          ? baseUrl.slice(0, -1)
+          : `${baseUrl || serviceBaseUrl}`;
+
+      const params = createUrlParams({ term: uri });
+
+      const fetchUrl = `${baseUrl}/resource-labels/info?${params}`;
 
       const response = await fetch(fetchUrl, {
-        headers: new Headers({ accept: 'application/vnd.api+json' }),
+        headers: new Headers({
+          accept: 'application/vnd.api+json',
+          ...(this.fastboot?.isFastBoot
+            ? {
+                Cookie: this.fastboot.request?.headers.get('Cookie'),
+              }
+            : {}),
+        }),
       });
       const body = await response.json();
 

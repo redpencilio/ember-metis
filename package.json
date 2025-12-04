@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.25.2",
+    "@embroider/macros": "^1.18.2",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "build-url": "^6.0.1",
@@ -58,6 +59,11 @@
     "@appuniversum/ember-appuniversum": "^3.0.0",
     "ember-cli-fastboot": "^4.1.2",
     "ember-source": ">= 4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ember-cli-fastboot": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^3.8.0",

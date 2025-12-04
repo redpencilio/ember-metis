@@ -48,13 +48,58 @@ Next, make the service endpoints available in `./config/dispatcher/dispatcher.ex
   end
 
 ```
+
 #### Setup the frontend
-ember-metis requires [Ember FastBoot](https://github.com/ember-fastboot/ember-cli-fastboot). Install the addon in your application if it's not yet available:
+##### Install Appuniversum
+ember-metis depends on components from the [ember-appuniversum addon](https://github.com/appuniversum/ember-appuniversum). Follow the [getting started guide](https://appuniversum.github.io/ember-appuniversum/?path=/story/outline-getting-started--page) to set that up first.
+
+##### Install ember-metis
+Install the ember-metis addon in your application.
+
+```bash
+npm install -D ember-metis
+```
+
+Add the following configuration to `./config/environment.js`:
+```javascript
+module.exports = function (environment) {
+  const ENV = {
+    // ... other config here ...
+    metis: {
+      baseUrl: "http://data.lblod.info/"
+    }
+  }
+}
+```
+
+The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the base URL of your production environment.
+
+Finally, import and add the `fallbackRoute` util to your `router.js`
+
+```javascript
+import { fallbackRoute, externalRoute } from 'ember-metis';
+
+Router.map(function() {
+  // ... other routes here
+
+  externalRoute(this);
+  fallbackRoute(this);
+});
+```
+
+Since `fallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
+
+### Optional: FastBoot support
+ember-metis provides optional support for [Ember FastBoot](https://github.com/ember-fastboot/ember-cli-fastboot). Skip this section if you don't need server-side rendering.
+
+#### Install FastBoot
+Install the `ember-cli-fastboot` addon in your application if you want to use it.
 
 ```bash
 ember install ember-cli-fastboot
 ```
 
+#### Configure FastBoot for ember-metis
 For local development using `ember serve` ember-metis requires `BACKEND_URL` as a sandbox global when running in fastboot mode. The value of `BACKEND_URL` must be the same URL you pass as proxy URL in `ember serve --proxy`. Typically `http://localhost/` (or `http://host` when serving the frontend from a Docker container using [eds](https://github.com/madnificent/docker-ember#eds)).
 
 If your app depends on Ember Data >= v4.12 you will need some additional sandbox globals to support `fetch` in Fastboot.
@@ -111,45 +156,6 @@ module.exports = function (environment) {
   }
 }
 ```
-
-#### Setup Appuniversum
-ember-metis depends on components from the [ember-appuniversum addon](https://github.com/appuniversum/ember-appuniversum). Follow the [getting started guide](https://appuniversum.github.io/ember-appuniversum/?path=/story/outline-getting-started--page) to set that up first.
-
-#### Install ember-metis
-Install the ember-metis addon in your application.
-
-```bash
-npm install -D ember-metis
-```
-
-Add the following configuration to `./config/environment.js`:
-```javascript
-module.exports = function (environment) {
-  const ENV = {
-    // ... other config here ...
-    metis: {
-      baseUrl: "http://data.lblod.info/"
-    }
-  }
-}
-```
-
-The `baseUrl` specifies the domain you want to serve subject pages for. I.e. the base URL of your production environment.
-
-Finally, import and add the `fallbackRoute` util to your `router.js`
-
-```javascript
-import { fallbackRoute, externalRoute } from 'ember-metis';
-
-Router.map(function() {
-  // ... other routes here
-
-  externalRoute(this);
-  fallbackRoute(this);
-});
-```
-
-Since `fallbackRoute` matches all paths, it's best to put the route at the bottom of your routes list.
 
 ## How-to guides
 ### Upgrade from 0.9.0

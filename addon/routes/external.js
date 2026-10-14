@@ -22,6 +22,9 @@ export default class ExternalRoute extends Route {
     resource: {
       refreshModel: true,
     },
+    noRedirect: {
+      refreshModel: true,
+    },
   };
 
   @service router;
@@ -48,6 +51,7 @@ export default class ExternalRoute extends Route {
     inversePageNumber,
     inversePageSize,
     resource,
+    noRedirect,
   }) {
     const subject = resource;
 
@@ -68,6 +72,7 @@ export default class ExternalRoute extends Route {
     });
 
     return {
+      noRedirect,
       directed: response.directed,
       inverse: response.inverse,
     };
@@ -79,11 +84,13 @@ export default class ExternalRoute extends Route {
     // If uri-info service provides an endpoint to get the rdf:Class of a given resource,
     // that request could be executed in the beforeModel-hook and a transition (if needed) can be triggered
     // before the model is loaded
-    const customRoute = findRouteByType(model.directed.triples);
-    if (customRoute) {
-      this.router.replaceWith(customRoute, {
-        queryParams: { resource: model.directed.subject },
-      });
+    if (!model.noRedirect) {
+      const customRoute = findRouteByType(model.directed.triples);
+      if (customRoute) {
+        this.router.replaceWith(customRoute, {
+          queryParams: { resource: model.directed.subject },
+        });
+      }
     }
   }
 

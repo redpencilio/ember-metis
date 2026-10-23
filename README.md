@@ -288,7 +288,7 @@ ember generate rdf-route person --voc http://xmlns.com/foaf/0.1/Person
 
 A `person` route, controller and template will be generated as subroute of `view` which you can implement as regular Ember routes to your needs. A new routing rule will also automatically be added to `router.js`.
 
-Whenever the user navigates to a subject page of a resource of type `foaf:Person`, he will be redirected to the custom template instead of the default one. This behaviour can be disabled by setting the query param `noRedirect` to any truthy value on the `external` route. This displays the default external route for the subject passed as the `resource` param.
+Whenever the user navigates to a subject page of a resource of type `foaf:Person`, he will be redirected to the custom template instead of the default one. This behaviour can be disabled by setting the query param `facet` to `"triples"` on the `external` route. This displays the default external route for the subject passed as the `resource` param, which lists all the incoming and outgoing triples for the resource.
 
 ## Reference
 ### Addon configuration

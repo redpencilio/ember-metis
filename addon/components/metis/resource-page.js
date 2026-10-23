@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { helper } from '@ember/component/helper';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 export default class MetisResourcePageComponent extends Component {
   @service intl;

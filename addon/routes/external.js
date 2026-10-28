@@ -22,6 +22,7 @@ export default class ExternalRoute extends SubjectRoute {
       directedPageSize,
       inversePageNumber,
       inversePageSize,
+      facet,
     } = this.paramsFor('external');
     const path = localBasePath(resource, this.env.metis.baseUrl);
 
@@ -32,6 +33,7 @@ export default class ExternalRoute extends SubjectRoute {
           directedPageSize,
           inversePageNumber,
           inversePageSize,
+          facet,
         },
       });
     }
@@ -43,13 +45,19 @@ export default class ExternalRoute extends SubjectRoute {
     inversePageNumber,
     inversePageSize,
     resource,
+    facet,
   }) {
-    return this.fetchSubject(
+    const subjectPage = await this.fetchSubject(
       resource,
       directedPageNumber,
       directedPageSize,
       inversePageNumber,
       inversePageSize,
     );
+
+    return {
+      ...subjectPage,
+      facet,
+    };
   }
 }

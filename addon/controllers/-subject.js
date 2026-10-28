@@ -16,6 +16,9 @@ export const paginationQueryParams = {
   inversePageSize: {
     type: 'number',
   },
+  facet: {
+    type: 'string',
+  },
 };
 
 export default class SubjectController extends Controller {
@@ -29,6 +32,8 @@ export default class SubjectController extends Controller {
 
   @tracked isLoadingDirected = false;
   @tracked isLoadingInverse = false;
+
+  @tracked facet = '';
 
   constructor() {
     super(...arguments);

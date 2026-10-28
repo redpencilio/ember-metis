@@ -18,6 +18,9 @@ export const paginationQueryParams = {
   inversePageSize: {
     refreshModel: true,
   },
+  facet: {
+    refreshModel: true,
+  },
 };
 
 export default class SubjectRoute extends Route {
@@ -73,16 +76,20 @@ export default class SubjectRoute extends Route {
   }
 
   afterModel(model) {
-    // TODO it would be better to detect whether a redirection to a custom route/template is required
-    // in the beforeModel hook.
-    // If uri-info service provides an endpoint to get the rdf:Class of a given resource,
-    // that request could be executed in the beforeModel-hook and a transition (if needed) can be triggered
-    // before the model is loaded
-    const customRoute = findRouteByType(model.directed.triples);
-    if (customRoute) {
-      this.router.replaceWith(customRoute, {
-        queryParams: { resource: model.directed.subject },
-      });
+    // For now there is only one possible value of 'facet', 'triples', which corresponds to showing
+    // the default view. Anything else is redirected to the single custom route.
+    if (model.facet !== 'triples') {
+      // TODO it would be better to detect whether a redirection to a custom route/template is required
+      // in the beforeModel hook.
+      // If uri-info service provides an endpoint to get the rdf:Class of a given resource,
+      // that request could be executed in the beforeModel-hook and a transition (if needed) can be triggered
+      // before the model is loaded
+      const customRoute = findRouteByType(model.directed.triples);
+      if (customRoute) {
+        this.router.replaceWith(customRoute, {
+          queryParams: { resource: model.directed.subject, facet: model.facet },
+        });
+      }
     }
   }
 

@@ -47,14 +47,17 @@ export default class ResourceLabelService extends Service {
       const response = await fetch(fetchUrl, {
         headers: new Headers({ accept: 'application/vnd.api+json' }),
       });
-      const body = await response.json();
+      if (response.headers.get('content-length') !== '0') {
+        const body = await response.json();
 
-      if (response.status == 200 && body.data && body.data.attributes) {
-        this.cache[uri] = {
-          prefLabel: body.data.attributes.label,
-          description: body.data.attributes.comment,
-        };
-      } else {
+        if (response.status == 200 && body.data && body.data.attributes) {
+          this.cache[uri] = {
+            prefLabel: body.data.attributes.label,
+            description: body.data.attributes.comment,
+          };
+        }
+      }
+      if (!this.cache[uri]) {
         this.cache[uri] = {
           prefLabel: null,
           description: null,

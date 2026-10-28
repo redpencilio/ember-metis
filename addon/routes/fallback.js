@@ -13,16 +13,22 @@ export default class FallbackRoute extends SubjectRoute {
     directedPageSize,
     inversePageNumber,
     inversePageSize,
+    facet,
   }) {
     const prefix = this.env.metis.baseUrl;
     const subject = `${prefix}${path}`;
 
-    return this.fetchSubject(
+    const subjectPage = await this.fetchSubject(
       subject,
       directedPageNumber,
       directedPageSize,
       inversePageNumber,
       inversePageSize,
     );
+
+    return {
+      ...subjectPage,
+      facet,
+    };
   }
 }

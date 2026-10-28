@@ -324,6 +324,15 @@ E.g.
   }
 ```
 
+The template for the `external` page, which renders subject pages for URIs outside `baseUrl`, can be configured in a similar way via the optional `externalTemplate` setting. It defaults to `external` as provided by the addon.
+
+E.g.
+```javascript
+  metis: {
+    externalTemplate: "my-custom/external"
+  }
+```
+
 #### Pagination (optional)
 By default ember-metis only shows the first 50 directed and inverse relations for a subject URI. The default page size for both directions can be configured via `pageSize`.
 

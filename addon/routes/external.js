@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import RSVP from 'rsvp';
 import { findRouteByType } from '../utils/class-route';
 import fetchUriInfo from '../utils/fetch-uri-info';
@@ -32,7 +32,8 @@ export default class ExternalRoute extends Route {
 
   constructor() {
     super(...arguments);
-    this.templateName = 'external';
+
+    this.templateName = this.env.metis.externalTemplate || 'external';
   }
 
   /**

@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { getOwner } from '../../utils/compat/get-owner';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
+import localBasePath from '../../utils/local-base-path';
 
 export default class MetisDisplayUriComponent extends Component {
   @service('resource-label') labelService;
@@ -33,10 +34,7 @@ export default class MetisDisplayUriComponent extends Component {
   }
 
   get localBasePath() {
-    const uri = this.args.uri || '';
-    if (uri.startsWith(this.config.metis.baseUrl))
-      return uri.slice(this.config.metis.baseUrl.length);
-    else return null;
+    return localBasePath(this.args.uri, this.config.metis.baseUrl);
   }
 
   get label() {

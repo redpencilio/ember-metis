@@ -1,6 +1,5 @@
 import Service from '@ember/service';
 import buildUrl from 'build-url';
-import fetch, { Headers } from 'fetch';
 import { getOwner } from '../utils/compat/get-owner';
 const SHOEBOX_KEY = 'resource-label-cache';
 export default class ResourceLabelService extends Service {

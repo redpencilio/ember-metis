@@ -1,4 +1,3 @@
-import fetch, { Headers } from 'fetch';
 import buildUrl from 'build-url';
 
 export default async function fetchUriInfo(

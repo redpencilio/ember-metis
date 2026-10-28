@@ -4,9 +4,9 @@ Ember addon providing default subject pages for your Linked Data resources. The 
 
 ## Compatibility
 
-- Ember.js v4.12 or above
-- Ember CLI v4.12 or above
-- Node.js v18 or above
+- Ember.js v5.8 or above
+- Ember CLI v5.8 or above
+- Node.js v20.19 or above
 
 
 ## Getting started

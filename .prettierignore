@@ -8,6 +8,19 @@
 /coverage/
 !.*
 .*/
+/pnpm-lock.yaml
+ember-cli-update.json
+*.html
 
-# ember-try
-/.node_modules.ember-try/
+# not yet formatted (pre-existing debt, unrelated to the ember-cli update)
+/addon/components/metis/display-literal.hbs
+/addon/components/metis/display-uri.hbs
+/addon/components/metis/pagination.hbs
+/addon/components/metis/resource-metadata.hbs
+/addon/components/metis/resource-page.hbs
+/addon/templates/external.hbs
+/addon/templates/fallback.hbs
+/README.md
+/tests/dummy/app/styles/app.scss
+/tests/dummy/app/templates/application.hbs
+/tests/dummy/app/templates/view/person.hbs

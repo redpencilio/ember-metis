@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 import { findRouteByType } from '../utils/class-route';
 import fetchUriInfo from '../utils/fetch-uri-info';
 import { getOwner } from '../utils/compat/get-owner';
+import localBasePath from '../utils/local-base-path';
 
 export default class ExternalRoute extends Route {
   queryParams = {
@@ -32,6 +33,28 @@ export default class ExternalRoute extends Route {
     this.env = getOwner(this).resolveRegistration('config:environment');
 
     this.templateName = this.env.metis.externalTemplate || 'external';
+  }
+
+  beforeModel() {
+    const {
+      resource,
+      directedPageNumber,
+      directedPageSize,
+      inversePageNumber,
+      inversePageSize,
+    } = this.paramsFor('external');
+    const path = localBasePath(resource, this.env.metis.baseUrl);
+
+    if (path !== null) {
+      this.router.replaceWith('fallback', path, {
+        queryParams: {
+          directedPageNumber,
+          directedPageSize,
+          inversePageNumber,
+          inversePageSize,
+        },
+      });
+    }
   }
 
   /**

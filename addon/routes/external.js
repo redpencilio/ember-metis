@@ -29,6 +29,7 @@ export default class ExternalRoute extends Route {
 
   constructor() {
     super(...arguments);
+    this.env = getOwner(this).resolveRegistration('config:environment');
 
     this.templateName = this.env.metis.externalTemplate || 'external';
   }

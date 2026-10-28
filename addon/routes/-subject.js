@@ -87,7 +87,7 @@ export default class SubjectRoute extends Route {
       const customRoute = findRouteByType(model.directed.triples);
       if (customRoute) {
         this.router.replaceWith(customRoute, {
-          queryParams: { resource: model.directed.subject },
+          queryParams: { resource: model.directed.subject, facet: model.facet },
         });
       }
     }

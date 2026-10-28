@@ -1,6 +1,6 @@
 steps:
   install:
-    image: node:22
+    image: node:22-alpine
     commands:
       - npm install
   release:

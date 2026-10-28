@@ -1,8 +1,9 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import RSVP from 'rsvp';
 import { findRouteByType } from '../utils/class-route';
 import fetchUriInfo from '../utils/fetch-uri-info';
+import { getOwner } from '../utils/compat/get-owner';
 
 export default class ExternalRoute extends Route {
   queryParams = {
@@ -24,13 +25,22 @@ export default class ExternalRoute extends Route {
   };
 
   @service router;
-  @service fastboot;
   @service intl;
 
   constructor() {
     super(...arguments);
 
     this.templateName = this.env.metis.externalTemplate || 'external';
+  }
+
+  /**
+   * We are not sure the `fastboot` service is available in the host app,
+   * as using fastboot with this addon is optional.
+   * Instead of injecting the service through the `@service` decorator (which always expects the service to be present, else will throw an error),
+   * we lookup the service dynamically in a getter.
+   */
+  get fastboot() {
+    return getOwner(this).lookup('service:fastboot');
   }
 
   async model({

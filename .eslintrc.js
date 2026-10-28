@@ -22,7 +22,25 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    'no-restricted-syntax': [
+      'error',
+      // Match `@service fastboot`
+      {
+        selector:
+          "Decorator[expression.name='service'][parent.key.name='fastboot']",
+        message: `Using \`@service fastboot\` should not be used as we can't guarantee the presence of a fastboot service.
+                  Use a dynamic getter to access the fastboot service instead.`,
+      },
+      // Match `@service('fastboot') ...`
+      {
+        selector:
+          "Decorator[expression.type='CallExpression'][expression.callee.name='service'] Literal[value='fastboot']",
+        message: `Using \`@service('fastboot')\` should not be used as we can't guarantee the presence of a fastboot service.
+                  Use a dynamic getter to access the fastboot service instead.`,
+      },
+    ],
+  },
   overrides: [
     // node files
     {

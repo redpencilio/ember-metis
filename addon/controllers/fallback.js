@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { getOwner } from '@ember/application';
+import { getOwner } from '../utils/compat/get-owner';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 

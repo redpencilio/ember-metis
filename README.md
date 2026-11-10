@@ -21,11 +21,11 @@ Add the following snippet to the `docker-compose.yml` file of your backend stack
 ```yaml
 services:
   uri-info:
-    image: redpencil/mu-uri-info-service:0.2.1
+    image: redpencil/mu-uri-info-service:0.3.0
   resource-labels-cache:
-    image: semtech/mu-cache:2.0.2
-    links:
-      - resource-labels:backend
+    image: semtech/mu-cache:2.3.0
+    environment:
+      BACKEND_URL: "http://resource-labels/"
   resource-labels:
     image: lblod/resource-label-service:0.3.2
 ```

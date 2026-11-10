@@ -26,23 +26,39 @@
           {{else}}
             {{#each @model.directed.triples as |triple|}}
               {{#if (eq triple.object.type "uri")}}
-                <tr property={{triple.predicate}} resource={{triple.object.value}}>
+                <tr
+                  property={{triple.predicate}}
+                  resource={{triple.object.value}}
+                >
                   <td>
-                    <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
+                    <Metis::DisplayUri
+                      @uri={{triple.predicate}}
+                      @type="predicate"
+                    />
                   </td>
                   <td>
-                    <Metis::DisplayUri @uri={{triple.object.value}} @type="object"/>
+                    <Metis::DisplayUri
+                      @uri={{triple.object.value}}
+                      @type="object"
+                    />
                   </td>
                 </tr>
               {{else}}
-                <tr property={{triple.predicate}} content={{triple.object.value}}>
+                <tr
+                  property={{triple.predicate}}
+                  content={{triple.object.value}}
+                >
                   <td>
-                    <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
+                    <Metis::DisplayUri
+                      @uri={{triple.predicate}}
+                      @type="predicate"
+                    />
                   </td>
                   <td>
                     <Metis::DisplayLiteral
                       @value={{triple.object.value}}
-                      @language={{get triple.object "xml:lang"}} />
+                      @language={{get triple.object "xml:lang"}}
+                    />
                   </td>
                 </tr>
               {{/if}}
@@ -96,10 +112,13 @@
           {{#each @model.inverse.triples as |triple|}}
             <tr resource={{triple.subject}}>
               <td property={{triple.predicate}} resource={{triple.object}}>
-                <Metis::DisplayUri @uri={{triple.predicate}} @type="predicate"/>
+                <Metis::DisplayUri
+                  @uri={{triple.predicate}}
+                  @type="predicate"
+                />
               </td>
               <td>
-                <Metis::DisplayUri @uri={{triple.subject}} @type="subject"/>
+                <Metis::DisplayUri @uri={{triple.subject}} @type="subject" />
               </td>
             </tr>
           {{/each}}

@@ -6,6 +6,7 @@ export default async function fetchUriInfo(
   number,
   size,
   direction = 'direct',
+  predicate = undefined,
 ) {
   const baseUrl = fastboot?.isFastBoot ? window.BACKEND_URL : '/';
 
@@ -15,6 +16,7 @@ export default async function fetchUriInfo(
       subject,
       pageNumber: number,
       pageSize: size,
+      ...(predicate ? { predicate } : {}),
     },
   });
 

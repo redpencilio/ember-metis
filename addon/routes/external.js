@@ -15,7 +15,7 @@ export default class ExternalRoute extends SubjectRoute {
     this.templateName = this.env.metis.externalTemplate || 'external';
   }
 
-  beforeModel() {
+  async beforeModel(transition) {
     const {
       resource,
       directedPageNumber,
@@ -26,6 +26,8 @@ export default class ExternalRoute extends SubjectRoute {
     } = this.paramsFor('external');
     const path = localBasePath(resource, this.env.metis.baseUrl);
 
+    // Resources within the baseUrl are handled by the fallback route,
+    // which will itself decide whether to redirect to a custom route.
     if (path !== null) {
       this.router.replaceWith('fallback', path, {
         queryParams: {
@@ -36,28 +38,12 @@ export default class ExternalRoute extends SubjectRoute {
           facet,
         },
       });
+      return;
     }
-  }
 
-  async model({
-    directedPageNumber,
-    directedPageSize,
-    inversePageNumber,
-    inversePageSize,
-    resource,
-    facet,
-  }) {
-    const subjectPage = await this.fetchSubject(
-      resource,
-      directedPageNumber,
-      directedPageSize,
-      inversePageNumber,
-      inversePageSize,
-    );
+    this.subject = resource;
 
-    return {
-      ...subjectPage,
-      facet,
-    };
+    // Check for a custom route only when the resource is a true external URI.
+    await this.maybeRedirectToCustomRoute(transition, this.subject);
   }
 }

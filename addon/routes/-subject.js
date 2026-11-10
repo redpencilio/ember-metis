@@ -5,6 +5,8 @@ import { findRouteByType } from '../utils/class-route';
 import fetchUriInfo from '../utils/fetch-uri-info';
 import { getOwner } from '../utils/compat/get-owner';
 
+export const TYPE_PREDICATE = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type';
+
 export const paginationQueryParams = {
   directedPageNumber: {
     refreshModel: true,
@@ -44,25 +46,58 @@ export default class SubjectRoute extends Route {
   }
 
   /**
-   * Fetch the directed and inverse relations for the given subject.
+   * Helper deciding whether navigation should be redirected to a custom route
+   * instead of the default subject page.
+   *
+   * Resolves to `true` when a redirect was performed, `false` otherwise.
    */
-  async fetchSubject(
-    subject,
+  async maybeRedirectToCustomRoute(transition, subject) {
+    const { facet } = transition.to.queryParams;
+    // The 'triples' facet forces the default view, no custom redirection is done.
+    if (facet === 'triples') return false;
+
+    if (subject) {
+      const { triples } = await fetchUriInfo(
+        this.fastboot,
+        subject,
+        0,
+        50,
+        'direct',
+        TYPE_PREDICATE,
+      );
+      const customRoute = findRouteByType(triples);
+      if (customRoute) {
+        this.router.replaceWith(customRoute, {
+          queryParams: { resource: subject, facet },
+        });
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Fetch the directed and inverse relations for the subject determined in
+   * `beforeModel`, exposed as `this.subject`.
+   */
+  async model({
     directedPageNumber,
     directedPageSize,
     inversePageNumber,
     inversePageSize,
-  ) {
+    facet,
+  }) {
     const response = await RSVP.hash({
       directed: await fetchUriInfo(
         this.fastboot,
-        subject,
+        this.subject,
         directedPageNumber,
         directedPageSize,
       ),
       inverse: await fetchUriInfo(
         this.fastboot,
-        subject,
+        this.subject,
         inversePageNumber,
         inversePageSize,
         'inverse',
@@ -72,25 +107,8 @@ export default class SubjectRoute extends Route {
     return {
       directed: response.directed,
       inverse: response.inverse,
+      facet,
     };
-  }
-
-  afterModel(model) {
-    // For now there is only one possible value of 'facet', 'triples', which corresponds to showing
-    // the default view. Anything else is redirected to the single custom route.
-    if (model.facet !== 'triples') {
-      // TODO it would be better to detect whether a redirection to a custom route/template is required
-      // in the beforeModel hook.
-      // If uri-info service provides an endpoint to get the rdf:Class of a given resource,
-      // that request could be executed in the beforeModel-hook and a transition (if needed) can be triggered
-      // before the model is loaded
-      const customRoute = findRouteByType(model.directed.triples);
-      if (customRoute) {
-        this.router.replaceWith(customRoute, {
-          queryParams: { resource: model.directed.subject, facet: model.facet },
-        });
-      }
-    }
   }
 
   setupController(controller) {

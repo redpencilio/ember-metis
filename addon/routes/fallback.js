@@ -7,28 +7,12 @@ export default class FallbackRoute extends SubjectRoute {
     this.templateName = this.env.metis.fallbackTemplate || 'fallback';
   }
 
-  async model({
-    path,
-    directedPageNumber,
-    directedPageSize,
-    inversePageNumber,
-    inversePageSize,
-    facet,
-  }) {
-    const prefix = this.env.metis.baseUrl;
-    const subject = `${prefix}${path}`;
+  async beforeModel(transition) {
+    const { path } = transition.to.params;
 
-    const subjectPage = await this.fetchSubject(
-      subject,
-      directedPageNumber,
-      directedPageSize,
-      inversePageNumber,
-      inversePageSize,
-    );
+    this.subject =
+      path === undefined ? null : `${this.env.metis.baseUrl}${path}`;
 
-    return {
-      ...subjectPage,
-      facet,
-    };
+    await this.maybeRedirectToCustomRoute(transition, this.subject);
   }
 }
